@@ -3,20 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Ticaret Sitesi</title>
+    <title>Sepet</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Ürünler</h1>
-    <div class="product">
-        <p>Ürün 1 - 100 TL</p>
-        <button onclick="addToCart('Ürün 1', 100)">Sepete Ekle</button>
-    </div>
-    <div class="product">
-        <p>Ürün 2 - 150 TL</p>
-        <button onclick="addToCart('Ürün 2', 150)">Sepete Ekle</button>
-    </div>
-    
+    <h1>Sepet</h1>
+    <div id="cart-items"></div>
+    <p id="total-price">Toplam: 0 TL</p>
+    <button onclick="location.href='checkout.html'">Onayla</button>
+
     <div class="footer">
         <button onclick="location.href='index.html'">Ana Sayfa</button>
         <button onclick="location.href='cart.html'">Sepet</button>

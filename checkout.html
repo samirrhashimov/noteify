@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Ödeme Sayfası</h1>
+    
+    <form>
+        <label>Kart Numarası:</label>
+        <input type="text" placeholder="1234 5678 9012 3456" maxlength="16">
+        
+        <label>Son Kullanma Tarihi:</label>
+        <input type="text" placeholder="MM/YY" maxlength="5">
+        
+        <label>CVV:</label>
+        <input type="text" placeholder="123" maxlength="3">
+        
+        <button type="submit">Onayla</button>
+    </form>
+
+    <button class="paypal">PayPal ile Öde</button>
+    <button class="stripe">Stripe ile Öde</button>
+
+    <div class="footer">
+        <button onclick="location.href='index.html'">Ana Sayfa</button>
+        <button onclick="location.href='cart.html'">Sepet</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
