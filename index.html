@@ -3,25 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Ticaret Sitesi</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Not Defteri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        textarea {
+            width: 80%;
+            height: 200px;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ürünler</h1>
-    <div class="product">
-        <p>Ürün 1 - 100 TL</p>
-        <button onclick="addToCart('Ürün 1', 100)">Sepete Ekle</button>
-    </div>
-    <div class="product">
-        <p>Ürün 2 - 150 TL</p>
-        <button onclick="addToCart('Ürün 2', 150)">Sepete Ekle</button>
-    </div>
-    
-    <div class="footer">
-        <button onclick="location.href='index.html'">Ana Sayfa</button>
-        <button onclick="location.href='cart.html'">Sepet</button>
-    </div>
 
-    <script src="script.js"></script>
+    <h1>Not Defterim</h1>
+    <textarea id="noteInput" placeholder="Notunuzu buraya yazın..."></textarea><br>
+    <button onclick="saveNote()">Notu Kaydet</button>
+    <button onclick="clearNote()">Notu Sil</button>
+
+    <script>
+        // Sayfa açıldığında kaydedilen notu göster
+        document.getElementById("noteInput").value = localStorage.getItem("myNote") || "";
+
+        // Notu kaydetme fonksiyonu
+        function saveNote() {
+            let note = document.getElementById("noteInput").value;
+            localStorage.setItem("myNote", note);
+            alert("Not kaydedildi!");
+        }
+
+        // Notu silme fonksiyonu
+        function clearNote() {
+            document.getElementById("noteInput").value = "";
+            localStorage.removeItem("myNote");
+            alert("Not silindi!");
+        }
+    </script>
+
 </body>
 </html>
