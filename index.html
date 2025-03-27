@@ -5,48 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not Defteri</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
-        textarea {
-            width: 80%;
-            height: 200px;
-            margin-top: 10px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        textarea { width: 80%; height: 100px; margin-top: 10px; }
+        button { margin-top: 10px; padding: 10px; font-size: 16px; }
+        .note-container { text-align: left; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <h1>Not Defterim</h1>
-    <textarea id="noteInput" placeholder="Notunuzu buraya yazın..."></textarea><br>
+    <h1>Not Defteri</h1>
+    <textarea id="noteInput" placeholder="Notunuzu yazın..."></textarea><br>
     <button onclick="saveNote()">Notu Kaydet</button>
-    <button onclick="clearNote()">Notu Sil</button>
 
-    <script>
-        // Sayfa açıldığında kaydedilen notu göster
-        document.getElementById("noteInput").value = localStorage.getItem("myNote") || "";
+    <div id="notesList" class="note-container"></div>
 
-        // Notu kaydetme fonksiyonu
-        function saveNote() {
-            let note = document.getElementById("noteInput").value;
-            localStorage.setItem("myNote", note);
-            alert("Not kaydedildi!");
-        }
-
-        // Notu silme fonksiyonu
-        function clearNote() {
-            document.getElementById("noteInput").value = "";
-            localStorage.removeItem("myNote");
-            alert("Not silindi!");
-        }
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
