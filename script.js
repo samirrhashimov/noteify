@@ -19,8 +19,9 @@ function saveNote() {
     localStorage.setItem("notes", JSON.stringify(notes));
     document.getElementById("noteInput").value = "";
 
-    loadNotes();  // Notları tekrar yükle
+    loadNotes();  
 }
+//load note
 
 function loadNotes() {
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
@@ -32,6 +33,7 @@ function loadNotes() {
         noteItem.innerHTML = `
             <p><strong>${note.date}</strong></p>
             <p>${note.content}</p>
+            <button onclick="editNote(${note.id})">Düzenle</button>
             <button onclick="deleteNote(${note.id})">Sil</button>
             <hr>
         `;
@@ -39,9 +41,25 @@ function loadNotes() {
     });
 }
 
+//delete note 
 function deleteNote(id) {
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
     let filteredNotes = notes.filter(note => note.id !== id);
     localStorage.setItem("notes", JSON.stringify(filteredNotes));
     loadNotes();
+}
+//edit note
+function editNote(id) {
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+    let noteToEdit = notes.find(note => note.id === id);
+
+    if (!noteToEdit) return;
+
+    let newContent = prompt("Notu düzenle:", noteToEdit.content);
+
+    if (newContent !== null) {
+        noteToEdit.content = newContent;
+        localStorage.setItem("notes", JSON.stringify(notes));
+        loadNotes();
+    }
 }
