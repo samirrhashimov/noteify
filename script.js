@@ -9,8 +9,9 @@ function addNote() {
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
             console.log("Not kaydedildi!");
-            document.getElementById("noteInput").value = ""; // Alanı temizle
-            loadNotes(); // Notları tekrar yükle
+            document.getElementById("noteInput").value = ""; 
+// Alanı temizle
+  loadNotes(); // Notları tekrar yükle
         }).catch(error => {
             console.error("Not kaydetme hatası:", error);
         });
