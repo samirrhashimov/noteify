@@ -1,5 +1,5 @@
-// firebase-config.js
 
+// firebase-config.js
 const firebaseConfig = {
     apiKey: "AIzaSyDI37ePX-s5JKXqO4r7o9UkQvOchaK4Hr8",
     authDomain: "notepad-linzaapp.firebaseapp.com",
@@ -10,4 +10,5 @@ const firebaseConfig = {
     measurementId: "G-631HB9C9W5"
 };
 
-export default firebaseConfig; // Yapılandırma bilgilerini dışarı aktar
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
