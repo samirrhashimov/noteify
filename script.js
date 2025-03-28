@@ -86,7 +86,7 @@ function loadNotes() {
                     <p>${note.content}</p>
                     <small>${formattedDate}</small> 
                     <button onclick="deleteNote('${doc.id}')">Sil</button>
-                    <button onclick="editNote('${doc.id}', ${JSON.stringify(note.content)})">Düzenle</button>
+                    <button onclick="editNote('${doc.id}', '${note.content.replace(/'/g, "\\'")}')">Düzenle</button>
                 `;
                 notesList.appendChild(noteItem);
             });
