@@ -111,17 +111,34 @@ document.addEventListener("DOMContentLoaded", () => {
         loadNotes();
     }
 });
-function editNote(noteId) {
-    let noteContent = prompt("Notu düzenleyin:");
 
-    if (noteContent) {
-        firebase.firestore().collection("notlar").doc(noteId).update({
-            content: noteContent
+//edit note
+let currentNoteId = null; // Düzenlenecek notun ID'si
+
+function editNote(noteId, currentContent) {
+    // Düzenleme alanını göster
+    document.getElementById("editNoteContainer").style.display = "block";
+    document.getElementById("editNoteInput").value = currentContent;
+    currentNoteId = noteId;
+}
+
+function saveEdit() {
+    let newContent = document.getElementById("editNoteInput").value;
+    if (newContent.trim() !== "") {
+        // Firebase veritabanında güncelleme yap
+        firebase.firestore().collection("notlar").doc(currentNoteId).update({
+            content: newContent
         }).then(() => {
             console.log("Not güncellendi!");
             loadNotes(); // Notları tekrar yükle
+            cancelEdit(); // Düzenleme alanını kapat
         }).catch(error => {
             console.error("Not güncelleme hatası:", error);
         });
     }
+}
+
+function cancelEdit() {
+    // Düzenleme alanını gizle
+    document.getElementById("editNoteContainer").style.display = "none";
 }

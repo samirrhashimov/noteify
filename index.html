@@ -87,6 +87,25 @@ hr {
     border: none;
     border-top: 1px solid #f1f1f1;
 }
+        #editNoteContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+textarea {
+    width: 300px;
+    height: 100px;
+}
+
+button {
+    margin-top: 10px;
+}
     </style>
 </head>
 <body>
@@ -97,6 +116,12 @@ hr {
     <button onclick="addNote()">Notu Kaydet</button>
 
     <div id="notesList" class="note-container"></div>
+    <!-- Düzenleme alanı (input veya textarea) -->
+<div id="editNoteContainer" style="display:none;">
+    <textarea id="editNoteInput"></textarea>
+    <button onclick="saveEdit()">Kaydet</button>
+    <button onclick="cancelEdit()">İptal</button>
+</div>
 
     </script>
 
