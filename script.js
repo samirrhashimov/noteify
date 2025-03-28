@@ -86,6 +86,7 @@ function loadNotes() {
                     <p>${note.content}</p>
                     <small>${formattedDate}</small> 
                     <button onclick="deleteNote('${doc.id}')">Sil</button>
+                    <button onclick="editNote('${doc.id}')">Düzenle</button>
                 `;
                 notesList.appendChild(noteItem);
             });
@@ -110,3 +111,17 @@ document.addEventListener("DOMContentLoaded", () => {
         loadNotes();
     }
 });
+function editNote(noteId) {
+    let noteContent = prompt("Notu düzenleyin:");
+
+    if (noteContent) {
+        firebase.firestore().collection("notlar").doc(noteId).update({
+            content: noteContent
+        }).then(() => {
+            console.log("Not güncellendi!");
+            loadNotes(); // Notları tekrar yükle
+        }).catch(error => {
+            console.error("Not güncelleme hatası:", error);
+        });
+    }
+}
