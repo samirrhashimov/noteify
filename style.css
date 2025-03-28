@@ -1,0 +1,33 @@
+/* Not yazma alanı sabitleme */
+#noteInput {
+    position: fixed; /* Sabitle */
+    bottom: 20px; /* Sayfanın alt kısmına 20px mesafe */
+    left: 20px;
+    width: calc(100% - 40px); /* Tam genişlikte olacak, 20px'lik kenar boşluğu ile */
+    background-color: gray; /* Arka plan rengi */
+    padding: 10px;
+    z-index: 1000; /* Not yazma alanının üstte olmasını sağlar */
+}
+
+/* Notlar listesi altındaki boşluk */
+#notesList {
+    margin-bottom: 60px; /* Notlar listesi altına biraz boşluk bırak */
+}
+
+/* Not çerçevesinin taşmasını engelleme */
+.note-container {
+    width: 100%;
+    background-color: #lightgreen;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    word-wrap: break-word; /* Kelimelerin taşmasını engeller */
+    max-width: 100%;
+    overflow-wrap: break-word; /* Uzun kelimeler taşarsa satır sonuna geçmesini sağlar */
+}
+
+.note-container p {
+    word-wrap: break-word; /* Metin taşarsa alt satıra geçmesini sağlar */
+    max-width: 100%;
+}
