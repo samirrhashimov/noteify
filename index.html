@@ -2,7 +2,8 @@
 <html lang="tr">
 <head>
     <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="script.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"></script>
 <script>
@@ -16,10 +17,9 @@
     measurementId: "G-631HB9C9W5"
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-    </script>
+firebase.initializeApp(firebaseConfig);
+</script>
+
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,7 +111,7 @@ hr {
 
     <div id="notesList" class="note-container"></div>
 
-    <script src="script.js"></script>
+    </script>
 
 </body>
 </html>
