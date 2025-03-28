@@ -1,3 +1,33 @@
+function googleLogin() {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    
+    firebase.auth().signInWithPopup(provider)
+        .then(result => {
+            let user = result.user;
+            console.log("Giriş başarılı:", user.displayName);
+            alert("Hoş geldin, " + user.displayName);
+        })
+        .catch(error => {
+            console.error("Giriş hatası:", error);
+        });
+}
+
+function logout() {
+    firebase.auth().signOut().then(() => {
+        alert("Çıkış yapıldı!");
+    }).catch(error => {
+        console.error("Çıkış hatası:", error);
+    });
+}
+
+// Kullanıcı giriş yaptıysa otomatik tanı
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        console.log("Şu an giriş yapan:", user.displayName);
+    } else {
+        console.log("Giriş yapan kullanıcı yok.");
+    }
+});
 document.addEventListener("DOMContentLoaded", loadNotes);
 
 function saveNote() {

@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDI37ePX-s5JKXqO4r7o9UkQvOchaK4Hr8",
+    authDomain: "notepad-linzaapp.firebaseapp.com",
+    projectId: "notepad-linzaapp",
+    storageBucket: "notepad-linzaapp.firebasestorage.app",
+    messagingSenderId: "625884524445",
+    appId: "1:625884524445:web:9bd53ef63f061e9abd0974",
+    measurementId: "G-631HB9C9W5"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not Defteri</title>
@@ -83,7 +107,8 @@ hr {
     </style>
 </head>
 <body>
-
+<button onclick="googleLogin()">Google ile Giriş Yap</button>
+<button onclick="logout()">Çıkış Yap</button>
     <h1>Not Defteri</h1>
     <textarea id="noteInput" placeholder="Notunuzu yazın..."></textarea><br>
     <button onclick="saveNote()">Notu Kaydet</button>
