@@ -116,7 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentNoteId = null; // Düzenlenecek notun ID'si
 
 function editNote(noteId, currentContent) {
-    document.getElementById("editNoteContainer").style.display = "block";
+    const editContainer = document.getElementById("editNoteContainer");
+    editContainer.style.display = "block";
+    editContainer.style.zIndex = "2000";
     document.getElementById("editNoteInput").value = currentContent || '';
     currentNoteId = noteId;
 }
