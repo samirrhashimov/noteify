@@ -31,3 +31,22 @@
     word-wrap: break-word; /* Metin taşarsa alt satıra geçmesini sağlar */
     max-width: 100%;
 }
+#editNoteContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+textarea {
+    width: 300px;
+    height: 100px;
+}
+
+button {
+    margin-top: 10px;
+}
