@@ -86,7 +86,7 @@ function loadNotes() {
                     <p>${note.content}</p>
                     <small>${formattedDate}</small> 
                     <button onclick="deleteNote('${doc.id}')">Sil</button>
-                    <button onclick="editNote('${doc.id}', ${JSON.stringify(note.content)})">Düzenle</button>
+                    <button onclick="editNote('${doc.id}')">Düzenle</button>
                 `;
                 notesList.appendChild(noteItem);
             });
@@ -116,10 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentNoteId = null; // Düzenlenecek notun ID'si
 
 function editNote(noteId, currentContent) {
-    const editContainer = document.getElementById("editNoteContainer");
-    editContainer.style.display = "block";
-    editContainer.style.zIndex = "2000";
-    document.getElementById("editNoteInput").value = currentContent || '';
+    // Düzenleme alanını göster
+    document.getElementById("editNoteContainer").style.display = "block";
+    document.getElementById("editNoteInput").value = currentContent;
     currentNoteId = noteId;
 }
 
