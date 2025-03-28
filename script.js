@@ -1,58 +1,15 @@
-function addNote() {
-    let noteContent = document.getElementById("noteInput").value;
-    let user = firebase.auth().currentUser;
-
-    if (user && noteContent.trim() !== "") {
-        firebase.firestore().collection("notlar").add({
-            uid: user.uid,
-            content: noteContent,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(() => {
-            console.log("Not kaydedildi!");
-            document.getElementById("noteInput").value = ""; 
-// Alanı temizle
-  loadNotes(); // Notları tekrar yükle
-        }).catch(error => {
-            console.error("Not kaydetme hatası:", error);
-        });
-    } else {
-        alert("Not eklemek için önce giriş yapmalısınız!");
-    }
-}
-function loadNotes() {
-    let user = firebase.auth().currentUser;
-    let notesList = document.getElementById("notesList");
-    notesList.innerHTML = ""; // Önce listeyi temizle
-
+// 🔥 Firebase Authentication ile giriş kontrolü
+firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        firebase.firestore().collection("notlar").where("uid", "==", user.uid)
-            .orderBy("timestamp", "desc")
-            .onSnapshot(snapshot => {
-                notesList.innerHTML = "";
-                snapshot.docs.forEach(doc => {
-                    let note = doc.data();
-                    let noteItem = document.createElement("div");
-                    noteItem.classList.add("note-container");
-                    noteItem.innerHTML = `
-                        <p>${note.content}</p>
-                        <button onclick="deleteNote('${doc.id}')">Sil</button>
-                    `;
-                    notesList.appendChild(noteItem);
-                });
-            });
+        console.log("Giriş yapan:", user.displayName);
+        loadNotes(); // Kullanıcı giriş yaptıysa notları yükle
+    } else {
+        console.log("Giriş yapan kullanıcı yok.");
+        document.getElementById("notesList").innerHTML = "<p>Lütfen giriş yapın.</p>";
     }
-}
-function deleteNote(noteId) {
-    firebase.firestore().collection("notlar").doc(noteId).delete()
-        .then(() => {
-            console.log("Not silindi!");
-            loadNotes();
-        })
-        .catch(error => {
-            console.error("Not silme hatası:", error);
-        });
-}
+});
 
+// 📌 Google ile giriş yap
 function googleLogin() {
     let provider = new firebase.auth.GoogleAuthProvider();
     
@@ -67,6 +24,7 @@ function googleLogin() {
         });
 }
 
+// 📌 Çıkış yap
 function logout() {
     firebase.auth().signOut().then(() => {
         alert("Çıkış yapıldı!");
@@ -75,12 +33,80 @@ function logout() {
     });
 }
 
-// Kullanıcı giriş yaptıysa otomatik tanı
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-        console.log("Şu an giriş yapan:", user.displayName);
+// 📌 Not ekleme fonksiyonu
+function addNote() {
+    let noteContent = document.getElementById("noteInput").value;
+    let user = firebase.auth().currentUser;
+
+    if (user && noteContent.trim() !== "") {
+        firebase.firestore().collection("notlar").add({
+            uid: user.uid,
+            content: noteContent,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            console.log("Not kaydedildi!");
+            document.getElementById("noteInput").value = ""; 
+        }).catch(error => {
+            console.error("Not kaydetme hatası:", error);
+        });
     } else {
-        console.log("Giriş yapan kullanıcı yok.");
+        alert("Not eklemek için giriş yapmalısınız!");
+    }
+}
+
+// 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
+function loadNotes() {
+    let user = firebase.auth().currentUser;
+    let notesList = document.getElementById("notesList");
+
+    if (!user) {
+        console.log("Giriş yapmış kullanıcı yok.");
+        return;
+    }
+
+    firebase.firestore().collection("notlar")
+        .where("uid", "==", user.uid)
+        .orderBy("timestamp", "desc")
+        .onSnapshot(snapshot => {  
+            notesList.innerHTML = ""; // Eski notları temizle
+
+            if (snapshot.empty) {
+                notesList.innerHTML = "<p>Henüz not yok.</p>";
+                return;
+            }
+
+            snapshot.docs.forEach(doc => {
+                let note = doc.data();
+                let noteItem = document.createElement("div");
+                noteItem.classList.add("note-container");
+
+                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+
+                noteItem.innerHTML = `
+                    <p>${note.content}</p>
+                    <small>${formattedDate}</small> 
+                    <button onclick="deleteNote('${doc.id}')">Sil</button>
+                `;
+                notesList.appendChild(noteItem);
+            });
+        });
+}
+
+// 📌 Not silme fonksiyonu
+function deleteNote(noteId) {
+    firebase.firestore().collection("notlar").doc(noteId).delete()
+        .then(() => {
+            console.log("Not silindi!");
+        })
+        .catch(error => {
+            console.error("Not silme hatası:", error);
+        });
+}
+
+// 📌 Sayfa yüklendiğinde notları yükle
+document.addEventListener("DOMContentLoaded", () => {
+    let user = firebase.auth().currentUser;
+    if (user) {
+        loadNotes();
     }
 });
-document.addEventListener("DOMContentLoaded", loadNotes);
