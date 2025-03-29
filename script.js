@@ -82,11 +82,13 @@ function loadNotes() {
 
                 let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
 
+                // Convert line breaks to <br> tags for display
+                const displayContent = note.content.replace(/\n/g, '<br>');
                 noteItem.innerHTML = `
-                    <p>${note.content}</p>
+                    <p>${displayContent}</p>
                     <small>${formattedDate}</small> 
                     <button onclick="deleteNote('${doc.id}')">Sil</button>
-                    <button onclick="editNote('${doc.id}', '${note.content.replace(/'/g, "\\'")}')">Düzenle</button>
+                    <button onclick="editNote('${doc.id}')">Düzenle</button>
                 `;
                 notesList.appendChild(noteItem);
             });
@@ -116,21 +118,34 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentNoteId = null; // Düzenlenecek notun ID'si
 
 function editNote(noteId, currentContent) {
-    document.getElementById("editNoteContainer").style.display = "block";
-    document.getElementById("editNoteInput").value = currentContent || '';
-    currentNoteId = noteId;
+    // Get the note content directly from Firestore to avoid escaping issues
+    firebase.firestore().collection("notlar").doc(noteId).get()
+        .then(doc => {
+            if (doc.exists) {
+                const noteData = doc.data();
+                document.getElementById("editNoteContainer").style.display = "block";
+                document.getElementById("editNoteInput").value = noteData.content || '';
+                currentNoteId = noteId;
+            }
+        })
+        .catch(error => {
+            console.error("Not getirme hatası:", error);
+        });
 }
 
 function saveEdit() {
     let newContent = document.getElementById("editNoteInput").value;
     if (newContent.trim() !== "") {
-        // Firebase veritabanında güncelleme yap
+        // Normalize line breaks before saving
+        newContent = newContent.replace(/\r\n/g, '\n').trim();
+        
         firebase.firestore().collection("notlar").doc(currentNoteId).update({
-            content: newContent
+            content: newContent,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
             console.log("Not güncellendi!");
-            loadNotes(); // Notları tekrar yükle
-            cancelEdit(); // Düzenleme alanını kapat
+            loadNotes();
+            cancelEdit();
         }).catch(error => {
             console.error("Not güncelleme hatası:", error);
         });
