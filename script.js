@@ -156,3 +156,7 @@ function cancelEdit() {
     // Düzenleme alanını gizle
     document.getElementById("editNoteContainer").style.display = "none";
 }
+function toggleNoteInput() {
+    let noteContainer = document.getElementById("noteContainer");
+    noteContainer.classList.toggle("show");
+}

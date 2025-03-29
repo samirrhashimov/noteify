@@ -108,6 +108,13 @@ textarea {
 button {
     margin-top: 10px;
 }
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
         
     </style>
 </head>
@@ -117,10 +124,18 @@ button {
 </button></button>
     
 <button onclick="logout()"style="background-color: red; color:white; width:200px; font-family: 'roboto'">Çıkış Yap</button>
-    
+
     <h1>NotePad</h1>
-    <textarea id="noteInput" placeholder="Notunuzu yazın..."></textarea><br>
-    <button onclick="addNote()">Notu Kaydet</button>
+
+<button onclick="toggleNoteInput()">Yeni Not Ekle</button>
+
+<div id="noteContainer" class="hidden">
+    <textarea id="noteInput" placeholder="Notunuzu buraya yazın..."></textarea>
+    <button onclick="addNote()">Kaydet</button>
+</div>
+
+        
+onclick="addNote()">Notu Kaydet</button>
 
     <div id="notesList" class="note-container"></div>
 <!-- Düzenleme alanı (input veya textarea) -->
