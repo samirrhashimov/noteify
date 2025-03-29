@@ -85,10 +85,11 @@ function loadNotes() {
                 // Convert line breaks to <br> tags for display
                 const displayContent = note.content.replace(/\n/g, '<br>');
                 noteItem.innerHTML = `
-                    <p>${displayContent}</p>
-                    <small>${formattedDate}</small> 
-                    <button onclick="deleteNote('${doc.id}')">Sil</button>
+<small>${formattedDate}</small>
+   <p>${displayContent}</p>
+                    <button onclick="deleteNote('${doc.id}')"style= background-color:red ;>Sil</button>
                     <button onclick="editNote('${doc.id}')">Düzenle</button>
+                     
                 `;
                 notesList.appendChild(noteItem);
             });
