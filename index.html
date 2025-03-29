@@ -106,17 +106,22 @@ textarea {
 button {
     margin-top: 10px;
 }
+        
     </style>
 </head>
 <body>
-<button onclick="googleLogin()">Google ile Giriş Yap</button>
-<button onclick="logout()">Çıkış Yap</button>
-    <h1>Not Defteri</h1>
+<button onclick="googleLogin()"style="background-color: black; color:white; width:200px; font-family: 'roboto'">
+<span style="font-weight: bold;">Google</span> ile Giriş Yap
+</button></button>
+    
+<button onclick="logout()"style="background-color: red; color:white; width:200px; font-family: 'roboto'">Çıkış Yap</button>
+    
+    <h1>NotePad</h1>
     <textarea id="noteInput" placeholder="Notunuzu yazın..."></textarea><br>
     <button onclick="addNote()">Notu Kaydet</button>
 
     <div id="notesList" class="note-container"></div>
-    <!-- Düzenleme alanı (input veya textarea) -->
+<!-- Düzenleme alanı (input veya textarea) -->
 <div id="editNoteContainer" style="display:none;">
     <textarea id="editNoteInput"></textarea>
     <button onclick="saveEdit()">Kaydet</button>
