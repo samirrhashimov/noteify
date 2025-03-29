@@ -64,7 +64,7 @@ button:hover {
 }
 
 .note-container {
-    width: 80%;
+    width: 90%;
     margin-top: 20px;
     background-color: white;
     padding: 15px;
@@ -115,6 +115,38 @@ button {
 .show {
     display: block;
 }
+        #addNoteButton {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px   rgba(0, 0, 0, 0.2);
+}
+        
+#noteContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+        
+#addNoteButton: hover {
+    background-color: #0056b3;
+    
+
+
         
     </style>
 </head>
@@ -127,16 +159,13 @@ button {
 
     <h1>NotePad</h1>
 
-<button onclick="toggleNoteInput()">Yeni Not Ekle</button>
+<button id="addNoteButton"onclick="toggleNoteInput()">+</button>
 
 <div id="noteContainer" class="hidden">
     <textarea id="noteInput" placeholder="Notunuzu buraya yazın..."></textarea>
     <button onclick="addNote()">Kaydet</button>
 </div>
-
-        
-onclick="addNote()">Notu Kaydet</button>
-
+    
     <div id="notesList" class="note-container"></div>
 <!-- Düzenleme alanı (input veya textarea) -->
 <div id="editNoteContainer" style="display:none;">
