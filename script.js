@@ -35,6 +35,8 @@ function logout() {
 
 // 📌 Not ekleme fonksiyonu
 function addNote() {
+    
+    
     let noteContent = document.getElementById("noteInput").value;
     let user = firebase.auth().currentUser;
 
@@ -52,6 +54,9 @@ function addNote() {
     } else {
         alert("Not eklemek için giriş yapmalısınız!");
     }
+    document.getElementById("noteContainer").style.display = "none";
+    document.getElementById("noteInput").value = "";
+
 }
 
 // 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
