@@ -25,13 +25,13 @@
     justify-content: center;
     height: 100vh;
 }
-
+/*
 h1 {
     font-size: 2rem;
     color: #4CAF50;
     margin-bottom: 20px;
 }
-
+*/
 textarea {
     width: 80%;
     height: 120px;
@@ -47,7 +47,29 @@ textarea {
 textarea:focus {
     border-color: #4CAF50;
 }
+/*top */
+.logout {
+  position: absolute;
+  top: 20px;
+  left:5px;
+  background-color: red;
+  color: white;
+  width:120px;
+  height:40px;
+  font-family: 'roboto';
 
+}
+
+#title {
+  position: absolute;
+  top: 15px;
+  right: 95px;
+  heigth: 120px;
+  width: 40px;
+  font-family: 'arial';
+  font-style: italic;
+
+}
 button {
     margin-top: 10px;
     padding: 10px 20px;
@@ -63,7 +85,7 @@ button {
 button:hover {
     background-color: #45a049;
 }
-
+/* standart margin top:20px */
 .note-container {
     width: 90%;
     margin-top: 20px;
@@ -145,10 +167,7 @@ button {
         
 #addNoteButton: hover {
     background-color: #0056b3;
-    
 
-
-        
     </style>
 </head>
 <body>
@@ -159,14 +178,12 @@ button {
             }
         });
     </script>
-    <p id="user-info"></p>
-<button onclick="googleLogin()"style="background-color: black; color:white; width:200px; font-family: 'roboto'">
-<span style="font-weight: bold;">Google</span> ile Giriş Yap
-</button></button>
     
-<button onclick="logout()"style="background-color: red; color:white; width:200px; font-family: 'roboto'">Çıkış Yap</button>
+    <p id="user-info"></p>
+    
+<button class="logout"onclick="logout()">Çıkış Yap</button>
 
-    <h1>NotePad</h1>
+    <h1 id="title">NotePad</h1>
 
 <button id="addNoteButton"onclick="toggleNoteInput()">+</button>
 
@@ -177,6 +194,7 @@ button {
 </div>
     
     <div id="notesList" class="note-container"></div>
+    
 <!-- Düzenleme alanı (input veya textarea) -->
 <div id="editNoteContainer" style="display:none;">
     <textarea id="editNoteInput"></textarea>
