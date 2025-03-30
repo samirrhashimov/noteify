@@ -1,41 +1,50 @@
+
+// Google Login Function
 window.googleLogin = function() {
     let provider = new firebase.auth.GoogleAuthProvider();
     
     firebase.auth().signInWithPopup(provider)
         .then(result => {
             let user = result.user;
-            console.log("Giriş başarılı:", user.displayName);
-            alert("Hoş geldin, " + user.displayName);
-            window.location.href = "index.html";
+            console.log("Login successful:", user.displayName);
+            window.location.replace("index.html");
         })
         .catch(error => {
-            alert("Hata: " + error.message);
+            alert("Error: " + error.message);
         });
 }
 
+// Email/Password Login
 function login() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(user => {
-            alert("Giriş başarılı!");
-            window.location.href = "index.html"; 
+        .then(() => {
+            window.location.replace("index.html");
         })
         .catch(error => {
-            alert("Hata: " + error.message);
+            alert("Error: " + error.message);
         });
 }
 
+// Register Function
 function register() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(user => {
-            alert("Kayıt başarılı! Şimdi giriş yapabilirsiniz.");
+        .then(() => {
+            alert("Registration successful! You can now login.");
         })
         .catch(error => {
-            alert("Hata: " + error.message);
+            alert("Error: " + error.message);
         });
 }
+
+// Auth State Observer
+firebase.auth().onAuthStateChanged(user => {
+    if (user && window.location.pathname.includes('login.html')) {
+        window.location.replace("index.html");
+    }
+});

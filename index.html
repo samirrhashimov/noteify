@@ -152,6 +152,13 @@ button {
     </style>
 </head>
 <body>
+    <script>
+        firebase.auth().onAuthStateChanged(user => {
+            if (!user) {
+                window.location.replace("login.html");
+            }
+        });
+    </script>
     <p id="user-info"></p>
 <button onclick="googleLogin()"style="background-color: black; color:white; width:200px; font-family: 'roboto'">
 <span style="font-weight: bold;">Google</span> ile Giriş Yap
