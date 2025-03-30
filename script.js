@@ -176,25 +176,29 @@ function cancelNote() {
     document.getElementById("noteInput").value = "";
 }
 // Single auth state observer
-const userInfo = document.getElementById("user-info");
 firebase.auth().onAuthStateChanged(user => {
+    if (user === undefined) {
+        console.log("Firebase auth state loading...");
+        return; // Firebase durumu yüklenene kadar yönlendirme yapma
+    }
+
     const currentPath = window.location.pathname;
     const isLoginPage = currentPath.includes('login.html');
     const isRegisterPage = currentPath.includes('register.html');
     const isAuthPage = isLoginPage || isRegisterPage;
 
     if (user) {
-        if (userInfo) {
-            userInfo.innerText = "Hoş geldin, " + user.email;
-        }
         if (isAuthPage) {
+            console.log("User logged in, redirecting to index.html");
             window.location.replace("index.html");
         }
-    } else if (!isAuthPage && !isRegisterPage) {
-        window.location.replace("login.html");
+    } else {
+        if (!isRegisterPage && !isLoginPage) { // Eğer giriş yapılmamışsa ama login/register'da değilse yönlendir
+            console.log("No user found, redirecting to login.html");
+            window.location.replace("login.html");
+        }
     }
 });
-
 
 //logout
 function logout() {
