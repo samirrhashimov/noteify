@@ -190,11 +190,13 @@ firebase.auth().onAuthStateChanged(user => {
         if (isAuthPage) {
             window.location.replace("index.html");
         }
-    } else if (!isAuthPage) {
+    } else if (!isAuthPage && !isRegisterPage) {
         window.location.replace("login.html");
     }
 });
 
+
+//logout
 function logout() {
     firebase.auth().signOut().then(() => {
         window.location.href = "login.html";
