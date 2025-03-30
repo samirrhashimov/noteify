@@ -25,3 +25,6 @@ function register() {
             alert("Error: " + error.message);
         });
 }
+function goToLogin() {
+    window.location.href = "login.html"; // Giriş sayfasına yönlendir
+}
