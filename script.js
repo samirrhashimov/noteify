@@ -184,7 +184,7 @@ firebase.auth().onAuthStateChanged(user => {
 
     const currentPath = window.location.pathname;
     const isLoginPage = currentPath.includes('login.html');
-    const isRegisterPage = currentPath.includes('register.html');
+    const isRegisterPage = currentPath.includes('register');
     const isAuthPage = isLoginPage || isRegisterPage;
 
     if (user) {
