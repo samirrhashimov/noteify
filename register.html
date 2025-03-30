@@ -9,10 +9,17 @@
 <body>
     <div class="login-container">
         <h2>Kayıt ol</h2>
-        <input type="email" id="email" placeholder="E-posta">
-        <input type="password" id="password" placeholder="Şifre">
-        <button onclick="register()">Kayıt Ol</button>
-    <p class="separator">veya</p>
+        <form>
+    <input type="email" id="email" placeholder="E-posta" required>
+    <input type="password" id="password" placeholder="Şifre" required>
+    <input type="password" id="confirmPassword" placeholder="Şifreyi Tekrar Girin" required>
+    <button type="button" onclick="register()">Kayıt Ol</button>
+</form>
+<p id="errorMessage" style="color: red;"></p>
+
+<script src="register.js"></script>
+        
+ <p class="separator">veya</p>
         
 <button class="google-btn"onclick="googleLogin()"style="background-color: black; color:white; font-family: 'roboto'">
 <span style="font-weight: bold;">Google&nbsp </span>  ile Devam Et
