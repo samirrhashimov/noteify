@@ -35,8 +35,6 @@ function logout() {
 
 // 📌 Not ekleme fonksiyonu
 function addNote() {
-    
-    
     let noteContent = document.getElementById("noteInput").value;
     let user = firebase.auth().currentUser;
 
@@ -47,16 +45,15 @@ function addNote() {
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
             console.log("Not kaydedildi!");
-            document.getElementById("noteInput").value = ""; 
+            document.getElementById("noteInput").value = "";
+            let noteContainer = document.getElementById("noteContainer");
+            noteContainer.classList.remove("show");
         }).catch(error => {
             console.error("Not kaydetme hatası:", error);
         });
     } else {
         alert("Not eklemek için giriş yapmalısınız!");
     }
-    document.getElementById("noteContainer").style.display = "none";
-    document.getElementById("noteInput").value = "";
-
 }
 
 // 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
