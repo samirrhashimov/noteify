@@ -169,32 +169,22 @@ function cancelNote() {
     noteContainer.classList.remove("show");
     document.getElementById("noteInput").value = "";
 }
-//login works
+// Single auth state observer
 firebase.auth().onAuthStateChanged(user => {
-    if (!user) {
-        window.location.href = "login.html"; // Giriş yapmamışsa yönlendir
-    }
-});
-function logout() {
-    firebase.auth().signOut().then(() => {
-        window.location.href = "login.html"; // Çıkış yapınca giriş sayfasına dön
-    });
-}
-firebase.auth().onAuthStateChanged(user => {
+    const isLoginPage = window.location.pathname.includes('login.html');
+    
     if (user) {
         document.getElementById("user-info").innerText = "Hoş geldin, " + user.email;
+        if (isLoginPage) {
+            window.location.href = "index.html";
+        }
+    } else if (!isLoginPage) {
+        window.location.href = "login.html";
     }
 });
-function googleLogin() {
-    let provider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithPopup(provider)
-        .then(result => {
-            let user = result.user;
-            console.log("Giriş başarılı:", user.displayName);
-            window.location.href = "index.html"; // Giriş başarılıysa anasayfaya yönlendir
-        })
-        .catch(error => {
-            console.error("Giriş hatası:", error);
-        });
+function logout() {
+    firebase.auth().signOut().then(() => {
+        window.location.href = "login.html";
+    });
 }

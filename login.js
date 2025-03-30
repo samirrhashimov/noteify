@@ -7,7 +7,7 @@ window.googleLogin = function() {
         .then(result => {
             let user = result.user;
             console.log("Login successful:", user.displayName);
-            window.location.replace("index.html");
+            window.location.href = "index.html";
         })
         .catch(error => {
             alert("Error: " + error.message);
@@ -21,7 +21,7 @@ function login() {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
-            window.location.replace("index.html");
+            window.location.href = "index.html";
         })
         .catch(error => {
             alert("Error: " + error.message);
@@ -41,10 +41,3 @@ function register() {
             alert("Error: " + error.message);
         });
 }
-
-// Auth State Observer
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-        window.location.href = "index.html";
-    }
-});
