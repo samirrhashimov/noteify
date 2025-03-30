@@ -1,4 +1,3 @@
-
 // Google Login Function
 window.googleLogin = function() {
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -12,19 +11,6 @@ window.googleLogin = function() {
         });
 }
 
-// Email/Password Login
-function login() {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(() => {
-            window.location.href = "index.html";
-        })
-        .catch(error => {
-            alert("Error: " + error.message);
-        });
-}
 
 // Register Function
 function register() {
@@ -38,7 +24,4 @@ function register() {
         .catch(error => {
             alert("Error: " + error.message);
         });
-}
-function goToRegister() {
-    window.location.href = "register.html"; // Kayıt sayfasına yönlendir
 }
