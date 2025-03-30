@@ -1,33 +1,21 @@
 // Google Login Function
 window.googleLogin = function() {
     let provider = new firebase.auth.GoogleAuthProvider();
-    
+
     firebase.auth().signInWithPopup(provider)
         .then(() => {
             window.location.href = "index.html";
         })
         .catch(error => {
-            alert("Error: " + error.message);
+            const errorMessage = document.getElementById("errorMessage");
+            errorMessage.textContent = "Error: " + error.message;
         });
 }
 
-
-// Register Function
-function register() {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            alert("Registration successful! You can now login.");
-        })
-        .catch(error => {
-            alert("Error: " + error.message);
-        });
-}
 function goToLogin() {
-    window.location.href = "login.html"; // Giriş sayfasına yönlendir
+    window.location.href = "login.html";
 }
+
 function register() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -52,11 +40,10 @@ function register() {
     // Proceed with Firebase registration
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
-            alert("Registration successful! You can now login.");
+            alert("Registration successful!");
             window.location.href = "login.html";
         })
         .catch(error => {
-            // Handle specific Firebase Auth errors
             switch (error.code) {
                 case 'auth/weak-password':
                     errorMessage.textContent = "Password is too weak. It should be at least 6 characters.";
