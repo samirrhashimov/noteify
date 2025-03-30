@@ -45,6 +45,7 @@ function register() {
 // Auth State Observer
 firebase.auth().onAuthStateChanged(user => {
     if (user && window.location.pathname.includes('login.html')) {
+        sessionStorage.setItem('redirecting', 'true');
         window.location.replace("index.html");
     }
 });
