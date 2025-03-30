@@ -1,4 +1,3 @@
-
 // Google Login Function
 window.googleLogin = function() {
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -19,11 +18,7 @@ function goToLogin() {
     window.location.href = "login.html";
 }
 
-let isRegistering = false;
-
 function register() {
-    if (isRegistering) return; // Prevent multiple submissions
-
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
@@ -31,44 +26,38 @@ function register() {
 
     // Reset error message
     errorMessage.textContent = "";
-    errorMessage.style.color = "red";
 
     // Check for empty fields
     if (!email || !password || !confirmPassword) {
-        errorMessage.textContent = "All fields are required!";
+        errorMessage.textContent = "Tüm alanları doldurun!";
         return;
     }
 
-    // Validate password match
+    // Check if passwords match
     if (password !== confirmPassword) {
-        errorMessage.textContent = "Passwords do not match!";
+        errorMessage.textContent = "Şifreler eşleşmiyor!";
         return;
     }
 
-    isRegistering = true;
-
-    // Proceed with Firebase registration
+    // Only proceed with Firebase registration if validation passes
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
-            alert("Registration successful!");
+            alert("Kayıt başarılı! Giriş yapabilirsiniz.");
             window.location.href = "login.html";
         })
         .catch(error => {
             switch (error.code) {
                 case 'auth/weak-password':
-                    errorMessage.textContent = "Password should be at least 6 characters";
+                    errorMessage.textContent = "Şifre en az 6 karakter olmalıdır";
                     break;
                 case 'auth/email-already-in-use':
-                    errorMessage.textContent = "This email is already registered";
+                    errorMessage.textContent = "Bu email zaten kayıtlı";
                     break;
                 case 'auth/invalid-email':
-                    errorMessage.textContent = "Please enter a valid email address";
+                    errorMessage.textContent = "Geçerli bir email adresi girin";
                     break;
                 default:
                     errorMessage.textContent = error.message;
             }
-        })
-        .finally(() => {
-            isRegistering = false;
         });
 }
