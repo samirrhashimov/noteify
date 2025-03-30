@@ -176,16 +176,19 @@ function cancelNote() {
     document.getElementById("noteInput").value = "";
 }
 // Single auth state observer
+const userInfo = document.getElementById("user-info");
 firebase.auth().onAuthStateChanged(user => {
     const isLoginPage = window.location.pathname.includes('login.html');
 
     if (user) {
-        document.getElementById("user-info").innerText = "Hoş geldin, " + user.email;
+        if (userInfo) {
+            userInfo.innerText = "Hoş geldin, " + user.email;
+        }
         if (isLoginPage) {
-            window.location.href = "index.html";
+            window.location.replace("index.html");
         }
     } else if (!isLoginPage) {
-        window.location.href = "login.html";
+        window.location.replace("login.html");
     }
 });
 
