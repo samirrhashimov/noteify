@@ -7,7 +7,10 @@ window.googleLogin = function() {
         .then(result => {
             let user = result.user;
             console.log("Login successful:", user.displayName);
-            window.location.href = "index.html";
+            // Force redirect after successful login
+            setTimeout(() => {
+                window.location.replace("index.html");
+            }, 500);
         })
         .catch(error => {
             alert("Error: " + error.message);

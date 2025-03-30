@@ -1,18 +1,24 @@
 // 🔥 Firebase Authentication ile giriş kontrolü
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-        console.log("Giriş yapan:", user.displayName);
-        loadNotes(); // Kullanıcı giriş yaptıysa notları yükle
-    } else {
-        console.log("Giriş yapan kullanıcı yok.");
-        document.getElementById("notesList").innerHTML = "<p>Lütfen giriş yapın.</p>";
-    }
+// Auth State Observer
+document.addEventListener('DOMContentLoaded', () => {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            console.log("Giriş yapan:", user.displayName);
+            loadNotes(); // Kullanıcı giriş yaptıysa notları yükle
+        } else {
+            console.log("Giriş yapan kullanıcı yok.");
+            const notesList = document.getElementById("notesList");
+            if (notesList) {
+                notesList.innerHTML = "<p>Lütfen giriş yapın.</p>";
+            }
+        }
+    });
 });
 
 // 📌 Google ile giriş yap
 function googleLogin() {
     let provider = new firebase.auth.GoogleAuthProvider();
-    
+
     firebase.auth().signInWithPopup(provider)
         .then(result => {
             let user = result.user;
@@ -91,7 +97,7 @@ function loadNotes() {
    <p>${displayContent}</p>
                     <button onclick="deleteNote('${doc.id}')"style= background-color:red ;>Sil</button>
                     <button onclick="editNote('${doc.id}')">Düzenle</button>
-                     
+
                 `;
                 notesList.appendChild(noteItem);
             });
@@ -141,7 +147,7 @@ function saveEdit() {
     if (newContent.trim() !== "") {
         // Normalize line breaks before saving
         newContent = newContent.replace(/\r\n/g, '\n').trim();
-        
+
         firebase.firestore().collection("notlar").doc(currentNoteId).update({
             content: newContent,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -172,7 +178,7 @@ function cancelNote() {
 // Single auth state observer
 firebase.auth().onAuthStateChanged(user => {
     const isLoginPage = window.location.pathname.includes('login.html');
-    
+
     if (user) {
         document.getElementById("user-info").innerText = "Hoş geldin, " + user.email;
         if (isLoginPage) {
