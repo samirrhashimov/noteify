@@ -163,3 +163,9 @@ function toggleNoteInput() {
     let noteContainer = document.getElementById("noteContainer");
     noteContainer.classList.toggle("show");
 }
+//+ button iptal zone
+function cancelNote() {
+    let NoteContainer =
+document.getElementById("noteContainer").classList.add("hidden");
+    document.getElementById("noteInput").value = "";
+}
