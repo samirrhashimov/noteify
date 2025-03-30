@@ -1,4 +1,3 @@
-
 // Google Login Function
 window.googleLogin = function() {
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -12,36 +11,20 @@ window.googleLogin = function() {
         });
 }
 
-function goToLogin() {
-    window.location.href = "login.html";
-}
 
+// Register Function
 function register() {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
-    const confirmPassword = document.getElementById("confirmPasswordInput").value;
-    const errorMessage = document.getElementById("error-message");
-
-    errorMessage.textContent = "";
-
-    if (!email || !password || !confirmPassword) {
-        errorMessage.textContent = "Tüm alanları doldurun!";
-        return;
-    }
-
-    if (password !== confirmPassword) {
-        errorMessage.textContent = "Şifreler uyuşmuyor!";
-        return;
-    }
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            alert("Kayıt başarılı! Giriş yapabilirsiniz.");
-            window.location.href = "login.html";
+        .then(() => {
+            alert("Registration successful! You can now login.");
         })
-        .catch((error) => {
-            errorMessage.textContent = error.message;
+        .catch(error => {
+            alert("Error: " + error.message);
         });
 }
-<script src=script.js></script>
+function goToLogin() {
+    window.location.href = "login.html"; // Giriş sayfasına yönlendir
+}
