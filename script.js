@@ -178,16 +178,19 @@ function cancelNote() {
 // Single auth state observer
 const userInfo = document.getElementById("user-info");
 firebase.auth().onAuthStateChanged(user => {
-    const isLoginPage = window.location.pathname.includes('login.html');
+    const currentPath = window.location.pathname;
+    const isLoginPage = currentPath.includes('login.html');
+    const isRegisterPage = currentPath.includes('register.html');
+    const isAuthPage = isLoginPage || isRegisterPage;
 
     if (user) {
         if (userInfo) {
             userInfo.innerText = "Hoş geldin, " + user.email;
         }
-        if (isLoginPage) {
+        if (isAuthPage) {
             window.location.replace("index.html");
         }
-    } else if (!isLoginPage) {
+    } else if (!isAuthPage) {
         window.location.replace("login.html");
     }
 });
