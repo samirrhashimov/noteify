@@ -36,6 +36,7 @@ function register() {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
+            const user = userCredential.user;
             alert("Kayıt başarılı! Giriş yapabilirsiniz.");
             window.location.href = "login.html";
         })
@@ -43,3 +44,4 @@ function register() {
             errorMessage.textContent = error.message;
         });
 }
+<script src=script.js></script>
