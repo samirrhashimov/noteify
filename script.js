@@ -197,7 +197,6 @@ firebase.auth().onAuthStateChanged(user => {
 
 function logout() {
     firebase.auth().signOut().then(() => {
-        window.location.pathname !== "register.html";
         window.location.href = "login.html";
     });
 }
