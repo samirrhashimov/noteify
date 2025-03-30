@@ -190,8 +190,14 @@ firebase.auth().onAuthStateChanged(user => {
         if (isAuthPage) {
             window.location.replace("index.html");
         }
-    } else if (!isAuthPage) {
-        window.location.replace("login.html");
+    } else {
+        if (!isAuthPage) {
+            window.location.replace("login.html");
+        } else if (isLoginPage) {
+            // Stay on login page
+        } else if (isRegisterPage) {
+            // Stay on register page
+        }
     }
 });
 
