@@ -29,19 +29,25 @@ function goToLogin() {
     window.location.href = "login.html"; // Giriş sayfasına yönlendir
 }
 function register() {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirmPassword").value;
-    let errorMessage = document.getElementById("errorMessage");
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const errorMessage = document.getElementById("errorMessage");
 
-    // First check if passwords match
-    if (password !== confirmPassword) {
-        errorMessage.textContent = "Şifreler uyuşmuyor!";
+    // Clear any previous error message
+    errorMessage.textContent = "";
+
+    // Check if fields are empty
+    if (!email || !password || !confirmPassword) {
+        errorMessage.textContent = "Please fill in all fields";
         return;
     }
 
-    // Clear any existing error message
-    errorMessage.textContent = "";
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        errorMessage.textContent = "Passwords do not match!";
+        return;
+    }
 
     // Proceed with Firebase registration
     firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -50,6 +56,19 @@ function register() {
             window.location.href = "login.html";
         })
         .catch(error => {
-            errorMessage.textContent = "Error: " + error.message;
+            // Handle specific Firebase Auth errors
+            switch (error.code) {
+                case 'auth/weak-password':
+                    errorMessage.textContent = "Password is too weak. It should be at least 6 characters.";
+                    break;
+                case 'auth/email-already-in-use':
+                    errorMessage.textContent = "This email is already registered.";
+                    break;
+                case 'auth/invalid-email':
+                    errorMessage.textContent = "Please enter a valid email address.";
+                    break;
+                default:
+                    errorMessage.textContent = error.message;
+            }
         });
 }
