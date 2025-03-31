@@ -172,7 +172,7 @@ firebase.auth().onAuthStateChanged(user => {
 
     if (user) {
         // User is signed in
-        if (!user.emailVerified && !isVerifyPage && !isAuthPage) {
+        if (!user.emailVerified && !isVerifyPage && !isAuthPage && !isRegisterPage && !isResetPage) {
             // If email not verified and trying to access protected pages
             firebase.auth().signOut();
             window.location.replace("login.html");
