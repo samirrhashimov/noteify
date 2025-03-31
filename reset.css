@@ -29,6 +29,13 @@ input {
     border-radius: 5px;
 }
 
+.infomsg {
+  text-align: center;
+  text-style: bold;
+  
+    
+}
+
 button {
     text-align: center;
     width: 87%;
