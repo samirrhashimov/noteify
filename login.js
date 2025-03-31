@@ -21,8 +21,8 @@ function login() {
         .then((userCredential) => {
             const user = userCredential.user;
             if (!user.emailVerified) {
-                alert("Please verify your email first! Check your inbox for the verification link.");
-                firebase.auth().signOut();
+                firebase.auth().signOut(); // Force sign out if email not verified
+                alert("Please verify your email before logging in. Check your inbox for the verification link.");
                 return;
             }
             window.location.href = "index.html";
@@ -42,15 +42,11 @@ function register() {
             const user = userCredential.user;
             return user.sendEmailVerification()
                 .then(() => {
-                    alert("Registration successful! Please check your email for verification.");
-                    window.location.replace("verify.html");
+                    firebase.auth().signOut(); // Sign out immediately after registration
+                    window.location.href = "verify.html";
                 });
         })
         .catch(error => {
             alert("Error: " + error.message);
         });
-}
-
-function goToRegister() {
-    window.location.href = "register.html";
 }

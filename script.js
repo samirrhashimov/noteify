@@ -30,14 +30,6 @@ function googleLogin() {
         });
 }
 
-// 📌 Çıkış yap
-function logout() {
-    firebase.auth().signOut().then(() => {
-        alert("Çıkış yapıldı!");
-    }).catch(error => {
-        console.error("Çıkış hatası:", error);
-    });
-}
 
 // 📌 Not ekleme fonksiyonu
 function addNote() {
@@ -115,13 +107,6 @@ function deleteNote(noteId) {
         });
 }
 
-// 📌 Sayfa yüklendiğinde notları yükle
-document.addEventListener("DOMContentLoaded", () => {
-    let user = firebase.auth().currentUser;
-    if (user) {
-        loadNotes();
-    }
-});
 
 //edit note
 let currentNoteId = null; // Düzenlenecek notun ID'si
@@ -175,37 +160,55 @@ function cancelNote() {
     noteContainer.classList.remove("show");
     document.getElementById("noteInput").value = "";
 }
-// Single auth state observer
-firebase.auth().onAuthStateChanged(user => {
-    if (user === undefined) {
-        console.log("Firebase auth state loading...");
-        return; // Firebase durumu yüklenene kadar yönlendirme yapma
-    }
 
+// Authentication state observer from edited snippet
+firebase.auth().onAuthStateChanged(user => {
     const currentPath = window.location.pathname;
     const isLoginPage = currentPath.includes('login.html');
-    const isRegisterPage = currentPath.includes('register');
-    const isResetPage = currentPath.includes('reset');
-    
+    const isRegisterPage = currentPath.includes('register.html');
+    const isResetPage = currentPath.includes('reset.html');
     const isVerifyPage = currentPath.includes('verify.html');
     const isAuthPage = isLoginPage || isRegisterPage || isResetPage || isVerifyPage;
-    
+
     if (user) {
+        // User is signed in
+        if (!user.emailVerified && !isVerifyPage && !isAuthPage) {
+            // If email not verified and trying to access protected pages
+            firebase.auth().signOut();
+            window.location.replace("login.html");
+            return;
+        }
+
         if (user.emailVerified && isAuthPage) {
-            console.log("Verified user logged in, redirecting to index.html");
+            // If verified user tries to access auth pages, redirect to index
             window.location.replace("index.html");
         }
     } else {
-        if (!isRegisterPage && !isLoginPage && !isResetPage) { // Eğer giriş yapılmamışsa ama login/register/reset'da değilse yönlendir
-            console.log("No user found, redirecting to login.html");
+        // No user is signed in
+        if (!isAuthPage) {
+            // If trying to access protected pages while not logged in
             window.location.replace("login.html");
         }
     }
 });
 
-//logout
+// Logout function from edited snippet
 function logout() {
     firebase.auth().signOut().then(() => {
         window.location.href = "login.html";
+    }).catch((error) => {
+        console.error("Logout error:", error);
     });
+}
+
+// Note container toggle function from edited snippet
+function toggleNoteInput() {
+    let noteContainer = document.getElementById("noteContainer");
+    noteContainer.classList.toggle("show");
+}
+
+function cancelNote() {
+    let noteContainer = document.getElementById("noteContainer");
+    noteContainer.classList.remove("show");
+    document.getElementById("noteInput").value = "";
 }
