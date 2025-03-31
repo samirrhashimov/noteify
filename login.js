@@ -18,7 +18,13 @@ function login() {
     let password = document.getElementById("password").value;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((userCredential) => {
+            const user = userCredential.user;
+            if (!user.emailVerified) {
+                alert("Please verify your email first! Check your inbox for the verification link.");
+                firebase.auth().signOut();
+                return;
+            }
             window.location.href = "index.html";
         })
         .catch(error => {
@@ -26,19 +32,20 @@ function login() {
         });
 }
 
-if (!user.emailVerified) {
-    alert("E-postanızı doğrulamanız gerekiyor! Lütfen e-postanıza gönderilen bağlantıya tıklayın.");
-    firebase.auth().signOut(); // Kullanıcıyı tekrar çıkış yap
-    return;
-}
 // Register Function
 function register() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            alert("Registration successful! You can now login.");
+        .then((userCredential) => {
+            const user = userCredential.user;
+            return user.sendEmailVerification()
+                .then(() => {
+                    alert("Registration successful! Please check your email for verification.");
+                    firebase.auth().signOut();
+                    window.location.replace("login.html");
+                });
         })
         .catch(error => {
             alert("Error: " + error.message);
@@ -46,6 +53,5 @@ function register() {
 }
 
 function goToRegister() {
-    window.location.href = "register.html"; // Kayıt sayfasına yönlendir
+    window.location.href = "register.html";
 }
-
