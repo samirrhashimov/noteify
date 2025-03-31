@@ -222,7 +222,28 @@ function cancelNote() {
     document.getElementById("noteInput").value = "";
 }
 
+// Add click-outside listeners for both note containers
 document.addEventListener('DOMContentLoaded', () => {
+    const noteContainer = document.getElementById("noteContainer");
+    const editNoteContainer = document.getElementById("editNoteContainer");
+    
+    // Click outside for add note
+    document.addEventListener("click", function(e) {
+        if (noteContainer.classList.contains("show") && 
+            !noteContainer.contains(e.target) && 
+            e.target.id !== "addNoteButton") {
+            cancelNote();
+        }
+    });
+    
+    // Click outside for edit note
+    document.addEventListener("click", function(e) {
+        if (editNoteContainer.style.display === "block" && 
+            !editNoteContainer.contains(e.target) && 
+            !e.target.closest('button[onclick^="editNote"]')) {
+            cancelEdit();
+        }
+    });
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.getElementById("menu");
     
