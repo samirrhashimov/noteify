@@ -165,9 +165,9 @@ function cancelNote() {
 firebase.auth().onAuthStateChanged(user => {
     const currentPath = window.location.pathname;
     const isLoginPage = currentPath.includes('login.html');
-    const isRegisterPage = currentPath.includes('register.');
-    const isResetPage = currentPath.includes('reset.');
-    const isVerifyPage = currentPath.includes('verify.');
+    const isRegisterPage = currentPath.includes('register');
+    const isResetPage = currentPath.includes('reset');
+    const isVerifyPage = currentPath.includes('verify');
     const isAuthPage = isLoginPage || isRegisterPage || isResetPage || isVerifyPage;
 
     if (user) {
