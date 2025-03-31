@@ -221,3 +221,8 @@ function cancelNote() {
     noteContainer.classList.remove("show");
     document.getElementById("noteInput").value = "";
 }
+
+document.getElementById("menu-btn").addEventListener("click", function () {
+    let menu = document.getElementById("menu");
+    menu.classList.toggle("hidden");
+});

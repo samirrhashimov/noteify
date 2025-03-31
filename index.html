@@ -50,8 +50,8 @@ textarea:focus {
 /*top */
 .logout {
   position: absolute;
-  top: 20px;
-  left:5px;
+  bottom: 20px;
+  right:5px;
   background-color: red;
   color: white;
   width:120px;
@@ -167,6 +167,11 @@ button {
         
 #addNoteButton: hover {
     background-color: #0056b3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    
 }
         
  header {
@@ -229,11 +234,7 @@ button {
         });
     </script>
     
-    <p id="user-info"></p>
-    
 <button class="logout"onclick="logout()">Çıkış Yap</button>
-
-    <h1 id="title">NotePad</h1>
 
 <button id="addNoteButton"onclick="toggleNoteInput()">+</button>
 
