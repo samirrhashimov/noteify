@@ -222,7 +222,19 @@ function cancelNote() {
     document.getElementById("noteInput").value = "";
 }
 
-document.getElementById("menu-btn").addEventListener("click", function () {
-    let menu = document.getElementById("menu");
-    menu.classList.toggle("hidden");
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+    
+    menuBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        menu.classList.toggle("show");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function(e) {
+        if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+            menu.classList.remove("show");
+        }
+    });
 });
