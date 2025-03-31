@@ -26,6 +26,11 @@ function login() {
         });
 }
 
+if (!user.emailVerified) {
+    alert("E-postanızı doğrulamanız gerekiyor! Lütfen e-postanıza gönderilen bağlantıya tıklayın.");
+    firebase.auth().signOut(); // Kullanıcıyı tekrar çıkış yap
+    return;
+}
 // Register Function
 function register() {
     let email = document.getElementById("email").value;
@@ -39,6 +44,7 @@ function register() {
             alert("Error: " + error.message);
         });
 }
+
 function goToRegister() {
     window.location.href = "register.html"; // Kayıt sayfasına yönlendir
 }

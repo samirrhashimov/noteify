@@ -25,6 +25,20 @@ function register() {
             alert("Error: " + error.message);
         });
 }
+
+//mail verification 
+user.sendEmailVerification()
+    .then(() => {
+        alert("E-posta doğrulama bağlantısı gönderildi. Lütfen e-postanızı kontrol edin.");
+    })
+    .catch(error => {
+        console.error("E-posta doğrulama hatası:", error.message);
+    });
+
+firebase.auth().signOut(); // Kullanıcıyı otomatik çıkış yap
+window.location.replace("login.html"); // Giriş sayfasına yönlendir
+
+
 function goToLogin() {
     window.location.href = "login.html"; // Giriş sayfasına yönlendir
 }
