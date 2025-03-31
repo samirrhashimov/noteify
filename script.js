@@ -161,33 +161,42 @@ function cancelNote() {
     document.getElementById("noteInput").value = "";
 }
 
-// Authentication state observer from edited snippet
+// Authentication state observer
 firebase.auth().onAuthStateChanged(user => {
-    const currentPath = window.location.pathname;
-    const isLoginPage = currentPath.includes('login.html');
-    const isRegisterPage = currentPath.includes('register');
-    const isResetPage = currentPath.includes('reset');
-    const isVerifyPage = currentPath.includes('verify');
-    const isAuthPage = isLoginPage || isRegisterPage || isResetPage || isVerifyPage;
+    // Normalize the current path by removing .html and leading/trailing slashes
+    const currentPath = window.location.pathname
+        .replace(/\.html$/, '')
+        .replace(/^\/+|\/+$/g, '')
+        || 'index'; // Default to 'index' if path is empty
+
+    // Define auth pages without .html extension
+    const authPages = ['login', 'register', 'reset', 'verify'];
+    const isAuthPage = authPages.includes(currentPath);
 
     if (user) {
         // User is signed in
-        if (!user.emailVerified && !isVerifyPage && !isAuthPage && !isRegisterPage && !isResetPage) {
-            // If email not verified and trying to access protected pages
-            firebase.auth().signOut();
-            window.location.replace("login.html");
-            return;
-        }
-
-        if (user.emailVerified && isAuthPage) {
-            // If verified user tries to access auth pages, redirect to index
-            window.location.replace("index.html");
+        if (!user.emailVerified) {
+            // If email not verified
+            if (currentPath !== 'verify' && !isAuthPage) {
+                // Redirect to verify page if not already there and not on auth pages
+                firebase.auth().signOut();
+                window.location.replace("verify.html");
+                return;
+            }
+        } else {
+            // Email is verified
+            if (isAuthPage) {
+                // Redirect to index if trying to access auth pages
+                window.location.replace("index.html");
+                return;
+            }
         }
     } else {
         // No user is signed in
         if (!isAuthPage) {
-            // If trying to access protected pages while not logged in
+            // Redirect to login if trying to access protected pages
             window.location.replace("login.html");
+            return;
         }
     }
 });
