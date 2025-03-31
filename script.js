@@ -187,12 +187,12 @@ firebase.auth().onAuthStateChanged(user => {
     const isRegisterPage = currentPath.includes('register');
     const isResetPage = currentPath.includes('reset');
     
-    const isAuthPage = isLoginPage || isRegisterPage || isResetPage;
+    const isVerifyPage = currentPath.includes('verify.html');
+    const isAuthPage = isLoginPage || isRegisterPage || isResetPage || isVerifyPage;
     
-
     if (user) {
-        if (isAuthPage) {
-            console.log("User logged in, redirecting to index.html");
+        if (user.emailVerified && isAuthPage) {
+            console.log("Verified user logged in, redirecting to index.html");
             window.location.replace("index.html");
         }
     } else {

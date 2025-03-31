@@ -43,8 +43,7 @@ function register() {
             return user.sendEmailVerification()
                 .then(() => {
                     alert("Registration successful! Please check your email for verification.");
-                    firebase.auth().signOut();
-                    window.location.replace("login.html");
+                    window.location.replace("verify.html");
                 });
         })
         .catch(error => {
