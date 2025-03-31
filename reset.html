@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şifre Sıfırlama</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Şifre Sıfırlama</h2>
+        <p>Lütfen kayıtlı e-posta adresinizi girin. Size şifre sıfırlama bağlantısı göndereceğiz.</p>
+        <input type="email" id="resetEmail" placeholder="E-posta adresiniz">
+        <button onclick="resetPassword()">Şifreyi Sıfırla</button>
+        <p id="resetMessage"></p>
+        <a href="login.html">Giriş Yap</a>
+    </div>
+    <script src="firebase-config.js"></script>
+    <script src="reset.js"></script>
+</body>
+</html>
