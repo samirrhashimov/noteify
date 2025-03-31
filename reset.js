@@ -17,3 +17,9 @@ function resetPassword() {
             resetMessage.style.color = "red";
         });
 }
+//console test
+if (typeof firebase === "undefined") {
+    console.error("Firebase not loaded! Lütfen Firebase dosyalarının yüklendiğinden emin olun.");
+} else {
+    console.log("Firebase başarıyla yüklendi.");
+}
