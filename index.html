@@ -167,10 +167,60 @@ button {
         
 #addNoteButton: hover {
     background-color: #0056b3;
+}
+        
+ header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+#menu {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background: white;
+    color: black;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
 
     </style>
 </head>
 <body>
+
+<header>
+    <button id="menu-btn">☰</button>
+    <h1>Notepad</h1>
+    <div id="menu" class="hidden">
+        <p id="username">Kullanıcı Adı</p>
+        <a href="#">Ayarlar</a>
+        <a href="#">Arşiv (Gelecekte)</a>
+        <a href="#">Çöp Kutusu (Gelecekte)</a>
+    </div>
+</header>
+    
     <script>
         firebase.auth().onAuthStateChanged(user => {
             if (!user) {
