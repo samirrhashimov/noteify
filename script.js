@@ -196,7 +196,7 @@ firebase.auth().onAuthStateChanged(user => {
             window.location.replace("index.html");
         }
     } else {
-        if (!isRegisterPage && !isLoginPage) { // Eğer giriş yapılmamışsa ama login/register'da değilse yönlendir
+        if (!isRegisterPage && !isLoginPage && !isResetPage) { // Eğer giriş yapılmamışsa ama login/register/reset'da değilse yönlendir
             console.log("No user found, redirecting to login.html");
             window.location.replace("login.html");
         }
