@@ -144,7 +144,7 @@ button {
     transition: background-color 0.3s ease, transform 0.2s ease-in-out;
 }
 
-#addNoteButton:hover{
+#addNoteButton.always-hover{
     background-color: #0056b3;
     transform: translateX(-50%)scale(1.1);
 }
@@ -250,7 +250,7 @@ header {
     
 <button class="logout"onclick="logout()">Çıkış Yap</button>
 
-<button id="addNoteButton"onclick="toggleNoteInput()">+</button>
+<button id="addNoteButton"class="always-hover"onclick="toggleNoteInput()">+</button>
 
 <div id="noteContainer" class="hidden">
     <textarea id="noteInput" placeholder="Notunuzu buraya yazın..."></textarea>
