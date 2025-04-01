@@ -259,3 +259,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+//logout text button
+document.getElementById("logout-text").addEventListener("click", function() {
+    firebase.auth().signOut().then(() => {
+        alert("Başarıyla çıkış yapıldı!");
+        window.location.href = "login.html"; // Giriş sayfasına yönlendirme
+    }).catch((error) => {
+        console.error("Çıkış yapılırken hata oluştu:", error);
+    });
+});
