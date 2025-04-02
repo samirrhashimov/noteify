@@ -313,52 +313,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-//test/filtrleme
 function loadNotes(order = "desc") {
     let user = firebase.auth().currentUser;
+    let notesList = document.getElementById("notesList");
+
     if (!user) {
-        alert("Notları görmek için giriş yapmalısınız!");
+        console.log("Giriş yapmış kullanıcı yok.");
         return;
     }
 
-    let notesRef = firebase.firestore().collection("notlar")
-        .where("uid", "==", user.uid)
-        .orderBy("timestamp", order); // Tarihe göre sıralama
-
-    notesRef.get().then((querySnapshot) => {
-        let notesContainer = document.getElementById("notesContainer");
-        notesContainer.innerHTML = ""; // Önce eski notları temizle
-
-        querySnapshot.forEach((doc) => {
-            let noteData = doc.data();
-            let noteElement = document.createElement("div");
-            noteElement.classList.add("note");
-            noteElement.textContent = noteData.content;
-
-            notesContainer.appendChild(noteElement);
-        });
-    }).catch(error => {
-        console.error("Notları yükleme hatası:", error);
+    // Update visual indication of sorting
+    document.querySelectorAll('.filter-option').forEach(option => {
+        option.classList.remove('active');
     });
+    document.getElementById(order === "desc" ? "sort-newest" : "sort-oldest").classList.add('active');
+
+    firebase.firestore().collection("notlar")
+        .where("uid", "==", user.uid)
+        .orderBy("timestamp", order)
+        .onSnapshot(snapshot => {
+            notesList.innerHTML = "";
+
+            if (snapshot.empty) {
+                notesList.innerHTML = "<p>Henüz not yok.</p>";
+                return;
+            }
+
+            snapshot.docs.forEach(doc => {
+                let note = doc.data();
+                let noteItem = document.createElement("div");
+                noteItem.classList.add("note-container");
+
+                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+                const displayContent = note.content.replace(/\n/g, '<br>');
+                
+                noteItem.innerHTML = `
+                    <small>${formattedDate}</small>
+                    <p>${displayContent}</p>
+                    <button onclick="deleteNote('${doc.id}')" style="background-color:red;">Sil</button>
+                    <button onclick="editNote('${doc.id}')">Düzenle</button>
+                `;
+                notesList.appendChild(noteItem);
+            });
+        });
 }
 
-// Filtreleme menüsündeki seçeneklere tıklama olaylarını ekle
-document.getElementById("sort-newest").addEventListener("click", function () {
-    loadNotes("desc"); // Yeniden eskiye sırala
-    setActiveSort("sort-newest");
-});
+document.addEventListener('DOMContentLoaded', () => {
+    // Filter menu toggle
+    const filterBtn = document.getElementById("filter-btn");
+    const filterMenu = document.getElementById("filter-menu");
+    
+    filterBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
+    });
 
-document.getElementById("sort-oldest").addEventListener("click", function () {
-    loadNotes("asc"); // Eskiden yeniye sırala
-    setActiveSort("sort-oldest");
-});
+    // Close filter menu when clicking outside
+    document.addEventListener("click", function(e) {
+        if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
+            filterMenu.style.display = "none";
+        }
+    });
 
-// Seçili filtreyi göstermek için
-function setActiveSort(activeId) {
-    document.getElementById("sort-newest").classList.remove("active");
-    document.getElementById("sort-oldest").classList.remove("active");
-    document.getElementById(activeId).classList.add("active");
-}
+    // Sort options click handlers
+    document.getElementById("sort-newest").addEventListener("click", function() {
+        loadNotes("desc");
+        filterMenu.style.display = "none";
+    });
+
+    document.getElementById("sort-oldest").addEventListener("click", function() {
+        loadNotes("asc");
+        filterMenu.style.display = "none";
+    });
+});
 
 // Sayfa yüklendiğinde varsayılan olarak notları yükle
 window.addEventListener("load", () => {

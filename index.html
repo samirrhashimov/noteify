@@ -264,7 +264,7 @@ header {
 
 #filter-menu {
     position: absolute;
-    top: 50px; /* Header yüksekliğine göre ayarla */
+    top: 50px;
     right: 60px;
     background: white;
     color: black;
@@ -273,6 +273,22 @@ header {
     border-radius: 5px;
     z-index: 1000;
     display: none;
+}
+
+.filter-option {
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-option:hover {
+    background-color: #f5f5f5;
+}
+
+.filter-option.active {
+    color: #4CAF50;
+    font-weight: bold;
+    background-color: #f0f0f0;
 }
         
     </style>
