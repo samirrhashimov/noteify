@@ -252,6 +252,29 @@ header {
     cursor: pointer;
 }
         
+.filter-option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.filter-option.active {
+    font-weight: bold;
+    color: blue;
+}
+
+#filter-menu {
+    position: absolute;
+    top: 50px; /* Header yüksekliğine göre ayarla */
+    right: 60px;
+    background: white;
+    color: black;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    z-index: 1000;
+    display: none;
+}
+        
     </style>
 </head>
 <body>
@@ -259,6 +282,8 @@ header {
 <header>
     <button id="menu-btn">☰</button>
     <button id="searchButton">🔍</button>
+    <button id="filter-btn">🗄️</button> 
+    
 <div id="searchBox">
     <input type="text" id="searchInput" placeholder="Notları ara...">
 </div>
@@ -270,6 +295,10 @@ header {
         <a href="#">Çöp Kutusu (Gelecekte)</a>
         <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
     
+    </div>
+    <div id="filter-menu">
+    <p id="sort-newest" class="filter-option">Yeniden Eskiye</p>
+    <p id="sort-oldest" class="filter-option">Eskiden Yeniye</p>
     </div>
 </header>
     

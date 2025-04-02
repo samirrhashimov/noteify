@@ -310,3 +310,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+
+//test/filtrleme
+function loadNotes(order = "desc") {
+    let user = firebase.auth().currentUser;
+    if (!user) {
+        alert("Notları görmek için giriş yapmalısınız!");
+        return;
+    }
+
+    let notesRef = firebase.firestore().collection("notlar")
+        .where("uid", "==", user.uid)
+        .orderBy("timestamp", order); // Tarihe göre sıralama
+
+    notesRef.get().then((querySnapshot) => {
+        let notesContainer = document.getElementById("notesContainer");
+        notesContainer.innerHTML = ""; // Önce eski notları temizle
+
+        querySnapshot.forEach((doc) => {
+            let noteData = doc.data();
+            let noteElement = document.createElement("div");
+            noteElement.classList.add("note");
+            noteElement.textContent = noteData.content;
+
+            notesContainer.appendChild(noteElement);
+        });
+    }).catch(error => {
+        console.error("Notları yükleme hatası:", error);
+    });
+}
+
+// Filtreleme menüsündeki seçeneklere tıklama olaylarını ekle
+document.getElementById("sort-newest").addEventListener("click", function () {
+    loadNotes("desc"); // Yeniden eskiye sırala
+    setActiveSort("sort-newest");
+});
+
+document.getElementById("sort-oldest").addEventListener("click", function () {
+    loadNotes("asc"); // Eskiden yeniye sırala
+    setActiveSort("sort-oldest");
+});
+
+// Seçili filtreyi göstermek için
+function setActiveSort(activeId) {
+    document.getElementById("sort-newest").classList.remove("active");
+    document.getElementById("sort-oldest").classList.remove("active");
+    document.getElementById(activeId).classList.add("active");
+}
+
+// Sayfa yüklendiğinde varsayılan olarak notları yükle
+window.addEventListener("load", () => {
+    loadNotes();
+});
+
+document.getElementById("filter-btn").addEventListener("click", function () {
+    let filterMenu = document.getElementById("filter-menu");
+
+    if (filterMenu.classList.contains("hidden")) {
+        filterMenu.classList.remove("hidden");
+        filterMenu.classList.add("show");
+    } else {
+        filterMenu.classList.remove("show");
+        filterMenu.classList.add("hidden");
+    }
+});
