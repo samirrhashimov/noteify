@@ -276,7 +276,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //search 🔍 
-document.getElementById("searchButton").addEventListener("click", function() {
-    let searchBox = document.getElementById("searchBox");
-    searchBox.style.display = searchBox.style.display === "block" ? "none" : "block";
+document.addEventListener('DOMContentLoaded', () => {
+    const searchButton = document.getElementById("searchButton");
+    const searchBox = document.getElementById("searchBox");
+    
+    if (searchButton && searchBox) {
+        searchButton.addEventListener("click", function(e) {
+            e.stopPropagation(); // Prevent event from bubbling up
+            searchBox.style.display = searchBox.style.display === "block" ? "none" : "block";
+        });
+
+        // Close search box when clicking outside
+        document.addEventListener("click", function(e) {
+            if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
+                searchBox.style.display = "none";
+            }
+        });
+    }
 });
