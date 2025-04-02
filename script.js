@@ -295,18 +295,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-//not axtarış
+//Note search functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+        searchInput.addEventListener("keyup", function() {
+            const searchText = this.value.toLowerCase();
+            const notes = document.querySelectorAll(".note-container");
 
-document.getElementById("searchInput").addEventListener("keyup", function () {
-    let searchText = this.value.toLowerCase();
-    let notes = document.querySelectorAll(".note-container");
-
-    notes.forEach(note => {
-        let noteText = note.innerText.toLowerCase();
-        if (noteText.includes(searchText)) {
-            note.style.display = "block";
-        } else {
-            note.style.display = "none";
-        }
-    });
+            notes.forEach(note => {
+                const noteText = note.textContent.toLowerCase();
+                note.style.display = noteText.includes(searchText) ? "block" : "none";
+            });
+        });
+    }
 });
