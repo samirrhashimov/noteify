@@ -224,7 +224,17 @@ header {
     cursor: pointer;
     align-items: center;
 }
-
+#searchInput {
+    width: 90%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    margin-top: 15px;
+}
+        
     </style>
 </head>
 <body>
@@ -238,6 +248,7 @@ header {
         <a href="#">Arşiv (Gelecekte)</a>
         <a href="#">Çöp Kutusu (Gelecekte)</a>
         <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
+    <input type="text" id="searchInput" placeholder="Notları ara..." />
     </div>
 </header>
     
