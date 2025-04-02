@@ -297,16 +297,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //not axtarış
 
-document.getElementById("search-input").addEventListener("keyup", function () {
-    let searchText = this.value.toLowerCase(); // Kullanıcının yazdığı metni al ve küçük harfe çevir
-    let notes = document.querySelectorAll(".note"); // Tüm notları seç
+document.getElementById("searchInput").addEventListener("keyup", function () {
+    let searchText = this.value.toLowerCase();
+    let notes = document.querySelectorAll(".note-container");
 
     notes.forEach(note => {
-        let noteText = note.innerText.toLowerCase(); // Notun içeriğini al ve küçük harfe çevir
+        let noteText = note.innerText.toLowerCase();
         if (noteText.includes(searchText)) {
-            note.style.display = "block"; // Eşleşen notları göster
+            note.style.display = "block";
         } else {
-            note.style.display = "none"; // Eşleşmeyen notları gizle
+            note.style.display = "none";
         }
     });
 });
