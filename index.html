@@ -224,15 +224,30 @@ header {
     cursor: pointer;
     align-items: center;
 }
-#searchInput {
-    width: 90%;
-    max-width: 400px;
+#searchBox {
+    display: none;
+    position: absolute;
+    top: 50px; /* Header'ın altına gelecek şekilde */
+    right: 10px;
+    background: white;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 8px;
-    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+#searchInput {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     font-size: 16px;
-    margin-top: 15px;
+}
+
+#searchButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
 }
         
     </style>
@@ -241,6 +256,10 @@ header {
 
 <header>
     <button id="menu-btn">☰</button>
+    <button id="searchButton">🔍</button>
+<div id="searchBox">
+    <input type="text" id="searchInput" placeholder="Notları ara...">
+</div>
     <h1 id="title">Notepad</h1>
     <div id="menu" class="hidden">
         <p id="username">Kullanıcı Adı</p>
@@ -248,7 +267,7 @@ header {
         <a href="#">Arşiv (Gelecekte)</a>
         <a href="#">Çöp Kutusu (Gelecekte)</a>
         <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
-    <input type="text" id="searchInput" placeholder="Notları ara..." />
+    
     </div>
 </header>
     

@@ -274,3 +274,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+//search 🔍 
+document.getElementById("searchButton").addEventListener("click", function() {
+    let searchBox = document.getElementById("searchBox");
+    searchBox.style.display = searchBox.style.display === "block" ? "none" : "block";
+});
