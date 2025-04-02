@@ -204,28 +204,33 @@ button {
 }
         
 header {
-    witdh: 100%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
     align-items: center;
     background: #2c3e50;
     color: white;
-    padding: 10px 10px;
+    padding: 0 20px;
     position: fixed;
-    height: 50px;
-    width: 100%;
-    top: 10px ;
+    height: 60px;
+    top: 0;
     left: 0;
-    border-radius: 13px;
+    z-index: 1000;
 }
- #title {
-  font-family: 'arial';
-  white-space: nowrap;
-  flex-grow: 1;
-  text-align: right;
-  font-size; 20px;
- }
+
+#title {
+    font-family: 'Arial';
+    white-space: nowrap;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+#menu-btn {
+    margin-right: auto;
+}
+
+#searchButton {
+    margin-left: auto;
+}
 
 #menu {
     position: absolute;
