@@ -115,6 +115,7 @@ function editNote(noteId, currentContent) {
     currentNoteId = noteId;
     const editContainer = document.getElementById("editNoteContainer");
     editContainer.style.display = "block";
+    editContainer.classList.add("show");
     document.getElementById("editNoteInput").value = currentContent;
 }
 
