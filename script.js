@@ -286,11 +286,18 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             searchBox.style.display = "block";
             setTimeout(() => {
-                searchBox.classList.toggle("active");
-                if (searchBox.classList.contains("active")) {
-                    searchInput.focus();
-                }
+                searchBox.classList.add("active");
+                searchInput.focus();
             }, 10);
+        });
+
+        const closeSearch = document.getElementById("closeSearch");
+        closeSearch.addEventListener("click", function() {
+            searchBox.classList.remove("active");
+            setTimeout(() => {
+                searchBox.style.display = "none";
+                searchInput.value = "";
+            }, 300);
         });
 
         // Handle clicks outside search box
@@ -298,21 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
                 searchBox.classList.remove("active");
                 setTimeout(() => {
-                    if (!searchBox.classList.contains("active")) {
-                        searchBox.style.display = "none";
-                    }
+                    searchBox.style.display = "none";
+                    searchInput.value = "";
                 }, 300);
             }
         });
-
-        // Handle mobile keyboard
-        if ('visualViewport' in window) {
-            window.visualViewport.addEventListener('resize', () => {
-                if (searchBox.classList.contains("active")) {
-                    searchBox.style.bottom = `${window.innerHeight - window.visualViewport.height}px`;
-                }
-            });
-        }
     }
 });
 
