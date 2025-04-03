@@ -112,20 +112,10 @@ function deleteNote(noteId) {
 let currentNoteId = null; // Düzenlenecek notun ID'si
 
 function editNote(noteId, currentContent) {
-    // Get the note content directly from Firestore to avoid escaping issues
-    firebase.firestore().collection("notlar").doc(noteId).get()
-        .then(doc => {
-            if (doc.exists) {
-                const noteData = doc.data();
-                const editContainer = document.getElementById("editNoteContainer");
-                editContainer.classList.add("show");
-                document.getElementById("editNoteInput").value = noteData.content || '';
-                currentNoteId = noteId;
-            }
-        })
-        .catch(error => {
-            console.error("Not getirme hatası:", error);
-        });
+    currentNoteId = noteId;
+    const editContainer = document.getElementById("editNoteContainer");
+    editContainer.style.display = "block";
+    document.getElementById("editNoteInput").value = currentContent;
 }
 
 function saveEdit() {
@@ -372,8 +362,8 @@ function loadNotes(order = "desc") {
                         <small>${formattedDate}</small>
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
-                            <div class="menu-item" onclick="editNote('${doc.id}')">✏️ Düzenle</div>
-                            <div class="menu-item delete" onclick="deleteNote('${doc.id}')">🗑️ Sil</div>
+                            <div class="menu-item" onclick="editNote('${doc.id}', '${note.content}')">Düzenle</div>
+                            <div class="menu-item delete" onclick="deleteNote('${doc.id}')">Sil</div>
                         </div>
                     </div>
                     <p>${displayContent}</p>
