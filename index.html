@@ -141,12 +141,15 @@ body {
 }
 
 .three-dot-menu {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0 5px;
-    color: #2c3e50;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+}
+
+.three-dot-menu:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
 }
 
 .note-menu {
@@ -229,7 +232,7 @@ button {
     background-color: #0056b3;
     transform: translateX(-50%)scale(1.1);
 }
-        
+
 #noteContainer {
     position: absolute;
     top: 50%;
@@ -242,7 +245,7 @@ button {
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
-        
+
 header {
     width: 100%;
     display: flex;
@@ -334,7 +337,7 @@ header {
     font-size: 19px;
     cursor: pointer;
 }
-        
+
 .filter-option {
     padding: 10px;
     cursor: pointer;
@@ -373,7 +376,11 @@ header {
     font-weight: bold;
     background-color: #f0f0f0;
 }
-        
+
+#notesList {
+    margin-top: 80px; /* Increased spacing from header */
+    padding: 0 20px;
+}
     </style>
 </head>
 <body>
@@ -381,7 +388,7 @@ header {
 <header>
     <button id="menu-btn">☰</button>
     <h1 id="title">Notepad</h1>
-    
+
 <div id="searchBox">
     <input type="text" id="searchInput" placeholder="Notları ara...">
 </div>
@@ -391,14 +398,14 @@ header {
         <a href="#">Arşiv (Gelecekte)</a>
         <a href="#">Çöp Kutusu (Gelecekte)</a>
         <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
-    
+
     </div>
     <div id="filter-menu">
     <p id="sort-newest" class="filter-option">Yeniden Eskiye</p>
     <p id="sort-oldest" class="filter-option">Eskiden Yeniye</p>
     </div>
 </header>
-    
+
     <script>
         firebase.auth().onAuthStateChanged(user => {
             if (!user) {
@@ -406,7 +413,7 @@ header {
             }
         });
     </script>
-    
+
 <!-- ehtiyat logout
 <button class="logout"onclick="logout()">Çıkış Yap</button>
 -->
@@ -423,9 +430,9 @@ header {
     <button onclick="addNote()">Kaydet</button>
   <button onclick="cancelNote()">İptal</button>
 </div>
-    
+
     <div id="notesList" class="note-container"></div>
-    
+
 <!-- Düzenleme alanı (input veya textarea) -->
 <div id="editNoteContainer" style="display:none;">
     <textarea id="editNoteInput"></textarea>
