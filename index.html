@@ -239,7 +239,7 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 90%;
     max-width: 600px;
     background-color: #fff;
     padding: 20px;
@@ -247,10 +247,7 @@ button {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     z-index: 9999;
     display: none;
-}
-
-#noteContainer.show {
-    display: block;
+    box-sizing: border-box;
 }
 
 #noteContainer textarea {
@@ -261,6 +258,10 @@ button {
     border-radius: 8px;
     resize: vertical;
     min-height: 150px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 16px;
+    max-width: 100%;
 }
 
 #noteContainer button {
@@ -392,7 +393,7 @@ header {
         transform: translateY(-62px);
         padding-bottom: env(safe-area-inset-bottom);
     }
-    
+
     .bottom-nav {
         padding-bottom: env(safe-area-inset-bottom);
     }
