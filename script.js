@@ -429,19 +429,3 @@ document.getElementById("filter-btn").addEventListener("click", function () {
         filterMenu.classList.add("hidden");
     }
 });
-
-// User email display
-firebase.auth().onAuthStateChanged(user => {
-    const userEmailDisplay = document.getElementById("userEmailDisplay");
-    if (!userEmailDisplay) return;
-    
-    if (user && user.email) {
-        userEmailDisplay.textContent = user.email;
-        userEmailDisplay.style.color = "#333";
-        userEmailDisplay.style.fontWeight = "bold";
-        userEmailDisplay.style.padding = "8px 0";
-        userEmailDisplay.style.borderBottom = "1px solid #eee";
-    } else {
-        window.location.href = "login.html";
-    }
-});
