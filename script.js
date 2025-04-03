@@ -348,10 +348,15 @@ function loadNotes(order = "desc") {
                 const displayContent = note.content.replace(/\n/g, '<br>');
                 
                 noteItem.innerHTML = `
-                    <small>${formattedDate}</small>
+                    <div class="note-header">
+                        <small>${formattedDate}</small>
+                        <button class="three-dot-menu">⋮</button>
+                        <div class="note-menu">
+                            <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
+                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+                        </div>
+                    </div>
                     <p>${displayContent}</p>
-                    <button onclick="deleteNote('${doc.id}')" style="background-color:red;">Sil</button>
-                    <button onclick="editNote('${doc.id}')">Düzenle</button>
                 `;
                 notesList.appendChild(noteItem);
             });
@@ -385,6 +390,27 @@ document.addEventListener('DOMContentLoaded', () => {
         loadNotes("asc");
         filterMenu.style.display = "none";
     });
+});
+
+// Handle three-dot menu clicks
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('three-dot-menu')) {
+        e.stopPropagation();
+        // Close all other menus
+        document.querySelectorAll('.note-menu.show').forEach(menu => {
+            if (menu !== e.target.nextElementSibling) {
+                menu.classList.remove('show');
+            }
+        });
+        // Toggle current menu
+        const menu = e.target.nextElementSibling;
+        menu.classList.toggle('show');
+    } else if (!e.target.closest('.note-menu')) {
+        // Close all menus when clicking outside
+        document.querySelectorAll('.note-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+        });
+    }
 });
 
 // Sayfa yüklendiğinde varsayılan olarak notları yükle

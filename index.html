@@ -133,6 +133,45 @@ body {
     margin: 5px 0;
 }
 
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.three-dot-menu {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.note-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+.note-menu.show {
+    display: block;
+}
+
+.menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: #f5f5f5;
+}
+
 button {
     margin-right: 10px;
 }
