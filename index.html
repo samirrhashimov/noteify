@@ -159,9 +159,11 @@ body {
     right: 0;
     top: 100%;
     background: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
     z-index: 1000;
+    min-width: 150px;
+    border: 1px solid #eee;
 }
 
 .note-menu.show {
@@ -169,12 +171,27 @@ body {
 }
 
 .menu-item {
-    padding: 8px 16px;
+    padding: 12px 16px;
     cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.menu-item:last-child {
+    color: #ff3b30;
+    font-weight: bold;
 }
 
 .menu-item:hover {
-    background: #f5f5f5;
+    background: #f8f8f8;
+}
+
+.menu-item:first-child:hover {
+    background: #e8f0fe;
+}
+
+.menu-item:last-child:hover {
+    background: #fff2f2;
 }
 
 button {
