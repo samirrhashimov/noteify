@@ -280,48 +280,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
-    const closeSearch = document.getElementById("closeSearch");
-    const bottomNav = document.querySelector(".bottom-nav");
-    const addNoteButton = document.getElementById("addNoteButton");
-    const filterBtn = document.getElementById("filter-btn");
-    
-    function showSearchBar() {
-        searchBox.style.display = "block";
-        setTimeout(() => {
-            searchBox.classList.add("active");
-            searchInput.focus();
-            // Hide bottom nav buttons
-            addNoteButton.style.opacity = "0";
-            searchButton.style.opacity = "0";
-            filterBtn.style.opacity = "0";
-        }, 10);
-    }
-
-    function hideSearchBar() {
-        searchBox.classList.remove("active");
-        // Show bottom nav buttons
-        addNoteButton.style.opacity = "1";
-        searchButton.style.opacity = "1";
-        filterBtn.style.opacity = "1";
-        setTimeout(() => {
-            searchBox.style.display = "none";
-            searchInput.value = "";
-            // Reset search results
-            document.querySelectorAll(".note-container").forEach(note => {
-                note.style.display = "block";
-            });
-        }, 300);
-    }
     
     if (searchButton && searchBox) {
         searchButton.addEventListener("click", function(e) {
             e.stopPropagation();
-            showSearchBar();
-        });
-
-        closeSearch.addEventListener("click", function(e) {
-            e.stopPropagation();
-            hideSearchBar();
+            searchBox.style.display = "block";
+            setTimeout(() => {
+                searchBox.classList.toggle("active");
+                if (searchBox.classList.contains("active")) {
+                    searchInput.focus();
+                }
+            }, 10);
         });
 
         // Handle clicks outside search box
