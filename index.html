@@ -156,14 +156,12 @@ body {
 .note-menu {
     display: none;
     position: absolute;
-    right: -10px;
+    right: 0;
     top: 100%;
-    background: #fff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    z-index: 9999;
-    min-width: 150px;
-    padding: 10px 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 1000;
 }
 
 .note-menu.show {
@@ -171,19 +169,12 @@ body {
 }
 
 .menu-item {
-    padding: 12px 24px;
+    padding: 8px 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: #333;
-    font-size: 16px;
 }
 
 .menu-item:hover {
-    background: #f0f0f0;
-}
-
-.menu-item.delete {
-    color: #ff4444;
+    background: #f5f5f5;
 }
 
 button {
@@ -200,43 +191,19 @@ hr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px;
-    background-color: #fff;
+    background-color: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
 }
 
-#editNoteContainer.show {
-    visibility: visible;
-    opacity: 1;
+textarea {
+    width: 300px;
+    height: 100px;
 }
 
-#editNoteContainer textarea {
-    width: 100%;
-    margin: 10px 0;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    resize: vertical;
-    min-height: 150px;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: 16px;
-    max-width: 100%;
-}
-
-#editNoteContainer button {
-    margin: 10px 10px 0 0;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
+button {
+    margin-top: 10px;
 }
         /*display: none; normalda*/
 .hidden {
@@ -543,7 +510,7 @@ header {
     <div id="notesList" class="note-container"></div>
 
 <!-- Düzenleme alanı (input veya textarea) -->
-<div id="editNoteContainer">
+<div id="editNoteContainer" style="display:none;">
     <textarea id="editNoteInput"></textarea>
     <button onclick="saveEdit()">Kaydet</button>
     <button onclick="cancelEdit()">İptal</button>

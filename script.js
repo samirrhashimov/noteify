@@ -112,11 +112,19 @@ function deleteNote(noteId) {
 let currentNoteId = null; // Düzenlenecek notun ID'si
 
 function editNote(noteId, currentContent) {
-    currentNoteId = noteId;
-    const editContainer = document.getElementById("editNoteContainer");
-    editContainer.style.display = "block";
-    editContainer.classList.add("show");
-    document.getElementById("editNoteInput").value = currentContent;
+    // Get the note content directly from Firestore to avoid escaping issues
+    firebase.firestore().collection("notlar").doc(noteId).get()
+        .then(doc => {
+            if (doc.exists) {
+                const noteData = doc.data();
+                document.getElementById("editNoteContainer").style.display = "block";
+                document.getElementById("editNoteInput").value = noteData.content || '';
+                currentNoteId = noteId;
+            }
+        })
+        .catch(error => {
+            console.error("Not getirme hatası:", error);
+        });
 }
 
 function saveEdit() {
@@ -140,8 +148,7 @@ function saveEdit() {
 
 function cancelEdit() {
     // Düzenleme alanını gizle
-    const editContainer = document.getElementById("editNoteContainer");
-    editContainer.classList.remove("show");
+    document.getElementById("editNoteContainer").style.display = "none";
 }
 function toggleNoteInput() {
     let noteContainer = document.getElementById("noteContainer");
@@ -219,7 +226,7 @@ function cancelNote() {
 document.addEventListener('DOMContentLoaded', () => {
     const noteContainer = document.getElementById("noteContainer");
     const editNoteContainer = document.getElementById("editNoteContainer");
-
+    
     // Click outside for add note
     document.addEventListener("click", function(e) {
         if (noteContainer.classList.contains("show") && 
@@ -228,10 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelNote();
         }
     });
-
+    
     // Click outside for edit note
     document.addEventListener("click", function(e) {
-        if (editNoteContainer.classList.contains("show") && 
+        if (editNoteContainer.style.display === "block" && 
             !editNoteContainer.contains(e.target) && 
             !e.target.closest('button[onclick^="editNote"]')) {
             cancelEdit();
@@ -239,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.getElementById("menu");
-
+    
     menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         menu.classList.toggle("show");
@@ -273,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
-
+    
     if (searchButton && searchBox) {
         searchButton.addEventListener("click", function(e) {
             e.stopPropagation();
@@ -357,14 +364,14 @@ function loadNotes(order = "desc") {
 
                 let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
                 const displayContent = note.content.replace(/\n/g, '<br>');
-
+                
                 noteItem.innerHTML = `
                     <div class="note-header">
                         <small>${formattedDate}</small>
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
-                            <div class="menu-item" onclick="editNote('${doc.id}', '${note.content}')">Düzenle</div>
-                            <div class="menu-item delete" onclick="deleteNote('${doc.id}')">Sil</div>
+                            <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
+                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
                         </div>
                     </div>
                     <p>${displayContent}</p>
@@ -378,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filter menu toggle
     const filterBtn = document.getElementById("filter-btn");
     const filterMenu = document.getElementById("filter-menu");
-
+    
     filterBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
