@@ -279,19 +279,40 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
+    const searchInput = document.getElementById("searchInput");
     
     if (searchButton && searchBox) {
         searchButton.addEventListener("click", function(e) {
-            e.stopPropagation(); // Prevent event from bubbling up
-            searchBox.style.display = searchBox.style.display === "block" ? "none" : "block";
+            e.stopPropagation();
+            searchBox.style.display = "block";
+            setTimeout(() => {
+                searchBox.classList.toggle("active");
+                if (searchBox.classList.contains("active")) {
+                    searchInput.focus();
+                }
+            }, 10);
         });
 
-        // Close search box when clicking outside
+        // Handle clicks outside search box
         document.addEventListener("click", function(e) {
             if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
-                searchBox.style.display = "none";
+                searchBox.classList.remove("active");
+                setTimeout(() => {
+                    if (!searchBox.classList.contains("active")) {
+                        searchBox.style.display = "none";
+                    }
+                }, 300);
             }
         });
+
+        // Handle mobile keyboard
+        if ('visualViewport' in window) {
+            window.visualViewport.addEventListener('resize', () => {
+                if (searchBox.classList.contains("active")) {
+                    searchBox.style.bottom = `${window.innerHeight - window.visualViewport.height}px`;
+                }
+            });
+        }
     }
 });
 

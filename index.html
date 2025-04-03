@@ -312,24 +312,47 @@ header {
 }
 #searchBox {
     display: none;
-    position: absolute;
-    top: 50px;
-    right: 10px;
+    position: fixed;
+    bottom: -60px;
+    left: 0;
+    right: 0;
     background: white;
     padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    z-index: 1002;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 997;
+    transition: transform 0.3s ease-out;
+}
+
+#searchBox.active {
+    transform: translateY(-62px);
+    display: block;
 }
 
 #searchInput {
-    display: block;
-    width: 300;
+    width: calc(100% - 20px);
     margin: 0 auto;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 25px;
     font-size: 16px;
+    background: #f5f5f5;
+    outline: none;
+}
+
+#searchInput:focus {
+    background: white;
+    border-color: #4CAF50;
+}
+
+@media screen and (max-width: 768px) {
+    #searchBox.active {
+        transform: translateY(-62px);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    .bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
 }
 
 #searchButton {
