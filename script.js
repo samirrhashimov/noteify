@@ -430,20 +430,18 @@ document.getElementById("filter-btn").addEventListener("click", function () {
     }
 });
 
-// User email display - moved to DOMContentLoaded event
-document.addEventListener('DOMContentLoaded', () => {
-    firebase.auth().onAuthStateChanged(user => {
-        const userEmailDisplay = document.getElementById("userEmailDisplay");
-        if (!userEmailDisplay) return;
-        
-        if (user && user.email) {
-            userEmailDisplay.textContent = user.email;
-            userEmailDisplay.style.color = "#333";
-            userEmailDisplay.style.fontWeight = "bold";
-            userEmailDisplay.style.padding = "8px 0";
-            userEmailDisplay.style.borderBottom = "1px solid #eee";
-        } else {
-            userEmailDisplay.textContent = "Giriş yapılmadı";
-        }
-    });
+// User email display
+firebase.auth().onAuthStateChanged(user => {
+    const userEmailDisplay = document.getElementById("userEmailDisplay");
+    if (!userEmailDisplay) return;
+    
+    if (user && user.email) {
+        userEmailDisplay.textContent = user.email;
+        userEmailDisplay.style.color = "#333";
+        userEmailDisplay.style.fontWeight = "bold";
+        userEmailDisplay.style.padding = "8px 0";
+        userEmailDisplay.style.borderBottom = "1px solid #eee";
+    } else {
+        window.location.href = "login.html";
+    }
 });
