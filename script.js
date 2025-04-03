@@ -117,7 +117,8 @@ function editNote(noteId, currentContent) {
         .then(doc => {
             if (doc.exists) {
                 const noteData = doc.data();
-                document.getElementById("editNoteContainer").style.display = "block";
+                const editContainer = document.getElementById("editNoteContainer");
+                editContainer.classList.add("show");
                 document.getElementById("editNoteInput").value = noteData.content || '';
                 currentNoteId = noteId;
             }
@@ -148,7 +149,8 @@ function saveEdit() {
 
 function cancelEdit() {
     // Düzenleme alanını gizle
-    document.getElementById("editNoteContainer").style.display = "none";
+    const editContainer = document.getElementById("editNoteContainer");
+    editContainer.classList.remove("show");
 }
 function toggleNoteInput() {
     let noteContainer = document.getElementById("noteContainer");
@@ -226,7 +228,7 @@ function cancelNote() {
 document.addEventListener('DOMContentLoaded', () => {
     const noteContainer = document.getElementById("noteContainer");
     const editNoteContainer = document.getElementById("editNoteContainer");
-    
+
     // Click outside for add note
     document.addEventListener("click", function(e) {
         if (noteContainer.classList.contains("show") && 
@@ -235,10 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelNote();
         }
     });
-    
+
     // Click outside for edit note
     document.addEventListener("click", function(e) {
-        if (editNoteContainer.style.display === "block" && 
+        if (editNoteContainer.classList.contains("show") && 
             !editNoteContainer.contains(e.target) && 
             !e.target.closest('button[onclick^="editNote"]')) {
             cancelEdit();
@@ -246,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.getElementById("menu");
-    
+
     menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         menu.classList.toggle("show");
@@ -280,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
-    
+
     if (searchButton && searchBox) {
         searchButton.addEventListener("click", function(e) {
             e.stopPropagation();
@@ -364,7 +366,7 @@ function loadNotes(order = "desc") {
 
                 let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
                 const displayContent = note.content.replace(/\n/g, '<br>');
-                
+
                 noteItem.innerHTML = `
                     <div class="note-header">
                         <small>${formattedDate}</small>
@@ -385,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filter menu toggle
     const filterBtn = document.getElementById("filter-btn");
     const filterMenu = document.getElementById("filter-menu");
-    
+
     filterBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
