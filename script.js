@@ -352,7 +352,7 @@ function loadNotes(order = "desc") {
             notesList.innerHTML = "";
 
             if (snapshot.empty) {
-                notesList.innerHTML = "<p>Henüz not yok.</p>";
+                
                 return;
             }
 
