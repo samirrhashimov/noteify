@@ -71,7 +71,6 @@ function loadNotes() {
             notesList.innerHTML = ""; // Eski notları temizle
 
             if (snapshot.empty) {
-                notesList.innerHTML = "<p>Henüz not yok.</p>";
                 return;
             }
 
