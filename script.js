@@ -434,11 +434,21 @@ document.getElementById("filter-btn").addEventListener("click", function () {
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
         let userEmailDisplay = document.getElementById("userEmailDisplay");
+        let menu = document.getElementById("menu");
 
         if (user.email) {
             userEmailDisplay.textContent = user.email;
+            userEmailDisplay.style.color = "#333";
+            userEmailDisplay.style.fontWeight = "bold";
+            userEmailDisplay.style.padding = "8px 0";
+            userEmailDisplay.style.borderBottom = "1px solid #eee";
         } else {
-            userEmailDisplay.textContent = "E-posta bulunamadı";
+            userEmailDisplay.textContent = "Misafir Kullanıcı";
+        }
+    } else {
+        let userEmailDisplay = document.getElementById("userEmailDisplay");
+        if (userEmailDisplay) {
+            userEmailDisplay.textContent = "Giriş yapılmadı";
         }
     }
 });
