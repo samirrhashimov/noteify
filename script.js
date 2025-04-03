@@ -372,8 +372,8 @@ function loadNotes(order = "desc") {
                         <small>${formattedDate}</small>
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
-                            <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+                            <div class="menu-item" onclick="editNote('${doc.id}')">✏️ Düzenle</div>
+                            <div class="menu-item delete" onclick="deleteNote('${doc.id}')">🗑️ Sil</div>
                         </div>
                     </div>
                     <p>${displayContent}</p>
