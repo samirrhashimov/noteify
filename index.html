@@ -246,8 +246,15 @@ button {
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     z-index: 9999;
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
     box-sizing: border-box;
+}
+
+#noteContainer.show {
+    visibility: visible;
+    opacity: 1;
 }
 
 #noteContainer textarea {
