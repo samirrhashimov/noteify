@@ -429,3 +429,16 @@ document.getElementById("filter-btn").addEventListener("click", function () {
         filterMenu.classList.add("hidden");
     }
 });
+
+//user email display
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        let userEmailDisplay = document.getElementById("userEmailDisplay");
+
+        if (user.email) {
+            userEmailDisplay.textContent = user.email;
+        } else {
+            userEmailDisplay.textContent = "E-posta bulunamadı";
+        }
+    }
+});
