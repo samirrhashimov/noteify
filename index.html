@@ -92,15 +92,21 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0;
     box-sizing: border-box;
     z-index: 998;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
+.bottom-nav button {
+    flex: 1;
+    max-width: 80px;
+    margin: 0 20px;
+}
+
 .bottom-nav-center-gap {
-    width: 47px;
+    flex: 2;
 }
 
 .bottom-nav button {
