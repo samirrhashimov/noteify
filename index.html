@@ -243,7 +243,7 @@ button {
 }
         
 header {
-    witdh: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
@@ -254,9 +254,10 @@ header {
     position: fixed;
     height: 50px;
     width: 100%;
-    top: 10px ;
+    top: 10px;
     left: 0;
     border-radius: 13px;
+    z-index: 1001;
 }
  #title {
   font-family: 'arial';
@@ -275,7 +276,7 @@ header {
     padding: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    z-index: 1000;
+    z-index: 1002;
     visibility: hidden;
 }
 
@@ -307,12 +308,13 @@ header {
 #searchBox {
     display: none;
     position: absolute;
-    top: 50px; /* Header'ın altına gelecek şekilde */
+    top: 50px;
     right: 10px;
     background: white;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 1002;
 }
 
 #searchInput {
@@ -351,7 +353,7 @@ header {
     padding: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    z-index: 1000;
+    z-index: 1002;
     display: none;
 }
 
