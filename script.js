@@ -432,6 +432,53 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Settings Panel Functionality
+document.getElementById('settings-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('settings-panel').style.display = 'flex';
+    document.getElementById('menu').classList.remove('show');
+});
+
+document.getElementById('close-settings').addEventListener('click', function() {
+    document.getElementById('settings-panel').style.display = 'none';
+});
+
+// Theme Toggle
+document.getElementById('theme-toggle').addEventListener('change', function() {
+    document.body.classList.toggle('dark-mode');
+    // You can add more dark mode styles as needed
+});
+
+// Change Password
+document.getElementById('change-password').addEventListener('click', function() {
+    alert('Şifre değiştirme özelliği yakında eklenecek!');
+});
+
+// Delete Account
+document.getElementById('delete-account').addEventListener('click', function() {
+    document.getElementById('confirm-modal').style.display = 'block';
+});
+
+document.getElementById('confirm-delete').addEventListener('click', function() {
+    // Add actual delete account logic here
+    alert('Hesap silme özelliği yakında eklenecek!');
+    document.getElementById('confirm-modal').style.display = 'none';
+});
+
+document.getElementById('cancel-delete').addEventListener('click', function() {
+    document.getElementById('confirm-modal').style.display = 'none';
+});
+
+// Close modals when clicking outside
+window.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) {
+        e.target.style.display = 'none';
+    }
+    if (e.target.classList.contains('settings-panel')) {
+        e.target.style.display = 'none';
+    }
+});
+
 // Sayfa yüklendiğinde varsayılan olarak notları yükle
 window.addEventListener("load", () => {
     loadNotes();
