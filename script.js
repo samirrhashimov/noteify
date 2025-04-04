@@ -495,3 +495,34 @@ document.getElementById("filter-btn").addEventListener("click", function () {
         filterMenu.classList.add("hidden");
     }
 });
+
+// password renew
+function changePassword() {
+    const user = firebase.auth().currentUser;
+    const currentPassword = document.getElementById("current-password").value;
+    const newPassword = document.getElementById("new-password").value;
+    const email = user.email;
+
+    if (!currentPassword || !newPassword) {
+        alert("Lütfen tüm alanları doldurun.");
+        return;
+    }
+
+    const credential = firebase.auth.EmailAuthProvider.credential(email, currentPassword);
+
+    user.reauthenticateWithCredential(credential)
+        .then(() => {
+            return user.updatePassword(newPassword);
+        })
+        .then(() => {
+            alert("Şifre başarıyla güncellendi.");
+            document.getElementById("password-change-container").classList.add("hidden");
+        })
+        .catch((error) => {
+            console.error("Şifre değiştirme hatası:", error);
+            alert("Şifre değiştirilemedi: " + error.message);
+        });
+}
+document.getElementById("change-password").addEventListener("click", () => {
+    document.getElementById("password-change-container").classList.remove("hidden");
+});
