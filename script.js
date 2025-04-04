@@ -350,11 +350,13 @@ function loadNotes(order = "desc") {
         .orderBy("timestamp", order)
         .onSnapshot(snapshot => {
             notesList.innerHTML = "";
+            const emptyState = document.getElementById("emptyState");
 
             if (snapshot.empty) {
-                
+                emptyState.style.display = "block";
                 return;
             }
+            emptyState.style.display = "none";
 
             snapshot.docs.forEach(doc => {
                 let note = doc.data();

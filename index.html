@@ -495,8 +495,32 @@ header {
 }
 
 #notesList {
-    margin-top: 50px; /* Increased spacing from header */
+    margin-top: 50px;
     padding: 0 20px;
+}
+
+.empty-state {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.empty-state img {
+    margin-bottom: 20px;
+}
+
+.empty-state h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.empty-state p {
+    color: #666;
+    font-weight: 300;
 }
     </style>
 </head>
@@ -550,6 +574,11 @@ header {
 </div>
 
     <div id="notesList" class="note-container"></div>
+    <div id="emptyState" class="empty-state">
+        <img src="img/empty-notes.png" alt="No notes" width="200">
+        <h2>Burası çok ıssız</h2>
+        <p>Başlamak için not ekleyin</p>
+    </div>
 
 <!-- Düzenleme alanı (input veya textarea) -->
 <div id="editNoteContainer" style="display:none;">
