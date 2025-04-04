@@ -364,7 +364,7 @@ header {
 }
 
 #menu-btn {
-    background: none;
+    background: transparent;
     border: none;
     font-size: 24px;
     color: white;
@@ -373,6 +373,11 @@ header {
     position: relative;
     top: -5px;
     left: 15px;
+    transition: transform 0.2s;
+}
+
+#menu-btn:hover {
+    transform: scale(1.1);
 }
 
 .note-container small {

@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        menu.classList.toggle("show");
+        menu.classList.add("show");
     });
 
     // Close menu when clicking outside
