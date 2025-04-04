@@ -450,9 +450,59 @@ document.getElementById('theme-toggle').addEventListener('change', function() {
 });
 
 // Change Password
-document.getElementById('change-password').addEventListener('click', function() {
-    alert('Şifre değiştirme özelliği yakında eklenecek!');
+document.addEventListener('DOMContentLoaded', () => {
+    const changePasswordBtn = document.getElementById('change-password');
+    if (changePasswordBtn) {
+        changePasswordBtn.addEventListener('click', () => {
+            const container = document.getElementById('password-change-container');
+            container.classList.remove('hidden');
+            container.classList.add('show');
+        });
+    }
 });
+
+function closePasswordChange() {
+    const container = document.getElementById('password-change-container');
+    container.classList.remove('show');
+    container.classList.add('hidden');
+    // Clear inputs
+    document.getElementById('current-password').value = '';
+    document.getElementById('new-password').value = '';
+}
+
+// Close when clicking outside the content
+document.getElementById('password-change-container').addEventListener('click', (e) => {
+    if (e.target.id === 'password-change-container') {
+        closePasswordChange();
+    }
+});
+
+function changePassword() {
+    const user = firebase.auth().currentUser;
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const email = user.email;
+
+    if (!currentPassword || !newPassword) {
+        alert('Lütfen tüm alanları doldurun.');
+        return;
+    }
+
+    const credential = firebase.auth.EmailAuthProvider.credential(email, currentPassword);
+
+    user.reauthenticateWithCredential(credential)
+        .then(() => {
+            return user.updatePassword(newPassword);
+        })
+        .then(() => {
+            alert('Şifre başarıyla güncellendi.');
+            closePasswordChange();
+        })
+        .catch((error) => {
+            console.error('Şifre değiştirme hatası:', error);
+            alert('Şifre değiştirilemedi: ' + error.message);
+        });
+}
 
 // Delete Account
 document.getElementById('delete-account').addEventListener('click', function() {
