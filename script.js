@@ -613,9 +613,7 @@ function changePassword() {
         });
 }
 document.getElementById("change-password").addEventListener("click", () => {
-    const container = document.getElementById("password-change-container");
-    container.classList.remove("hidden");
-    container.classList.add("show");
+    window.location.href = "change-password.html";
 });
 
 function closePasswordChange() {
