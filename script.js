@@ -524,5 +524,23 @@ function changePassword() {
         });
 }
 document.getElementById("change-password").addEventListener("click", () => {
-    document.getElementById("password-change-container").classList.remove("hidden");
+    const container = document.getElementById("password-change-container");
+    container.classList.remove("hidden");
+    container.classList.add("show");
+});
+
+function closePasswordChange() {
+    const container = document.getElementById("password-change-container");
+    container.classList.remove("show");
+    container.classList.add("hidden");
+    // Clear inputs
+    document.getElementById("current-password").value = "";
+    document.getElementById("new-password").value = "";
+}
+
+// Close when clicking outside the content
+document.getElementById("password-change-container").addEventListener("click", (e) => {
+    if (e.target.id === "password-change-container") {
+        closePasswordChange();
+    }
 });

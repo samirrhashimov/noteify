@@ -814,10 +814,73 @@ header {
     
 <!-- password renew-->
 <div id="password-change-container" class="hidden">
-  <input type="password" id="current-password" placeholder="Mevcut Şifre">
-  <input type="password" id="new-password" placeholder="Yeni Şifre">
-  <button onclick="changePassword()">Onayla</button>
+    <div class="password-change-content">
+        <h3>Şifre Değiştir</h3>
+        <input type="password" id="current-password" placeholder="Mevcut Şifre">
+        <input type="password" id="new-password" placeholder="Yeni Şifre">
+        <div class="button-group">
+            <button onclick="changePassword()">Onayla</button>
+            <button onclick="closePasswordChange()" class="cancel-btn">İptal</button>
+        </div>
+    </div>
 </div>
+
+<style>
+#password-change-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+#password-change-container.show {
+    display: flex;
+}
+
+.password-change-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.password-change-content h3 {
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.password-change-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-group button {
+    flex: 1;
+    padding: 10px;
+}
+
+.cancel-btn {
+    background: #dc3545;
+}
+</style>
 
     </script>
 
