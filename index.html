@@ -812,15 +812,18 @@ header {
     <button onclick="cancelEdit()">İptal</button>
 </div>
     
-<!-- password renew-->
-<div id="password-change-container" class="hidden">
+<!-- Password Change Modal -->
+<div id="password-change-container" class="modal-overlay hidden">
     <div class="password-change-content">
-        <h3>Şifre Değiştir</h3>
-        <input type="password" id="current-password" placeholder="Mevcut Şifre">
-        <input type="password" id="new-password" placeholder="Yeni Şifre">
+        <div class="modal-header">
+            <h3>Change Password</h3>
+            <button class="close-btn" onclick="closePasswordChange()">×</button>
+        </div>
+        <input type="password" id="current-password" placeholder="Current Password">
+        <input type="password" id="new-password" placeholder="New Password">
         <div class="button-group">
-            <button onclick="changePassword()">Onayla</button>
-            <button onclick="closePasswordChange()" class="cancel-btn">İptal</button>
+            <button onclick="changePassword()" class="primary-btn">Update Password</button>
+            <button onclick="closePasswordChange()" class="secondary-btn">Cancel</button>
         </div>
     </div>
 </div>
@@ -887,7 +890,7 @@ header {
 </style>
 
 <style>
-#password-change-container {
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -897,7 +900,78 @@ header {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 9999;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.password-change-content {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.password-change-content input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.button-group button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+.primary-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.secondary-btn {
+    background: #f5f5f5;
+    color: #333;
 }
 
 #password-change-container.show {

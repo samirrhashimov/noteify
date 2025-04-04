@@ -449,58 +449,97 @@ document.getElementById('theme-toggle').addEventListener('change', function() {
     // You can add more dark mode styles as needed
 });
 
-// Change Password
+// Password Change Functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const changePasswordBtn = document.getElementById('change-password');
-    if (changePasswordBtn) {
-        changePasswordBtn.addEventListener('click', () => {
-            const container = document.getElementById('password-change-container');
-            container.classList.remove('hidden');
-            container.classList.add('show');
-        });
-    }
+    // Initialize Firebase Auth state observer
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            console.log('User is signed in');
+            initializePasswordChange();
+        } else {
+            console.log('No user is signed in');
+        }
+    });
 });
 
+function initializePasswordChange() {
+    const changePasswordBtn = document.getElementById('change-password');
+    const modalOverlay = document.getElementById('password-change-container');
+
+    if (changePasswordBtn && modalOverlay) {
+        // Show modal when clicking change password button
+        changePasswordBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.classList.add('show');
+        });
+
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closePasswordChange();
+            }
+        });
+
+        // Prevent propagation from modal content
+        const modalContent = modalOverlay.querySelector('.password-change-content');
+        if (modalContent) {
+            modalContent.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+    }
+}
+
 function closePasswordChange() {
-    const container = document.getElementById('password-change-container');
-    container.classList.remove('show');
-    container.classList.add('hidden');
+    const modalOverlay = document.getElementById('password-change-container');
+    modalOverlay.classList.remove('show');
+    modalOverlay.classList.add('hidden');
+    
     // Clear inputs
     document.getElementById('current-password').value = '';
     document.getElementById('new-password').value = '';
 }
 
-// Close when clicking outside the content
-document.getElementById('password-change-container').addEventListener('click', (e) => {
-    if (e.target.id === 'password-change-container') {
-        closePasswordChange();
-    }
-});
-
 function changePassword() {
     const user = firebase.auth().currentUser;
-    const currentPassword = document.getElementById('current-password').value;
-    const newPassword = document.getElementById('new-password').value;
-    const email = user.email;
-
-    if (!currentPassword || !newPassword) {
-        alert('Lütfen tüm alanları doldurun.');
+    
+    if (!user) {
+        alert('Please sign in to change your password');
         return;
     }
 
-    const credential = firebase.auth.EmailAuthProvider.credential(email, currentPassword);
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password').value;
 
+    if (!currentPassword || !newPassword) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    // Minimum password length check
+    if (newPassword.length < 6) {
+        alert('New password must be at least 6 characters long');
+        return;
+    }
+
+    const credential = firebase.auth.EmailAuthProvider.credential(
+        user.email,
+        currentPassword
+    );
+
+    // First reauthenticate
     user.reauthenticateWithCredential(credential)
         .then(() => {
+            // Then update password
             return user.updatePassword(newPassword);
         })
         .then(() => {
-            alert('Şifre başarıyla güncellendi.');
+            alert('Password updated successfully');
             closePasswordChange();
         })
         .catch((error) => {
-            console.error('Şifre değiştirme hatası:', error);
-            alert('Şifre değiştirilemedi: ' + error.message);
+            console.error('Error updating password:', error);
+            alert(error.message);
         });
 }
 
