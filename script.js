@@ -225,7 +225,7 @@ function cancelNote() {
 document.addEventListener('DOMContentLoaded', () => {
     const noteContainer = document.getElementById("noteContainer");
     const editNoteContainer = document.getElementById("editNoteContainer");
-    
+
     // Click outside for add note
     document.addEventListener("click", function(e) {
         if (noteContainer.classList.contains("show") && 
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelNote();
         }
     });
-    
+
     // Click outside for edit note
     document.addEventListener("click", function(e) {
         if (editNoteContainer.style.display === "block" && 
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.getElementById("menu");
-    
+
     menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         menu.classList.toggle("show");
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
-    
+
     if (searchButton && searchBox) {
         searchButton.addEventListener("click", function(e) {
             e.stopPropagation();
@@ -365,7 +365,7 @@ function loadNotes(order = "desc") {
 
                 let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
                 const displayContent = note.content.replace(/\n/g, '<br>');
-                
+
                 noteItem.innerHTML = `
                     <div class="note-header">
                         <small>${formattedDate}</small>
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filter menu toggle
     const filterBtn = document.getElementById("filter-btn");
     const filterMenu = document.getElementById("filter-menu");
-    
+
     filterBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
@@ -451,17 +451,67 @@ document.getElementById('theme-toggle').addEventListener('change', function() {
 
 // Change Password
 document.getElementById('change-password').addEventListener('click', function() {
-    alert('Şifre değiştirme özelliği yakında eklenecek!');
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        alert('Lütfen önce giriş yapın.');
+        return;
+    }
+
+    const currentPassword = prompt('Mevcut şifrenizi girin:');
+    if (!currentPassword) return;
+
+    const newPassword = prompt('Yeni şifrenizi girin:');
+    if (!newPassword) return;
+
+    const credential = firebase.auth.EmailAuthProvider.credential(
+        user.email,
+        currentPassword
+    );
+
+    user.reauthenticateWithCredential(credential).then(() => {
+        user.updatePassword(newPassword).then(() => {
+            alert('Şifreniz başarıyla güncellendi.');
+        }).catch((error) => {
+            alert('Şifre güncelleme hatası: ' + error.message);
+        });
+    }).catch((error) => {
+        if (error.code === 'auth/wrong-password') {
+            alert('Mevcut şifreniz yanlış.');
+        } else {
+            alert('Hata: ' + error.message);
+        }
+    });
 });
 
 // Delete Account
 document.getElementById('delete-account').addEventListener('click', function() {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        alert('Lütfen önce giriş yapın.');
+        return;
+    }
     document.getElementById('confirm-modal').style.display = 'block';
 });
 
 document.getElementById('confirm-delete').addEventListener('click', function() {
-    // Add actual delete account logic here
-    alert('Hesap silme özelliği yakında eklenecek!');
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        alert('Lütfen önce giriş yapın.');
+        return;
+    }
+
+    user.delete().then(() => {
+        alert('Hesabınız başarıyla silindi.');
+        window.location.href = 'login.html';
+    }).catch((error) => {
+        if (error.code === 'auth/requires-recent-login') {
+            alert('Bu işlem için yeniden giriş yapmanız gerekiyor. Lütfen çıkış yapıp tekrar giriş yapın.');
+            firebase.auth().signOut();
+            window.location.href = 'login.html';
+        } else {
+            alert('Hata: ' + error.message);
+        }
+    });
     document.getElementById('confirm-modal').style.display = 'none';
 });
 
