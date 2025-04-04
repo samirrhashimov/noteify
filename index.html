@@ -697,8 +697,8 @@ header {
         color: #333;
     }
 
-    .menu-link:hover {
-        background-color: #f5f5f5;
+    .menu-link {
+        transition: none;
     }
     </style>
 </head>
@@ -714,7 +714,7 @@ header {
 </div>
     <div id="menu" class="hidden">
         <p id="username">Kullanıcı Adı</p>
-        <button class="menu-link" id="settings-link" onclick="toggleSettingsPanel()" style="background: none; border: none; width: 100%; text-align: left; padding: 6px 0; cursor: pointer; color: #333;">Ayarlar</button>
+        <button class="menu-link" id="settings-link" onclick="toggleSettingsPanel()" style="background: none; border: none; width: 100%; text-align: left; padding: 6px 0; cursor: pointer; color: #333; box-shadow: none;">Ayarlar</button>
         <a href="#">Arşiv (Gelecekte)</a>
         <a href="#">Çöp Kutusu (Gelecekte)</a>
         <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
