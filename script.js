@@ -546,6 +546,7 @@ document.getElementById("password-change-container").addEventListener("click", (
     }
 });
 //archive
+// Archive note function
 function archiveNote(noteId) {
     let user = firebase.auth().currentUser;
     if (user) {
@@ -553,19 +554,71 @@ function archiveNote(noteId) {
             archived: true
         }).then(() => {
             console.log("Not arşive taşındı.");
-            loadNotes(); // Notları yeniden yükle, güncel listeyi göstermek için
+            loadNotes();
         }).catch(error => {
             console.error("Arşivleme hatası:", error);
         });
     }
 }
 
+// Show archived notes
 function showArchivedNotes() {
-  const userId = firebase.auth().currentUser.uid;
-  const notesRef = firebase.database().ref('users/' + userId + '/notes');
+    let user = firebase.auth().currentUser;
+    let notesList = document.getElementById("notesList");
 
-  notesRef.once('value').then(snapshot => {
-    const notes = snapshot.val();
-    displayNotes(Object.entries(notes).filter(([id, note]) => note.archived));
-  });
+    if (!user) {
+        console.log("Giriş yapmış kullanıcı yok.");
+        return;
+    }
+
+    firebase.firestore().collection("notlar")
+        .where("uid", "==", user.uid)
+        .where("archived", "==", true)
+        .orderBy("timestamp", "desc")
+        .get()
+        .then(snapshot => {
+            notesList.innerHTML = "";
+            
+            if (snapshot.empty) {
+                notesList.innerHTML = "<p>Arşivlenmiş not bulunamadı.</p>";
+                return;
+            }
+
+            snapshot.forEach(doc => {
+                let note = doc.data();
+                let noteItem = document.createElement("div");
+                noteItem.classList.add("note-container");
+
+                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+                const displayContent = note.content.replace(/\n/g, '<br>');
+                
+                noteItem.innerHTML = `
+                    <div class="note-header">
+                        <small>${formattedDate}</small>
+                        <button class="three-dot-menu">⋮</button>
+                        <div class="note-menu">
+                            <div class="menu-item" onclick="unarchiveNote('${doc.id}')">Arşivden Çıkar</div>
+                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+                        </div>
+                    </div>
+                    <p>${displayContent}</p>
+                `;
+                notesList.appendChild(noteItem);
+            });
+        });
+}
+
+// Unarchive note function
+function unarchiveNote(noteId) {
+    let user = firebase.auth().currentUser;
+    if (user) {
+        firebase.firestore().collection("notlar").doc(noteId).update({
+            archived: false
+        }).then(() => {
+            console.log("Not arşivden çıkarıldı.");
+            showArchivedNotes();
+        }).catch(error => {
+            console.error("Arşivden çıkarma hatası:", error);
+        });
+    }
 }
