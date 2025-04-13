@@ -545,3 +545,17 @@ document.getElementById("password-change-container").addEventListener("click", (
         closePasswordChange();
     }
 });
+//archive
+function archiveNote(noteId) {
+    let user = firebase.auth().currentUser;
+    if (user) {
+        firebase.firestore().collection("notlar").doc(noteId).update({
+            archived: true
+        }).then(() => {
+            console.log("Not arşive taşındı.");
+            loadNotes(); // Notları yeniden yükle, güncel listeyi göstermek için
+        }).catch(error => {
+            console.error("Arşivleme hatası:", error);
+        });
+    }
+}
