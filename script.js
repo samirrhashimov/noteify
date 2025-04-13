@@ -559,3 +559,13 @@ function archiveNote(noteId) {
         });
     }
 }
+
+function showArchivedNotes() {
+  const userId = firebase.auth().currentUser.uid;
+  const notesRef = firebase.database().ref('users/' + userId + '/notes');
+
+  notesRef.once('value').then(snapshot => {
+    const notes = snapshot.val();
+    displayNotes(Object.entries(notes).filter(([id, note]) => note.archived));
+  });
+}
