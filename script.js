@@ -40,8 +40,7 @@ function addNote() {
         firebase.firestore().collection("notlar").add({
             uid: user.uid,
             content: noteContent,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            archived: false
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
             console.log("Not kaydedildi!");
             document.getElementById("noteInput").value = "";
@@ -56,7 +55,7 @@ function addNote() {
 }
 
 // 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
-function loadNotes(order = "desc") {
+function loadNotes() {
     let user = firebase.auth().currentUser;
     let notesList = document.getElementById("notesList");
 
@@ -65,50 +64,35 @@ function loadNotes(order = "desc") {
         return;
     }
 
-    let query = firebase.firestore().collection("notlar")
+    firebase.firestore().collection("notlar")
         .where("uid", "==", user.uid)
-        .orderBy("timestamp", order);
+        .orderBy("timestamp", "desc")
+        .onSnapshot(snapshot => {  
+            notesList.innerHTML = ""; // Eski notları temizle
 
-    // Add archived filter if it exists in the document
-    if (currentView === 'archived') {
-        query = query.where("archived", "==", true);
-    } else {
-        query = query.where("archived", "==", false);
-    }
+            if (snapshot.empty) {
+                return;
+            }
 
-    query.onSnapshot(snapshot => {
-        notesList.innerHTML = "";
-        const emptyState = document.getElementById("emptyState");
+            snapshot.docs.forEach(doc => {
+                let note = doc.data();
+                let noteItem = document.createElement("div");
+                noteItem.classList.add("note-container");
 
-        if (snapshot.empty) {
-            emptyState.style.display = "block";
-            return;
-        }
-        emptyState.style.display = "none";
+                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
 
-        snapshot.docs.forEach(doc => {
-            let note = doc.data();
-            let noteItem = document.createElement("div");
-            noteItem.classList.add("note-container");
+                // Convert line breaks to <br> tags for display
+                const displayContent = note.content.replace(/\n/g, '<br>');
+                noteItem.innerHTML = `
+<small>${formattedDate}</small>
+   <p>${displayContent}</p>
+                    <button onclick="deleteNote('${doc.id}')"style= background-color:red ;>Sil</button>
+                    <button onclick="editNote('${doc.id}')">Düzenle</button>
 
-            let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
-            const displayContent = note.content.replace(/\n/g, '<br>');
-
-            noteItem.innerHTML = `
-                <div class="note-header">
-                    <small>${formattedDate}</small>
-                    <button class="three-dot-menu">⋮</button>
-                    <div class="note-menu">
-                        <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                        <div class="menu-item" onclick="toggleArchiveNote('${doc.id}', ${note.archived || false})">${note.archived ? 'Arşivden Çıkar' : 'Arşivle'}</div>
-                        <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
-                    </div>
-                </div>
-                <p>${displayContent}</p>
-            `;
-            notesList.appendChild(noteItem);
+                `;
+                notesList.appendChild(noteItem);
+            });
         });
-    });
 }
 
 // 📌 Not silme fonksiyonu
@@ -241,7 +225,7 @@ function cancelNote() {
 document.addEventListener('DOMContentLoaded', () => {
     const noteContainer = document.getElementById("noteContainer");
     const editNoteContainer = document.getElementById("editNoteContainer");
-
+    
     // Click outside for add note
     document.addEventListener("click", function(e) {
         if (noteContainer.classList.contains("show") && 
@@ -250,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelNote();
         }
     });
-
+    
     // Click outside for edit note
     document.addEventListener("click", function(e) {
         if (editNoteContainer.style.display === "block" && 
@@ -261,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.getElementById("menu");
-
+    
     menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         menu.classList.add("show");
@@ -295,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
-
+    
     if (searchButton && searchBox) {
         searchButton.addEventListener("click", function(e) {
             e.stopPropagation();
@@ -345,37 +329,64 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Archive Management Functions
-let currentView = 'all'; // 'all' or 'archived'
 
-function showAllNotes() {
-    currentView = 'all';
-    loadNotes();
-    document.getElementById('menu').classList.remove('show');
-}
+function loadNotes(order = "desc") {
+    let user = firebase.auth().currentUser;
+    let notesList = document.getElementById("notesList");
 
-function showArchivedNotes() {
-    currentView = 'archived';
-    loadNotes();
-    document.getElementById('menu').classList.remove('show');
-}
+    if (!user) {
+        console.log("Giriş yapmış kullanıcı yok.");
+        return;
+    }
 
-function toggleArchiveNote(noteId, currentlyArchived) {
-    firebase.firestore().collection("notlar").doc(noteId).update({
-        archived: !currentlyArchived
-    }).then(() => {
-        console.log(currentlyArchived ? "Note restored" : "Note archived");
-    }).catch(error => {
-        console.error("Error updating archive status:", error);
+    // Update visual indication of sorting
+    document.querySelectorAll('.filter-option').forEach(option => {
+        option.classList.remove('active');
     });
-}
+    document.getElementById(order === "desc" ? "sort-newest" : "sort-oldest").classList.add('active');
 
+    firebase.firestore().collection("notlar")
+        .where("uid", "==", user.uid)
+        .orderBy("timestamp", order)
+        .onSnapshot(snapshot => {
+            notesList.innerHTML = "";
+            const emptyState = document.getElementById("emptyState");
+
+            if (snapshot.empty) {
+                emptyState.style.display = "block";
+                return;
+            }
+            emptyState.style.display = "none";
+
+            snapshot.docs.forEach(doc => {
+                let note = doc.data();
+                let noteItem = document.createElement("div");
+                noteItem.classList.add("note-container");
+
+                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+                const displayContent = note.content.replace(/\n/g, '<br>');
+                
+                noteItem.innerHTML = `
+                    <div class="note-header">
+                        <small>${formattedDate}</small>
+                        <button class="three-dot-menu">⋮</button>
+                        <div class="note-menu">
+                            <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
+                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+                        </div>
+                    </div>
+                    <p>${displayContent}</p>
+                `;
+                notesList.appendChild(noteItem);
+            });
+        });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Filter menu toggle
     const filterBtn = document.getElementById("filter-btn");
     const filterMenu = document.getElementById("filter-menu");
-
+    
     filterBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
@@ -385,7 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener("click", function(e) {
         if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
             filterMenu.style.display = "none";
-
         }
     });
 
