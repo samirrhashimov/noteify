@@ -67,8 +67,14 @@ function loadNotes(order = "desc") {
 
     let query = firebase.firestore().collection("notlar")
         .where("uid", "==", user.uid)
-        .where("archived", "==", currentView === 'archived')
         .orderBy("timestamp", order);
+
+    // Add archived filter if it exists in the document
+    if (currentView === 'archived') {
+        query = query.where("archived", "==", true);
+    } else {
+        query = query.where("archived", "==", false);
+    }
 
     query.onSnapshot(snapshot => {
         notesList.innerHTML = "";
