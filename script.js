@@ -65,12 +65,6 @@ function loadNotes(order = "desc") {
         return;
     }
 
-    // Update visual indication of sorting
-    document.querySelectorAll('.filter-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    document.getElementById(order === "desc" ? "sort-newest" : "sort-oldest").classList.add('active');
-
     let query = firebase.firestore().collection("notlar")
         .where("uid", "==", user.uid)
         .where("archived", "==", currentView === 'archived')
@@ -100,7 +94,7 @@ function loadNotes(order = "desc") {
                     <button class="three-dot-menu">⋮</button>
                     <div class="note-menu">
                         <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                        <div class="menu-item" onclick="toggleArchiveNote('${doc.id}', ${note.archived})">${note.archived ? 'Arşivden Çıkar' : 'Arşivle'}</div>
+                        <div class="menu-item" onclick="toggleArchiveNote('${doc.id}', ${note.archived || false})">${note.archived ? 'Arşivden Çıkar' : 'Arşivle'}</div>
                         <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
                     </div>
                 </div>
@@ -370,55 +364,6 @@ function toggleArchiveNote(noteId, currentlyArchived) {
     });
 }
 
-// Update loadNotes function to handle archive filtering
-function loadNotes(order = "desc") {
-    let user = firebase.auth().currentUser;
-    let notesList = document.getElementById("notesList");
-
-    if (!user) {
-        console.log("Giriş yapmış kullanıcı yok.");
-        return;
-    }
-
-    let query = firebase.firestore().collection("notlar")
-        .where("uid", "==", user.uid)
-        .where("archived", "==", currentView === 'archived')
-        .orderBy("timestamp", order);
-
-    query.onSnapshot(snapshot => {
-        notesList.innerHTML = "";
-        const emptyState = document.getElementById("emptyState");
-
-        if (snapshot.empty) {
-            emptyState.style.display = "block";
-            return;
-        }
-        emptyState.style.display = "none";
-
-        snapshot.docs.forEach(doc => {
-            let note = doc.data();
-            let noteItem = document.createElement("div");
-            noteItem.classList.add("note-container");
-
-            let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
-            const displayContent = note.content.replace(/\n/g, '<br>');
-
-            noteItem.innerHTML = `
-                <div class="note-header">
-                    <small>${formattedDate}</small>
-                    <button class="three-dot-menu">⋮</button>
-                    <div class="note-menu">
-                        <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                        <div class="menu-item" onclick="toggleArchiveNote('${doc.id}', ${note.archived})">${note.archived ? 'Arşivden Çıkar' : 'Arşivle'}</div>
-                        <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
-                    </div>
-                </div>
-                <p>${displayContent}</p>
-            `;
-            notesList.appendChild(noteItem);
-        });
-    });
-}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Filter menu toggle
