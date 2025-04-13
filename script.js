@@ -82,23 +82,36 @@ function addNote() {
     let noteContent = document.getElementById("noteInput").value;
     let user = firebase.auth().currentUser;
 
-    if (user && noteContent.trim() !== "") {
-        firebase.firestore().collection("notlar").add({
-            uid: user.uid,
-            content: noteContent,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            archived: false
-        }).then(() => {
-            console.log("Not kaydedildi!");
+    if (!user) {
+        alert("Not eklemek için giriş yapmalısınız!");
+        return;
+    }
+
+    if (!noteContent || noteContent.trim() === "") {
+        alert("Lütfen bir not giriniz!");
+        return;
+    }
+
+    const noteData = {
+        uid: user.uid,
+        content: noteContent.trim(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        archived: false
+    };
+
+    firebase.firestore().collection("notlar")
+        .add(noteData)
+        .then(() => {
+            console.log("Not başarıyla kaydedildi!");
             document.getElementById("noteInput").value = "";
             let noteContainer = document.getElementById("noteContainer");
             noteContainer.classList.remove("show");
-        }).catch(error => {
+            loadNotes(); // Refresh notes list
+        })
+        .catch(error => {
             console.error("Not kaydetme hatası:", error);
+            alert("Not kaydedilirken bir hata oluştu!");
         });
-    } else {
-        alert("Not eklemek için giriş yapmalısınız!");
-    }
 }
 
 // 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
@@ -719,46 +732,61 @@ function unarchiveNote(noteId) {
 function loadNotes(order = "desc") {
     let user = firebase.auth().currentUser;
     let notesList = document.getElementById("notesList");
+    const emptyState = document.getElementById("emptyState");
 
     if (!user) {
         console.log("Giriş yapmış kullanıcı yok.");
+        notesList.innerHTML = "";
+        emptyState.style.display = "block";
         return;
     }
 
-    firebase.firestore().collection("notlar")
-        .where("uid", "==", user.uid)
-        .where("archived", "==", false)
-        .orderBy("timestamp", order)
-        .onSnapshot(snapshot => {
-            notesList.innerHTML = "";
-            const emptyState = document.getElementById("emptyState");
+    try {
+        firebase.firestore().collection("notlar")
+            .where("uid", "==", user.uid)
+            .where("archived", "==", false)
+            .orderBy("timestamp", order)
+            .onSnapshot(snapshot => {
+                notesList.innerHTML = "";
 
-            if (snapshot.empty) {
-                emptyState.style.display = "block";
-                return;
-            }
-            emptyState.style.display = "none";
+                if (!snapshot || snapshot.empty) {
+                    console.log("No notes found");
+                    emptyState.style.display = "block";
+                    return;
+                }
 
-            snapshot.forEach(doc => {
-                let note = doc.data();
-                let noteItem = document.createElement("div");
-                noteItem.classList.add("note-container");
+                emptyState.style.display = "none";
 
-                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
-                const displayContent = note.content.replace(/\n/g, '<br>');
+                snapshot.forEach(doc => {
+                    if (!doc.exists) return;
 
-                noteItem.innerHTML = `
-                    <div class="note-header">
-                        <small>${formattedDate}</small>
-                        <div class="note-actions">
-                            <button onclick="editNote('${doc.id}')" class="action-btn edit-btn">Düzenle</button>
-                            <button onclick="archiveNote('${doc.id}')" class="action-btn archive-btn">Arşivle</button>
-                            <button onclick="deleteNote('${doc.id}')" class="action-btn delete-btn">Sil</button>
+                    let note = doc.data();
+                    let noteItem = document.createElement("div");
+                    noteItem.classList.add("note-container");
+
+                    let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+                    const displayContent = note.content ? note.content.replace(/\n/g, '<br>') : '';
+
+                    noteItem.innerHTML = `
+                        <div class="note-header">
+                            <small>${formattedDate}</small>
+                            <div class="note-actions">
+                                <button onclick="editNote('${doc.id}')" class="action-btn edit-btn">Düzenle</button>
+                                <button onclick="archiveNote('${doc.id}')" class="action-btn archive-btn">Arşivle</button>
+                                <button onclick="deleteNote('${doc.id}')" class="action-btn delete-btn">Sil</button>
+                            </div>
                         </div>
-                    </div>
-                    <p>${displayContent}</p>
-                `;
-                notesList.appendChild(noteItem);
+                        <p>${displayContent}</p>
+                    `;
+                    notesList.appendChild(noteItem);
+                });
+            }, error => {
+                console.error("Error loading notes:", error);
+                notesList.innerHTML = '<p class="error-message">Notlar yüklenirken bir hata oluştu.</p>';
             });
-        });
+    } catch (error) {
+        console.error("Error in loadNotes:", error);
+        notesList.innerHTML = '<p class="error-message">Notlar yüklenirken bir hata oluştu.</p>';
+        emptyState.style.display = "block";
+    }
 }
