@@ -41,6 +41,7 @@ function addNote() {
             uid: user.uid,
             content: noteContent,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            archived: false
         }).then(() => {
             console.log("Not kaydedildi!");
             document.getElementById("noteInput").value = "";
@@ -370,9 +371,11 @@ function loadNotes(order = "desc") {
                     <div class="note-header">
                         <small>${formattedDate}</small>
                         <button class="three-dot-menu">⋮</button>
-                        <div class="note-menu">
-                            <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+ <div class="note-menu">
+<div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
+<div class="menu-item" onclick="archiveNote('${doc.id}')">Arşive Taşı</div>
+ <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+ 
                         </div>
                     </div>
                     <p>${displayContent}</p>
