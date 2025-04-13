@@ -56,7 +56,7 @@ function addNote() {
 }
 
 // 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
-function loadNotes() {
+function loadNotes(order = "desc") {
     let user = firebase.auth().currentUser;
     let notesList = document.getElementById("notesList");
 
@@ -65,35 +65,50 @@ function loadNotes() {
         return;
     }
 
-    firebase.firestore().collection("notlar")
+    // Update visual indication of sorting
+    document.querySelectorAll('.filter-option').forEach(option => {
+        option.classList.remove('active');
+    });
+    document.getElementById(order === "desc" ? "sort-newest" : "sort-oldest").classList.add('active');
+
+    let query = firebase.firestore().collection("notlar")
         .where("uid", "==", user.uid)
-        .orderBy("timestamp", "desc")
-        .onSnapshot(snapshot => {  
-            notesList.innerHTML = ""; // Eski notları temizle
+        .where("archived", "==", currentView === 'archived')
+        .orderBy("timestamp", order);
 
-            if (snapshot.empty) {
-                return;
-            }
+    query.onSnapshot(snapshot => {
+        notesList.innerHTML = "";
+        const emptyState = document.getElementById("emptyState");
 
-            snapshot.docs.forEach(doc => {
-                let note = doc.data();
-                let noteItem = document.createElement("div");
-                noteItem.classList.add("note-container");
+        if (snapshot.empty) {
+            emptyState.style.display = "block";
+            return;
+        }
+        emptyState.style.display = "none";
 
-                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+        snapshot.docs.forEach(doc => {
+            let note = doc.data();
+            let noteItem = document.createElement("div");
+            noteItem.classList.add("note-container");
 
-                // Convert line breaks to <br> tags for display
-                const displayContent = note.content.replace(/\n/g, '<br>');
-                noteItem.innerHTML = `
-<small>${formattedDate}</small>
-   <p>${displayContent}</p>
-                    <button onclick="deleteNote('${doc.id}')"style= background-color:red ;>Sil</button>
-                    <button onclick="editNote('${doc.id}')">Düzenle</button>
+            let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+            const displayContent = note.content.replace(/\n/g, '<br>');
 
-                `;
-                notesList.appendChild(noteItem);
-            });
+            noteItem.innerHTML = `
+                <div class="note-header">
+                    <small>${formattedDate}</small>
+                    <button class="three-dot-menu">⋮</button>
+                    <div class="note-menu">
+                        <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
+                        <div class="menu-item" onclick="toggleArchiveNote('${doc.id}', ${note.archived})">${note.archived ? 'Arşivden Çıkar' : 'Arşivle'}</div>
+                        <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+                    </div>
+                </div>
+                <p>${displayContent}</p>
+            `;
+            notesList.appendChild(noteItem);
         });
+    });
 }
 
 // 📌 Not silme fonksiyonu
@@ -226,7 +241,7 @@ function cancelNote() {
 document.addEventListener('DOMContentLoaded', () => {
     const noteContainer = document.getElementById("noteContainer");
     const editNoteContainer = document.getElementById("editNoteContainer");
-    
+
     // Click outside for add note
     document.addEventListener("click", function(e) {
         if (noteContainer.classList.contains("show") && 
@@ -235,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelNote();
         }
     });
-    
+
     // Click outside for edit note
     document.addEventListener("click", function(e) {
         if (editNoteContainer.style.display === "block" && 
@@ -246,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.getElementById("menu");
-    
+
     menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         menu.classList.add("show");
@@ -280,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
-    
+
     if (searchButton && searchBox) {
         searchButton.addEventListener("click", function(e) {
             e.stopPropagation();
@@ -329,74 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-
-function loadNotes(order = "desc") {
-    let user = firebase.auth().currentUser;
-    let notesList = document.getElementById("notesList");
-
-    if (!user) {
-        console.log("Giriş yapmış kullanıcı yok.");
-        return;
-    }
-
-    // Update visual indication of sorting
-    document.querySelectorAll('.filter-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    document.getElementById(order === "desc" ? "sort-newest" : "sort-oldest").classList.add('active');
-
-    firebase.firestore().collection("notlar")
-        .where("uid", "==", user.uid)
-        .orderBy("timestamp", order)
-        .onSnapshot(snapshot => {
-            notesList.innerHTML = "";
-            const emptyState = document.getElementById("emptyState");
-
-            if (snapshot.empty) {
-                emptyState.style.display = "block";
-                return;
-            }
-            emptyState.style.display = "none";
-
-            snapshot.docs.forEach(doc => {
-                let note = doc.data();
-                let noteItem = document.createElement("div");
-                noteItem.classList.add("note-container");
-
-                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
-                const displayContent = note.content.replace(/\n/g, '<br>');
-                
-                noteItem.innerHTML = `
-                    <div class="note-header">
-                        <small>${formattedDate}</small>
-                        <button class="three-dot-menu">⋮</button>
-                        <div class="note-menu">
-                            <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
-                        </div>
-                    </div>
-                    <p>${displayContent}</p>
-                `;
-                notesList.appendChild(noteItem);
-            });
-        });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Filter menu toggle
-    const filterBtn = document.getElementById("filter-btn");
-    const filterMenu = document.getElementById("filter-menu");
-    
-    filterBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
-    });
-
-    // Close filter menu when clicking outside
-    document.addEventListener("click", function(e) {
-        if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
-            filterMenu.style.display = "none";
 
 // Archive Management Functions
 let currentView = 'all'; // 'all' or 'archived'
@@ -455,7 +402,7 @@ function loadNotes(order = "desc") {
 
             let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
             const displayContent = note.content.replace(/\n/g, '<br>');
-            
+
             noteItem.innerHTML = `
                 <div class="note-header">
                     <small>${formattedDate}</small>
@@ -472,6 +419,21 @@ function loadNotes(order = "desc") {
         });
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Filter menu toggle
+    const filterBtn = document.getElementById("filter-btn");
+    const filterMenu = document.getElementById("filter-menu");
+
+    filterBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
+    });
+
+    // Close filter menu when clicking outside
+    document.addEventListener("click", function(e) {
+        if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
+            filterMenu.style.display = "none";
 
         }
     });
