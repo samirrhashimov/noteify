@@ -741,52 +741,41 @@ function loadNotes(order = "desc") {
         return;
     }
 
-    try {
-        firebase.firestore().collection("notlar")
-            .where("uid", "==", user.uid)
-            .where("archived", "==", false)
-            .orderBy("timestamp", order)
-            .onSnapshot(snapshot => {
-                notesList.innerHTML = "";
+    firebase.firestore().collection("notlar")
+        .where("uid", "==", user.uid)
+        .where("archived", "==", false)
+        .orderBy("timestamp", order)
+        .onSnapshot(snapshot => {
+            notesList.innerHTML = "";
+            if (snapshot.empty) {
+                emptyState.style.display = "block";
+                return;
+            }
+            emptyState.style.display = "none";
 
-                if (!snapshot || snapshot.empty) {
-                    console.log("No notes found");
-                    emptyState.style.display = "block";
-                    return;
-                }
+            snapshot.forEach(doc => {
+                let note = doc.data();
+                let noteItem = document.createElement("div");
+                noteItem.classList.add("note-container");
 
-                emptyState.style.display = "none";
+                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+                const displayContent = note.content.replace(/\n/g, '<br>');
 
-                snapshot.forEach(doc => {
-                    if (!doc.exists) return;
-
-                    let note = doc.data();
-                    let noteItem = document.createElement("div");
-                    noteItem.classList.add("note-container");
-
-                    let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
-                    const displayContent = note.content ? note.content.replace(/\n/g, '<br>') : '';
-
-                    noteItem.innerHTML = `
-                        <div class="note-header">
-                            <small>${formattedDate}</small>
-                            <div class="note-actions">
-                                <button onclick="editNote('${doc.id}')" class="action-btn edit-btn">Düzenle</button>
-                                <button onclick="archiveNote('${doc.id}')" class="action-btn archive-btn">Arşivle</button>
-                                <button onclick="deleteNote('${doc.id}')" class="action-btn delete-btn">Sil</button>
-                            </div>
+                noteItem.innerHTML = `
+                    <div class="note-header">
+                        <small>${formattedDate}</small>
+                        <div class="note-actions">
+                            <button onclick="editNote('${doc.id}')" class="action-btn edit-btn">Düzenle</button>
+                            <button onclick="archiveNote('${doc.id}')" class="action-btn archive-btn">Arşivle</button>
+                            <button onclick="deleteNote('${doc.id}')" class="action-btn delete-btn">Sil</button>
                         </div>
-                        <p>${displayContent}</p>
-                    `;
-                    notesList.appendChild(noteItem);
-                });
-            }, error => {
-                console.error("Error loading notes:", error);
-                notesList.innerHTML = '<p class="error-message">Notlar yüklenirken bir hata oluştu.</p>';
+                    </div>
+                    <p>${displayContent}</p>
+                `;
+                notesList.appendChild(noteItem);
             });
-    } catch (error) {
-        console.error("Error in loadNotes:", error);
-        notesList.innerHTML = '<p class="error-message">Notlar yüklenirken bir hata oluştu.</p>';
-        emptyState.style.display = "block";
-    }
+        }, error => {
+            console.error("Error loading notes:", error);
+            notesList.innerHTML = '<p class="error-message">Notlar yüklenirken bir hata oluştu.</p>';
+        });
 }
