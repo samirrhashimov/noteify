@@ -1,3 +1,5 @@
+let deleteNoteId = null;
+
 // 🔥 Firebase Authentication ile giriş kontrolü
 // Auth State Observer
 document.addEventListener('DOMContentLoaded', () => {
@@ -338,7 +340,31 @@ function loadNotes(order = "desc") {
         console.log("Giriş yapmış kullanıcı yok.");
         return;
     }
+    
+//delete note confirmation
+let deleteNoteId = null;
 
+function confirmDelete(noteId) {
+  deleteNoteId = noteId;
+  document.getElementById("deleteModal").style.display = "block";
+}
+
+document.getElementById("confirmDelete").addEventListener("click", function () {
+  if (deleteNoteId) {
+    firebase.firestore().collection("notlar").doc(deleteNoteId).delete().then(() => {
+      console.log("Not silindi.");
+      document.getElementById("deleteModal").style.display = "none";
+      deleteNoteId = null;
+      loadNotes(); // Sayfayı güncelle
+    });
+  }
+});
+
+document.getElementById("cancelDelete").addEventListener("click", function () {
+  document.getElementById("deleteModal").style.display = "none";
+  deleteNoteId = null;
+});
+    
     // Update visual indication of sorting
     document.querySelectorAll('.filter-option').forEach(option => {
         option.classList.remove('active');
@@ -543,26 +569,3 @@ document.getElementById("password-change-container").addEventListener("click", (
     }
 });
 
-//delete note confirmation
-let deleteNoteId = null;
-
-function confirmDelete(noteId) {
-  deleteNoteId = noteId;
-  document.getElementById("deleteModal").style.display = "block";
-}
-
-document.getElementById("confirmDelete").addEventListener("click", function () {
-  if (deleteNoteId) {
-    firebase.firestore().collection("notlar").doc(deleteNoteId).delete().then(() => {
-      console.log("Not silindi.");
-      document.getElementById("deleteModal").style.display = "none";
-      deleteNoteId = null;
-      loadNotes(); // Sayfayı güncelle
-    });
-  }
-});
-
-document.getElementById("cancelDelete").addEventListener("click", function () {
-  document.getElementById("deleteModal").style.display = "none";
-  deleteNoteId = null;
-});
