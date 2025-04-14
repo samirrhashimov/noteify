@@ -361,6 +361,11 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
   document.getElementById("deleteModal").style.display = "none";
   deleteNoteId = null;
 });
+
+document.getElementById("cancelDelete").addEventListener("click", function () {
+  document.getElementById("deleteModal").style.display = "none";
+  deleteNoteId = null;
+});
     
     // Update visual indication of sorting
     document.querySelectorAll('.filter-option').forEach(option => {
