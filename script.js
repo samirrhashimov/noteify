@@ -1,5 +1,3 @@
-let deleteNoteId = null;
-
 // 🔥 Firebase Authentication ile giriş kontrolü
 // Auth State Observer
 document.addEventListener('DOMContentLoaded', () => {
@@ -343,7 +341,6 @@ function loadNotes(order = "desc") {
     
 //delete note confirmation
 let deleteNoteId = null;
-
 function confirmDelete(noteId) {
   deleteNoteId = noteId;
   document.getElementById("deleteModal").style.display = "block";
@@ -398,7 +395,7 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
                             <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                            <div class="menu-item" onclick="confirmDelete('${doc.id}')">Sil</div>
+    <div class="menu-item" onclick="confirmDelete('${doc.id}')">Sil</div>
                         </div>
                     </div>
                     <p>${displayContent}</p>
