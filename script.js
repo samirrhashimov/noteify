@@ -84,15 +84,33 @@ function loadNotes() {
                 // Convert line breaks to <br> tags for display
                 const displayContent = note.content.replace(/\n/g, '<br>');
                 noteItem.innerHTML = `
-<small>${formattedDate}</small>
-   <p>${displayContent}</p>
-                    <button onclick="deleteNote('${doc.id}')"style= background-color:red ;>Sil</button>
-                    <button onclick="editNote('${doc.id}')">Düzenle</button>
-
+                    <div class="note-header">
+                        <small>${formattedDate}</small>
+                        <div class="note-menu">
+                            <button onclick="confirmDelete('${doc.id}')" style="background-color:red;">Sil</button>
+                            <button onclick="editNote('${doc.id}')">Düzenle</button>
+                        </div>
+                    </div>
+                    <p>${displayContent}</p>
                 `;
                 notesList.appendChild(noteItem);
             });
         });
+}
+
+// 📌 Not silme onaylama fonksiyonu
+function confirmDelete(noteId) {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.style.display = 'block';
+    
+    document.getElementById('confirmDelete').onclick = function() {
+        deleteNote(noteId);
+        deleteModal.style.display = 'none';
+    };
+    
+    document.getElementById('cancelDelete').onclick = function() {
+        deleteModal.style.display = 'none';
+    };
 }
 
 // 📌 Not silme fonksiyonu
