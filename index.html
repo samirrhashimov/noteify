@@ -707,6 +707,22 @@ header {
     .menu-link {
         transition: none;
     }
+
+  .modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20% auto;
+    width: 300px;
+    text-align: center;
+  }
     </style>
 </head>
 <body>
@@ -818,6 +834,13 @@ header {
     <textarea id="editNoteInput"></textarea>
     <button onclick="saveEdit()">Kaydet</button>
     <button onclick="cancelEdit()">İptal</button>
+</div>
+<div id="deleteModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <p>Bu notu silmek istediğinize emin misiniz?</p>
+    <button id="confirmDelete">Evet</button>
+    <button id="cancelDelete">Hayır</button>
+  </div>
 </div>
     
 

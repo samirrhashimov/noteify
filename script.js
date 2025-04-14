@@ -372,7 +372,7 @@ function loadNotes(order = "desc") {
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
                             <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-                            <div class="menu-item" onclick="deleteNote('${doc.id}')">Sil</div>
+                            <div class="menu-item" onclick="confirmDelete('${doc.id}')">Sil</div>
                         </div>
                     </div>
                     <p>${displayContent}</p>
@@ -541,4 +541,28 @@ document.getElementById("password-change-container").addEventListener("click", (
     if (e.target.id === "password-change-container") {
         closePasswordChange();
     }
+});
+
+//delete note confirmation
+let deleteNoteId = null;
+
+function confirmDelete(noteId) {
+  deleteNoteId = noteId;
+  document.getElementById("deleteModal").style.display = "block";
+}
+
+document.getElementById("confirmDelete").addEventListener("click", function () {
+  if (deleteNoteId) {
+    firebase.firestore().collection("notlar").doc(deleteNoteId).delete().then(() => {
+      console.log("Not silindi.");
+      document.getElementById("deleteModal").style.display = "none";
+      deleteNoteId = null;
+      loadNotes(); // Sayfayı güncelle
+    });
+  }
+});
+
+document.getElementById("cancelDelete").addEventListener("click", function () {
+  document.getElementById("deleteModal").style.display = "none";
+  deleteNoteId = null;
 });
