@@ -341,7 +341,6 @@ function loadNotes(order = "desc") {
     
 //delete note confirmation
 let deleteNoteId = null;
-}
 
 function confirmDelete(noteId) {
   deleteNoteId = noteId;
