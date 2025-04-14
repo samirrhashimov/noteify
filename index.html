@@ -723,6 +723,34 @@ header {
     width: 300px;
     text-align: center;
   }
+    #confirmDelete, #cancelDelete {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#confirmDelete {
+    background-color: #ff4d4d; /* Red for confirm */
+    color: white;
+}
+
+#cancelDelete {
+    background-color: #f0f0f0; /* Light gray for cancel */
+    color: #333;
+}
+
+#confirmDelete:hover {
+    background-color: #e60000; /* Darker red on hover */
+    transform: scale(1.05);
+}
+
+#cancelDelete:hover {
+    background-color: #d9d9d9; /* Darker gray on hover */
+    transform: scale(1.05);
+}
     </style>
 </head>
 <body>
