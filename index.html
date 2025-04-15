@@ -330,7 +330,7 @@ header {
   white-space: nowrap;
   flex-grow: 1;
   text-align: right;
-  font-size; 20px;
+  font-size: 20px;
  }
 
 #menu {
@@ -418,7 +418,7 @@ header {
 #searchInput {
     width: calc(100% - 50px);
     margin: 0;
-    padding: 12px 40px 12px 15px;
+    padding: 10 px 40px 12px 15px;
     border: 1px solid #eee;
     border-radius: 25px;
     font-size: 16px;
@@ -467,7 +467,7 @@ header {
 
 #filter-menu {
     position: absolute;
-    top: 50px;
+    top: 55px;
     right: 10px;
     background: white;
     color: black;
@@ -751,6 +751,40 @@ header {
     background-color: #d9d9d9; /* Darker gray on hover */
     transform: scale(1.05);
 }
+
+#savenote1,
+#cancelnote2 {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 5px;
+  font-weight: 500;
+}
+
+/* Kaydet butonu - yeşil ton */
+#savenote1 {
+  background-color: #28a745;
+  color: white;
+}
+
+#savenote1:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* İptal butonu - kırmızımsı ton */
+#cancelnote2 {
+  background-color: #dc3545;
+  color: white;
+}
+
+#cancelnote2:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
     </style>
 </head>
 <body>
@@ -843,9 +877,9 @@ header {
 </nav>
 
 <div id="noteContainer" class="hidden">
-    <textarea id="noteInput" placeholder="Notunuzu buraya yazın..."></textarea>
-    <button onclick="addNote()">Kaydet</button>
-  <button onclick="cancelNote()">İptal</button>
+    <textarea id="noteInput" placeholder="Notunuzu yazın..."></textarea>
+    <button id="savenote1" onclick="addNote()">Kaydet</button>
+<button id="cancelnote2" onclick="cancelNote()">İptal</button>
 </div>
 
     <div id="notesList" class="note-container"></div>
