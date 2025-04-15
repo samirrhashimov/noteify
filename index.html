@@ -418,7 +418,7 @@ header {
 #searchInput {
     width: calc(100% - 50px);
     margin: 0;
-    padding: 10 px 40px 12px 15px;
+    padding: 12 px 40px 12px 15px;
     border: 1px solid #eee;
     border-radius: 25px;
     font-size: 16px;
@@ -893,8 +893,8 @@ header {
 <!-- Düzenleme alanı (input veya textarea) -->
 <div id="editNoteContainer" style="display:none;">
     <textarea id="editNoteInput"></textarea>
-    <button onclick="saveEdit()">Kaydet</button>
-    <button onclick="cancelEdit()">İptal</button>
+    <button id="savenote1" onclick="saveEdit()">Kaydet</button>
+    <button id="cancelnote2" onclick="cancelEdit()">İptal</button>
 </div>
 <div id="deleteModal" class="modal" style="display:none;">
   <div class="modal-content">
