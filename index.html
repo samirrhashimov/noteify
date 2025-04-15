@@ -293,27 +293,24 @@ hr {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #fff;
+    background-color: white;
     padding: 20px;
-    z-index: 9999;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
     box-sizing: border-box;
+    display: none;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
 }
 
 #noteContainer.show {
-    visibility: visible;
-    opacity: 1;
+    display: block;
 }
 
 #noteContainer textarea {
     width: 100%;
     height: calc(100vh - 100px);
-    margin: 10px 0;
-    padding: 15px;
+    margin: 0;
+    padding: 20px;
     padding-bottom: 90px;
     border: none;
     resize: none;
@@ -321,6 +318,7 @@ hr {
     font-family: inherit;
     font-size: 16px;
     outline: none;
+    background: white;
 }
 
 #noteContainer .button-container {
