@@ -841,6 +841,11 @@ header {
 
 #cancelnote2:hover {
   text-decoration: underline;
+}
+
+#darkModeLabel {
+  color: #000000;
+}
     </style>
 </head>
 <body>
@@ -865,14 +870,14 @@ header {
     <div id="settings-panel" class="settings-panel">
         <div class="settings-content">
             <div class="settings-header">
- <h2 style="color:#000000; text-align:center; ">Ayarlar</h2>
+ <h2 style="color:#333; text-align:center; ">Ayarlar</h2>
                 
  <button id="close-settings" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #333;">✕</button>
             </div>
             <div class="settings-options">
                 <div class="settings-item">
-                    <span>Karanlık Mod</span>
-                    <label class="switch">
+                    <span id="darkModeLabel">Karanlık Mod</span>
+     <label class="switch">
                         <input type="checkbox" id="theme-toggle">
                         <span class="slider round"></span>
                     </label>

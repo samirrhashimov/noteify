@@ -21,6 +21,14 @@ body.dark-mode {
   color: #ffffff !important;
 }
 
+.dark-mode #close-setting {
+  color: #ffffff !important;
+}
+
+.dark-mode #darkModeLabel {
+  color: #ffffff;
+}
+
 .dark-mode .bottom-nav {
   background-color: #2c3e50;
 }
