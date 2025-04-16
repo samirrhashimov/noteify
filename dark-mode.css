@@ -177,3 +177,39 @@ body.dark-mode {
 .dark-mode .container p {
   color: var(--dark-text);
 }
+
+/* Reset Password Specific Styles */
+.dark-mode #resetMessage {
+  color: var(--dark-text);
+}
+
+.dark-mode #resetMessage.error {
+  color: #ff6b6b;
+}
+
+.dark-mode #resetMessage.success {
+  color: #51cf66;
+}
+
+/* Change Password Specific Styles */
+.dark-mode #currentPassword,
+.dark-mode #newPassword,
+.dark-mode #confirmPassword,
+.dark-mode #resetEmail {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode .back-link {
+  color: var(--dark-link);
+}
+
+.dark-mode button {
+  background-color: #0056b3;
+  color: white;
+}
+
+.dark-mode button:hover {
+  background-color: #003d82;
+}
