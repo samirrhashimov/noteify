@@ -51,6 +51,16 @@ function addNote() {
     let user = firebase.auth().currentUser;
 
     if (user && noteContent.trim() !== "") {
+        if (!navigator.onLine) {
+            saveNoteToLocal({
+                content: noteContent,
+                timestamp: new Date().toISOString()
+            });
+            closeNotePanel();
+            loadNotes();
+            return;
+        }
+
         firebase.firestore().collection("notlar").add({
             uid: user.uid,
             content: noteContent,
@@ -370,14 +380,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// Local Storage functions
+function saveNoteToLocal(note) {
+    const notes = JSON.parse(localStorage.getItem('offline_notes') || '[]');
+    notes.push({...note, pending: true});
+    localStorage.setItem('offline_notes', JSON.stringify(notes));
+}
+
+function getLocalNotes() {
+    return JSON.parse(localStorage.getItem('offline_notes') || '[]');
+}
+
+function clearLocalNotes() {
+    localStorage.setItem('offline_notes', '[]');
+}
+
+function syncOfflineNotes() {
+    if (!navigator.onLine) return;
+    
+    const offlineNotes = getLocalNotes();
+    const user = firebase.auth().currentUser;
+    
+    if (!user || !offlineNotes.length) return;
+    
+    const batch = firebase.firestore().batch();
+    
+    offlineNotes.forEach(note => {
+        if (note.pending) {
+            const noteRef = firebase.firestore().collection("notlar").doc();
+            batch.set(noteRef, {
+                uid: user.uid,
+                content: note.content,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+    });
+    
+    batch.commit()
+        .then(() => {
+            clearLocalNotes();
+            loadNotes();
+        })
+        .catch(error => console.error("Sync error:", error));
+}
+
 function loadNotes(order = "desc") {
     let user = firebase.auth().currentUser;
     let notesList = document.getElementById("notesList");
-
+    
     if (!user) {
         console.log("Giriş yapmış kullanıcı yok.");
         return;
     }
+
+    // Show offline banner if needed
+    const offlineBanner = document.getElementById('offline-banner');
+    if (!navigator.onLine) {
+        offlineBanner.style.display = 'block';
+        // Load from local storage when offline
+        const localNotes = getLocalNotes();
+        displayNotes(localNotes, notesList);
+        return;
+    }
+    offlineBanner.style.display = 'none';
     
 //delete note confirmation
 let deleteNoteId = null;
