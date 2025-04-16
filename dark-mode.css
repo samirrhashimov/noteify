@@ -130,3 +130,50 @@ body.dark-mode {
 .dark-mode .version {
   color: #888;
 }
+
+/* Note Container and Edit Note Container */
+.dark-mode #noteContainer,
+.dark-mode #editNoteContainer {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode #noteContainer textarea,
+.dark-mode #editNoteContainer textarea {
+  background-color: var(--dark-note-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode #noteContainer .button-container,
+.dark-mode #editNoteContainer .button-container {
+  background-color: var(--dark-bg);
+  border-top: 1px solid var(--dark-border);
+}
+
+/* Change Password Page */
+.dark-mode #message.error {
+  color: #ff6b6b;
+}
+
+.dark-mode #message.success {
+  color: #51cf66;
+}
+
+/* Register and Verify Pages */
+.dark-mode .separator {
+  border-color: var(--dark-border);
+}
+
+.dark-mode h1, 
+.dark-mode h2 {
+  color: var(--dark-text);
+}
+
+.dark-mode #loginreset {
+  color: var(--dark-link);
+}
+
+.dark-mode .container p {
+  color: var(--dark-text);
+}
