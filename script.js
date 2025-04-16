@@ -15,16 +15,6 @@ function handleNetworkStatus() {
 
 document.addEventListener('DOMContentLoaded', () => {
     handleNetworkStatus();
-    
-    window.addEventListener('online', () => {
-        document.getElementById('offline-banner').style.display = 'none';
-        syncAndLoadNotes().then(() => loadNotes());
-    });
-
-    window.addEventListener('offline', () => {
-        document.getElementById('offline-banner').style.display = 'block';
-        loadNotes();
-    });
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             console.log("Giriş yapan:", user.displayName);
@@ -61,22 +51,6 @@ function addNote() {
     let user = firebase.auth().currentUser;
 
     if (user && noteContent.trim() !== "") {
-        const noteData = {
-            content: noteContent,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        };
-
-        if (!navigator.onLine) {
-            saveNoteToLocal({
-                content: noteContent,
-                timestamp: new Date().toISOString(),
-                pending: true
-            });
-            closeNotePanel();
-            loadNotes();
-            return;
-        }
-
         firebase.firestore().collection("notlar").add({
             uid: user.uid,
             content: noteContent,
@@ -396,125 +370,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// Local Storage functions
-function saveNoteToLocal(note) {
-    const notes = JSON.parse(localStorage.getItem('offline_notes') || '[]');
-    notes.push({...note, pending: true});
-    localStorage.setItem('offline_notes', JSON.stringify(notes));
-}
-
-function getLocalNotes() {
-    return JSON.parse(localStorage.getItem('offline_notes') || '[]');
-}
-
-function clearLocalNotes() {
-    localStorage.setItem('offline_notes', '[]');
-}
-
-function syncOfflineNotes() {
-    if (!navigator.onLine) return;
-    
-    const offlineNotes = getLocalNotes();
-    const user = firebase.auth().currentUser;
-    
-    if (!user || !offlineNotes.length) return;
-    
-    const batch = firebase.firestore().batch();
-    
-    offlineNotes.forEach(note => {
-        if (note.pending) {
-            const noteRef = firebase.firestore().collection("notlar").doc();
-            batch.set(noteRef, {
-                uid: user.uid,
-                content: note.content,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-        }
-    });
-    
-    batch.commit()
-        .then(() => {
-            clearLocalNotes();
-            loadNotes();
-        })
-        .catch(error => console.error("Sync error:", error));
-}
-
-async function syncAndLoadNotes(order = "desc") {
-    const user = firebase.auth().currentUser;
-    if (!user) return;
-
-    if (navigator.onLine) {
-        // First sync any pending offline notes
-        await syncOfflineNotes();
-        
-        // Then load all notes from Firebase
-        return firebase.firestore().collection("notlar")
-            .where("uid", "==", user.uid)
-            .orderBy("timestamp", order)
-            .get()
-            .then(snapshot => {
-                const notes = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-                clearLocalNotes(); // Clear local storage after successful sync
-                return notes;
-            });
-    } else {
-        return Promise.resolve(getLocalNotes());
-    }
-}
-
 function loadNotes(order = "desc") {
     let user = firebase.auth().currentUser;
     let notesList = document.getElementById("notesList");
-    
+
     if (!user) {
         console.log("Giriş yapmış kullanıcı yok.");
         return;
     }
-
-    const offlineBanner = document.getElementById('offline-banner');
-    offlineBanner.style.display = navigator.onLine ? 'none' : 'block';
-
-    syncAndLoadNotes(order).then(notes => {
-        notesList.innerHTML = "";
-        const emptyState = document.getElementById("emptyState");
-
-        if (!notes || notes.length === 0) {
-            emptyState.style.display = "block";
-            return;
-        }
-
-        emptyState.style.display = "none";
-        notes.forEach(note => {
-            let noteItem = document.createElement("div");
-            noteItem.classList.add("note-container");
-
-            let formattedDate = note.timestamp ? 
-                (typeof note.timestamp === 'string' ? 
-                    new Date(note.timestamp).toLocaleString() : 
-                    new Date(note.timestamp.toDate()).toLocaleString()) : 
-                "Tarih yok";
-
-            const displayContent = note.content.replace(/\n/g, '<br>');
-            
-            noteItem.innerHTML = `
-                <div class="note-header">
-                    <small>${formattedDate}</small>
-                    <button class="three-dot-menu">⋮</button>
-                    <div class="note-menu">
-                        <div class="menu-item" onclick="editNote('${note.id}')">Düzenle</div>
-                        <div class="menu-item" onclick="confirmDelete('${note.id}')">Sil</div>
-                    </div>
-                </div>
-                <p>${displayContent}</p>
-            `;
-            notesList.appendChild(noteItem);
-        });
-    });
-}
     
 //delete note confirmation
 let deleteNoteId = null;
