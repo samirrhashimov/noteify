@@ -29,6 +29,10 @@ body.dark-mode {
   color: #ffffff;
 }
 
+.dark-mode #settingsl {
+  color: #ffffff !important;
+}
+
 .dark-mode .bottom-nav {
   background-color: #2c3e50;
 }
