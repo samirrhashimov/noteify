@@ -1,0 +1,65 @@
+
+:root {
+  --dark-bg: #121212;
+  --dark-surface: #1e1e1e;
+  --dark-text: #ffffff;
+  --dark-border: #333333;
+  --dark-note-bg: #242424;
+}
+
+body.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode .note-container {
+  background-color: var(--dark-note-bg);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode header {
+  background-color: var(--dark-surface);
+}
+
+.dark-mode .bottom-nav {
+  background-color: var(--dark-surface);
+}
+
+.dark-mode textarea {
+  background-color: var(--dark-note-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode .menu-item:hover {
+  background-color: var(--dark-surface);
+}
+
+.dark-mode #menu {
+  background-color: var(--dark-note-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode .settings-content {
+  background-color: var(--dark-note-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode .settings-item {
+  border-color: var(--dark-border);
+}
+
+/* Scrollbar Styling */
+.dark-mode ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: var(--dark-border);
+  border-radius: 4px;
+}
