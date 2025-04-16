@@ -370,12 +370,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+function saveNotesToLocalStorage(notes) {
+    localStorage.setItem('cachedNotes', JSON.stringify(notes));
+    localStorage.setItem('lastSync', new Date().toISOString());
+}
+
+function getNotesFromLocalStorage() {
+    const notes = localStorage.getItem('cachedNotes');
+    return notes ? JSON.parse(notes) : [];
+}
+
 function loadNotes(order = "desc") {
     let user = firebase.auth().currentUser;
     let notesList = document.getElementById("notesList");
 
     if (!user) {
         console.log("Giriş yapmış kullanıcı yok.");
+        return;
+    }
+
+    if (!navigator.onLine) {
+        const cachedNotes = getNotesFromLocalStorage();
+        displayNotes(cachedNotes, order);
         return;
     }
     

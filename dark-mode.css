@@ -1,13 +1,9 @@
-
 :root {
-  --dark-bg: #121212;
-  --dark-surface: #1e1e1e;
+  --dark-bg: #1a1a1a;
   --dark-text: #ffffff;
   --dark-border: #333333;
-  --dark-note-bg: #242424;
-  --dark-input-bg: #2a2a2a;
-  --dark-hover: #3a3a3a;
-  --dark-link: #64b5f6;
+  --dark-input-bg: #2d2d2d;
+  --dark-hover: #3d3d3d;
 }
 
 body.dark-mode {
@@ -16,7 +12,7 @@ body.dark-mode {
 }
 
 .dark-mode .note-container {
-  background-color: var(--dark-note-bg);
+  background-color: var(--dark-input-bg);
   color: var(--dark-text);
   border: 1px solid var(--dark-border);
 }
@@ -26,26 +22,26 @@ body.dark-mode {
 }
 
 .dark-mode .bottom-nav {
-  background-color: var(--dark-surface);
+  background-color: #2c3e50;
 }
 
 .dark-mode textarea {
-  background-color: var(--dark-note-bg);
+  background-color: var(--dark-input-bg);
   color: var(--dark-text);
   border-color: var(--dark-border);
 }
 
 .dark-mode .menu-item:hover {
-  background-color: var(--dark-surface);
+  background-color: var(--dark-hover);
 }
 
 .dark-mode #menu {
-  background-color: var(--dark-note-bg);
+  background-color: var(--dark-input-bg);
   color: var(--dark-text);
 }
 
 .dark-mode .settings-content {
-  background-color: var(--dark-note-bg);
+  background-color: var(--dark-input-bg);
   color: var(--dark-text);
 }
 
@@ -94,8 +90,9 @@ body.dark-mode {
   color: var(--dark-text);
 }
 
-.dark-mode .modal-content {
-  background-color: var(--dark-surface);
+.dark-mode .modal-content,
+.dark-mode .settings-content {
+  background-color: var(--dark-input-bg);
   color: var(--dark-text);
 }
 
@@ -118,13 +115,13 @@ body.dark-mode {
   color: var(--dark-text);
 }
 
-.dark-mode button:not(.google-btn) {
-  background-color: var(--dark-hover);
-  color: var(--dark-text);
+.dark-mode button:not(.danger) {
+  background-color: #0056b3;
+  color: white;
 }
 
-.dark-mode button:hover:not(.google-btn) {
-  background-color: var(--dark-surface);
+.dark-mode button:hover:not(.danger) {
+  background-color: #003d82;
 }
 
 .dark-mode .version {
@@ -165,7 +162,7 @@ body.dark-mode {
   border-color: var(--dark-border);
 }
 
-.dark-mode h1, 
+.dark-mode h1,
 .dark-mode h2 {
   color: var(--dark-text);
 }
@@ -205,11 +202,19 @@ body.dark-mode {
   color: var(--dark-link);
 }
 
-.dark-mode button {
-  background-color: #0056b3;
-  color: white;
+.dark-mode .modal,
+.dark-mode .settings-panel {
+  background-color: var(--dark-bg);
 }
 
-.dark-mode button:hover {
-  background-color: #003d82;
+.dark-mode .note-menu {
+  background-color: var(--dark-input-bg);
+  border-color: var(--dark-border);
+}
+
+.dark-mode input,
+.dark-mode textarea {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
 }
