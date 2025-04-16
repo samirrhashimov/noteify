@@ -115,15 +115,6 @@ body.dark-mode {
   color: var(--dark-text);
 }
 
-.dark-mode button:not(.danger) {
-  background-color: #0056b3;
-  color: white;
-}
-
-.dark-mode button:hover:not(.danger) {
-  background-color: #003d82;
-}
-
 .dark-mode .version {
   color: #888;
 }
