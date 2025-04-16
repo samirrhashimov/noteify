@@ -21,7 +21,7 @@ body.dark-mode {
   color: #ffffff !important;
 }
 
-.dark-mode #close-setting {
+.dark-mode #close-settings {
   color: #ffffff !important;
 }
 
@@ -110,7 +110,7 @@ body.dark-mode {
 }
 
 .dark-mode #filter-menu {
-  background-color: var(--dark-bg);
+  background-color: var(--dark-hover);
   color: var(--dark-text);
   border-color: var(--dark-border);
 }
