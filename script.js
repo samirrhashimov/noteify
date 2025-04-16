@@ -57,15 +57,23 @@ function addNote() {
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
             console.log("Not kaydedildi!");
-            document.getElementById("noteInput").value = "";
-            let noteContainer = document.getElementById("noteContainer");
-            noteContainer.classList.remove("show");
+            closeNotePanel();
         }).catch(error => {
             console.error("Not kaydetme hatası:", error);
+            // Still close panel in offline mode
+            if (!navigator.onLine) {
+                closeNotePanel();
+            }
         });
     } else {
         alert("Not eklemek için giriş yapmalısınız!");
     }
+}
+
+function closeNotePanel() {
+    document.getElementById("noteInput").value = "";
+    let noteContainer = document.getElementById("noteContainer");
+    noteContainer.classList.remove("show");
 }
 
 // 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
