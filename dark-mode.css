@@ -17,8 +17,8 @@ body.dark-mode {
   border: 1px solid var(--dark-border);
 }
 
-.dark-mode header {
-  background-color: var(--dark-surface);
+.dark-mode #settings-link {
+  color: #ffffff !important;
 }
 
 .dark-mode .bottom-nav {
