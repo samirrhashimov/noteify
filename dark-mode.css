@@ -102,7 +102,7 @@ body.dark-mode {
 }
 
 .dark-mode #filter-menu {
-  background-color: var(--dark-surface);
+  background-color: var(--dark-bg);
   color: var(--dark-text);
   border-color: var(--dark-border);
 }
