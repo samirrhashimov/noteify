@@ -529,8 +529,24 @@ document.getElementById('delete-account').addEventListener('click', function() {
 });
 
 document.getElementById('confirm-delete').addEventListener('click', function() {
-    // Add actual delete account logic here
-    alert('Hesap silme özelliği yakında eklenecek!');
+    const user = firebase.auth().currentUser;
+    if (user) {
+        user.delete().then(() => {
+            alert('Hesabınız başarıyla silindi.');
+            firebase.auth().signOut().then(() => {
+                window.location.href = 'login.html';
+            });
+        }).catch((error) => {
+            if (error.code === 'auth/requires-recent-login') {
+                alert('Güvenlik nedeniyle, hesabınızı silmek için yeniden giriş yapmanız gerekmektedir.');
+                firebase.auth().signOut().then(() => {
+                    window.location.href = 'login.html';
+                });
+            } else {
+                alert('Hesap silme hatası: ' + error.message);
+            }
+        });
+    }
     document.getElementById('confirm-modal').style.display = 'none';
 });
 

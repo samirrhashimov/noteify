@@ -623,24 +623,34 @@ header {
         border-bottom: 1px solid #eee;
     }
 
+    .settings-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
     .settings-button {
-        position: fixed;
-        align-item: center;
-        text-align: center;
-        width: 90%;
+        width: 100%;
         padding: 12px;
         border: none;
         border-radius: 6px;
         background: #0056b3;
         color: white;
         cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .settings-button:hover {
+        background: #004494;
     }
 
     .settings-button.danger {
-        position: fixed;
-        align-item: center;
-        text-align: center;
-        background: #ff0000;
+        background: #dc3545;
+    }
+
+    .settings-button.danger:hover {
+        background: #bd2130;
     }
 
     .version {
@@ -861,18 +871,18 @@ header {
  <button id="close-settings" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #333;">✕</button>
             </div>
             <div class="settings-options">
-<div class="settings-item">
-                    <span style="color:#000000;">Karanlık Mod</span>
-<label class="switch">
- <input type="checkbox" id="theme-toggle">
- <span class="slider round"></span>
-</label>
- </div>
- <div class="settings-item">
-     <a href="change-password.html">
- <button id="change-password" class="settings-button">Şifre Değiştir</button> </a> 
-     
- <button id="delete-account" class="settings-button danger">Hesabı Sil</button>
+                <div class="settings-item">
+                    <span>Karanlık Mod</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="settings-buttons">
+                    <a href="change-password.html" style="text-decoration: none;">
+                        <button id="change-password" class="settings-button">Şifre Değiştir</button>
+                    </a>
+                    <button id="delete-account" class="settings-button danger">Hesabı Sil</button>
                 </div>
                 <div class="settings-item version">
                     <span>Uygulama Sürümü: v14.3.0</span>
