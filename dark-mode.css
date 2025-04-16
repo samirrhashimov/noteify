@@ -5,6 +5,9 @@
   --dark-text: #ffffff;
   --dark-border: #333333;
   --dark-note-bg: #242424;
+  --dark-input-bg: #2a2a2a;
+  --dark-hover: #3a3a3a;
+  --dark-link: #64b5f6;
 }
 
 body.dark-mode {
@@ -62,4 +65,68 @@ body.dark-mode {
 .dark-mode ::-webkit-scrollbar-thumb {
   background: var(--dark-border);
   border-radius: 4px;
+}
+
+/* Login and Register Forms */
+.dark-mode .login-container,
+.dark-mode .container {
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="email"],
+.dark-mode input[type="password"] {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode input::placeholder {
+  color: #888;
+}
+
+.dark-mode a {
+  color: var(--dark-link);
+}
+
+.dark-mode .separator {
+  color: var(--dark-text);
+}
+
+.dark-mode .modal-content {
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+}
+
+.dark-mode #searchInput {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode #filter-menu {
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode .filter-option:hover {
+  background-color: var(--dark-hover);
+}
+
+.dark-mode .menu-link {
+  color: var(--dark-text);
+}
+
+.dark-mode button:not(.google-btn) {
+  background-color: var(--dark-hover);
+  color: var(--dark-text);
+}
+
+.dark-mode button:hover:not(.google-btn) {
+  background-color: var(--dark-surface);
+}
+
+.dark-mode .version {
+  color: #888;
 }
