@@ -1,20 +1,16 @@
+
 // Google Login Function
 window.googleLogin = function() {
     let provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    
+    firebase.auth().signInWithPopup(provider)
+        .then(() => {
+            window.location.href = "index.html";
+        })
+        .catch(error => {
+            alert("Error: " + error.message);
+        });
 }
-
-firebase.auth().getRedirectResult().then((result) => {
-    if (result.user) {
-        // Giriş başarılıysa ana sayfaya yönlendir
-        window.location.href = "index.html";
-    }
-}).catch((error) => {
-    console.error("Redirect login error:", error);
-});
-
-
-
 
 // Email/Password Login
 function login() {
