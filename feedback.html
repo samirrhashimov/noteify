@@ -68,9 +68,31 @@
     .error {
       color: red;
     }
+
+.back-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #ffffffcc;
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 9999;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
   </style>
 </head>
 <body>
+  
+<a href="index.html" class="back-button">← Geri</a>
+  
   <div class="container">
     <h2>Geri Bildirim Gönder</h2>
     <form id="feedback-form" action="https://formspree.io/f/xdkgndej" method="POST">
@@ -79,9 +101,6 @@
 
       <label for="message">Mesajınız:</label>
       <textarea name="message" id="message" rows="5" required></textarea>
-
-      <label for="file">Dosya ekle (isteğe bağlı):</label>
-<input type="file" id="file" name="attachment" />
 
       <button type="submit">Gönder</button>
       <div id="form-message" class="message"></div>
