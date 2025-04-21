@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil</title>
+  <link rel="stylesheet" href="profile.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+  <div class="profile-container">
+    <h2>Profil Bilgileri</h2>
+    <div class="profile-info">
+      <p><strong>Email:</strong> <span id="email"></span></p>
+      <p><strong>Email Doğrulandı mı?:</strong> <span id="verified"></span></p>
+      <p><strong>Kullanıcı ID (UID):</strong> <span id="uid"></span></p>
+    </div>
+  </div>
+
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        document.getElementById("email").textContent = user.email;
+        document.getElementById("verified").textContent = user.emailVerified ? "Evet" : "Hayır";
+        document.getElementById("uid").textContent = user.uid;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>
+</html>
