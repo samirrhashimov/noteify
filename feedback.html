@@ -32,7 +32,7 @@
     }
 
     input, textarea {
-      width: 100%;
+      width: 90%;
       padding: 10px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
@@ -79,6 +79,9 @@
 
       <label for="message">Mesajınız:</label>
       <textarea name="message" id="message" rows="5" required></textarea>
+
+      <label for="file">Dosya ekle (isteğe bağlı):</label>
+<input type="file" id="file" name="attachment" />
 
       <button type="submit">Gönder</button>
       <div id="form-message" class="message"></div>
