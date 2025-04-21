@@ -839,6 +839,25 @@ header {
 #darkModeLabel {
   color: #000000;
 }
+        
+.feedback-button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .feedback-button:hover {
+    background-color: #e84343;
+    transform: scale(1.02);
+  }
     </style>
 </head>
 <body>
@@ -880,7 +899,10 @@ header {
                 <div class="settings-buttons">
                                 <a href="change-password.html" style="text-decoration: none;">
      <button id="change-password" class="settings-button">Şifre Değiştir</button>
-                    </a>
+     </a>
+     <button class="feedback-button" onclick="window.location.href='feedback.html'">Geri Bildirim Gönder</button>
+    
+                    
                 </div>
  <div class="settings-item version">
                     <span>Uygulama Sürümü: v14.8.0</span>
