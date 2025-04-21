@@ -457,8 +457,11 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
                             <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-    <div class="menu-item" onclick="confirmDelete('${doc.id}')">Sil</div>
+
     <div class="menu-item" onclick="downloadTxt('${doc.id}')">TXT olarak indir</div>
+    
+    <div class="menu-item" onclick="confirmDelete('${doc.id}')">Sil</div>
+    
                         </div>
                     </div>
                     <p>${displayContent}</p>
