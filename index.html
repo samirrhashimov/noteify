@@ -880,7 +880,7 @@ header {
         
 <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
  </div>
-</header>
+
     <!-- Settings Panel -->
     <div id="settings-panel" class="settings-panel">
         <div class="settings-content">
@@ -922,7 +922,8 @@ target="_blank">Privacy Policy</a>
     <p id="sort-newest" class="filter-option">Yeniden Eskiye</p>
     <p id="sort-oldest" class="filter-option">Eskiden Yeniye</p>
     </div>
-
+        </div>
+</header>
     <script>
         firebase.auth().onAuthStateChanged(user => {
             if (!user) {
