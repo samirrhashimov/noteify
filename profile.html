@@ -19,7 +19,19 @@
       if (user) {
         document.getElementById("email").textContent = user.email;
 
-document.getElementById("creation-time").textContent = user.metadata.creationTime;
+// Firebase Timestamp'i Date objesine çevir
+const createdAt = user.metadata.creationTime ? new Date(user.metadata.creationTime) : null;
+
+if (createdAt) {
+  const day = String(createdAt.getDate()).padStart(2, '0');
+  const month = String(createdAt.getMonth() + 1).padStart(2, '0'); // Ay 0'dan başlar
+  const year = createdAt.getFullYear();
+  const hour = String(createdAt.getHours()).padStart(2, '0');
+  const minute = String(createdAt.getMinutes()).padStart(2, '0');
+
+  const formattedDate = `${day}/${month}/${year}, ${hour}:${minute}`;
+  document.getElementById("created").textContent = formattedDate;
+}
         document.getElementById("verified").textContent = user.emailVerified ? "Doğrulanmış" : "Doğrulanmamış";
         document.getElementById("uid").textContent = user.uid;
       } else {
@@ -33,7 +45,7 @@ document.getElementById("creation-time").textContent = user.metadata.creationTim
     <h2>Profil Bilgileri</h2>
     <div class="profile-info">
       <p><strong>Email:</strong> <span id="email"></span></p>
-      <p><strong>Kayıt Tarihi:</strong> <span id="creation-time"></span></p>
+      <p><strong>Kayıt Tarihi:</strong> <span id="created"></span></p>
       <p><strong>Email Durumu:</strong> <span id="verified"></span></p>
       <p><strong> UID:</strong> <span id="uid"></span></p>
     </div>
