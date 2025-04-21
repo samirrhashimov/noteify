@@ -172,10 +172,6 @@ body {
     background-color: transparent;
 }
 
-.three-dot-menu:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.1);
-}
 
 .note-menu {
     display: none;
@@ -760,10 +756,6 @@ header {
         color: #333;
     }
 
-    .menu-link {
-        transition: none;
-    }
-
   .modal {
     position: fixed;
     z-index: 9999;
@@ -854,7 +846,7 @@ header {
 <header>
     <button id="menu-btn">☰</button>
     <a href="/">
-  <img src="img/mainlogo.png" alt="Notepad Logosu" height="100"  width="70" style="position:relative;top:5px;">
+  <img src="img/mainlogo.png" alt="Notepad Logosu" height="100"  width="70" style="position:relative;top:10px;">
 </a>
 
 
@@ -863,8 +855,10 @@ header {
     <input type="text" id="searchInput" placeholder="Notları ara...">
 </div>
     <div id="menu" class="hidden">
-        <button class="menu-link" id="settings-link" onclick="toggleSettingsPanel()" style="background: none; border: none; width: 100%; text-align: left; padding: 6px 0; cursor: pointer; color: #333; box-shadow: none;">Ayarlar</button>
+<a href="profile.html" class="menu-link">Profil</a>
+     <button class="menu-link" id="settings-link" onclick="toggleSettingsPanel()" style="background: none; border: none; width: 100%; text-align: left; padding: 6px 0; cursor: pointer; color: #333; box-shadow: none;">Ayarlar</button>
         <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
+    
     </div>
 
     <!-- Settings Panel -->
