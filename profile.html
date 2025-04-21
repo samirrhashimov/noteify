@@ -18,7 +18,9 @@
     auth.onAuthStateChanged((user) => {
       if (user) {
         document.getElementById("email").textContent = user.email;
-        document.getElementById("verified").textContent = user.emailVerified ? "Evet" : "Hayır";
+
+document.getElementById("creation-time").textContent = user.metadata.creationTime;
+        document.getElementById("verified").textContent = user.emailVerified ? "Doğrulanmış" : "Doğrulanmamış";
         document.getElementById("uid").textContent = user.uid;
       } else {
         window.location.href = "login.html";
@@ -31,8 +33,9 @@
     <h2>Profil Bilgileri</h2>
     <div class="profile-info">
       <p><strong>Email:</strong> <span id="email"></span></p>
-      <p><strong>Email Doğrulandı mı?:</strong> <span id="verified"></span></p>
-      <p><strong>Kullanıcı ID (UID):</strong> <span id="uid"></span></p>
+      <p><strong>Kayıt Tarihi:</strong> <span id="creation-time"></span></p>
+      <p><strong>Email Durumu:</strong> <span id="verified"></span></p>
+      <p><strong> UID:</strong> <span id="uid"></span></p>
     </div>
   </div>
 </body>
