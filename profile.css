@@ -1,31 +1,42 @@
+/* profile.css */
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--background-color, #f0f0f0);
-  color: var(--text-color, #333);
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 .profile-container {
-  background-color: var(--card-bg, #ffffff);
-  padding: 24px 32px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
   text-align: center;
-  max-width: 400px;
-  width: 90%;
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: #444;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .profile-info p {
-  margin: 12px 0;
+  margin: 0;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .profile-info strong {
-  color: #555;
+  color: #205295; /* Koyu mavi */
+  font-weight: bold;
 }
