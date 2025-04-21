@@ -225,3 +225,30 @@ body.dark-mode {
   color: var(--dark-text);
   border-color: var(--dark-border);
 }
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .profile-container {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .profile-info p {
+  color: #cccccc;
+}
+
+body.dark-mode .profile-info strong {
+  color: #90caf9;
+}
+
+body.dark-mode .profile-info span {
+  color: #eeeeee;
+}
