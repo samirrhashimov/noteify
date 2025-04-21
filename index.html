@@ -875,11 +875,12 @@ header {
 </div>
     <div id="menu" class="hidden">
 <a href="profile.html" class="menu-link" id="profile-link">Profil</a>
-     <button class="menu-link" id="settings-link" onclick="toggleSettingsPanel()" style="background: none; border: none; width: 100%; text-align: left; padding: 6px 0; cursor: pointer; color: #333; box-shadow: none;">Ayarlar</button>
-        <p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
-    
-    </div>
 
+<button class="menu-link" id="settings-link" onclick="toggleSettingsPanel()" style="background: none; border: none; width: 100%; text-align: left; padding: 6px 0; cursor: pointer; color: #333; box-shadow: none;">Ayarlar</button>
+        
+<p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
+ </div>
+</header>
     <!-- Settings Panel -->
     <div id="settings-panel" class="settings-panel">
         <div class="settings-content">
@@ -887,15 +888,17 @@ header {
  <h2 id="settingsl" style="color:#333; text-align:center; ">Ayarlar</h2>
                 
  <button id="close-settings" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #333;">✕</button>
-            </div>
-            <div class="settings-options">
-                <div class="settings-item">
-                    <span id="darkModeLabel">Karanlık Mod</span>
-     <label class="switch">
-                        <input type="checkbox" id="theme-toggle">
-                        <span class="slider round"></span>
-                    </label>
+ </div>
+ <div class="settings-options">
+ <div class="settings-item">
+ <span id="darkModeLabel">Karanlık Mod</span>
+ <label class="switch">
+ <input type="checkbox" id="theme-toggle">
+  <span class="slider round"></span>
+  </label>
+
                 </div>
+ </div>
                 <div class="settings-buttons">
                                 <a href="change-password.html" style="text-decoration: none;">
      <button id="change-password" class="settings-button">Şifre Değiştir</button>
@@ -919,7 +922,6 @@ target="_blank">Privacy Policy</a>
     <p id="sort-newest" class="filter-option">Yeniden Eskiye</p>
     <p id="sort-oldest" class="filter-option">Eskiden Yeniye</p>
     </div>
-</header>
 
     <script>
         firebase.auth().onAuthStateChanged(user => {
