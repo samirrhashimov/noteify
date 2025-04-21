@@ -40,3 +40,22 @@ h2 {
   color: #205295; /* Koyu mavi */
   font-weight: bold;
 }
+
+.back-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #ffffffcc;
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 9999;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
