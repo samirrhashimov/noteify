@@ -457,11 +457,7 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
                             <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-
-    <div class="menu-item" onclick="downloadTxt('${doc.id}')">TXT olarak indir</div>
-    
     <div class="menu-item" onclick="confirmDelete('${doc.id}')">Sil</div>
-    
                         </div>
                     </div>
                     <p>${displayContent}</p>
@@ -648,19 +644,3 @@ document.getElementById("password-change-container").addEventListener("click", (
     }
 });
 
-//TXT downloader
-function downloadTxt(noteId) {
-  const noteElement = document.querySelector(`[data-note-id="${noteId}"]`);
-  const noteTitle = noteElement.querySelector('.note-title').innerText.trim() || 'not';
-  const noteContent = noteElement.querySelector('.note-content').innerText;
-
-  const blob = new Blob([noteContent], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${noteTitle}.txt`;
-  a.click();
-
-  URL.revokeObjectURL(url);
-}
