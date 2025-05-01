@@ -516,9 +516,15 @@ header {
     padding: 8px 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    z-index: 1005;
+    z-index: 1010;
     display: none;
     min-width: 180px;
+    pointer-events: auto;
+}
+
+.filter-menu.show {
+    display: block;
+    z-index: 1010;
 }
 
 .filter-menu.show {
