@@ -590,18 +590,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtn = document.getElementById("filter-btn");
     const filterMenu = document.getElementById("filter-menu");
 
-    filterBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        filterMenu.classList.toggle("show");
-        filterMenu.style.display = filterMenu.classList.contains("show") ? "block" : "none";
-    });
+    if (filterBtn && filterMenu) {
+        filterBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            filterMenu.classList.toggle("show");
+            filterMenu.style.display = filterMenu.classList.contains("show") ? "block" : "none";
+        });
 
-    // Close filter menu when clicking outside
-    document.addEventListener("click", function(e) {
-        if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
-            filterMenu.classList.remove("show");
-            filterMenu.style.display = "none";
+        // Close filter menu when clicking outside
+        document.addEventListener("click", function(e) {
+            if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
+                filterMenu.classList.remove("show");
+                filterMenu.style.display = "none";
+            }
+        });
+    }
+
+    // Initialize Firebase Auth state
+    firebase.auth().onAuthStateChanged(user => {
+        console.log("Auth state changed:", user ? user.email : "No user");
+        if (user) {
+            loadNotes();
+        } else {
+            // Handle not logged in state
+            const notesList = document.getElementById("notesList");
+            if (notesList) {
+                notesList.innerHTML = "<p>Please log in to view notes.</p>";
+            }
         }
     });
 });
