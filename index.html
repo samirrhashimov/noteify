@@ -507,19 +507,46 @@ header {
     color: blue;
 }
 
-#filter-menu {
-    position: absolute;
-    top: 55px;
+.filter-menu {
+    position: fixed;
+    bottom: 70px;
     right: 10px;
     background: white;
-    color: black;
-    padding: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
+    color: #333;
+    padding: 8px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
     z-index: 1002;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.2s linear;
+    display: none;
+    min-width: 180px;
+}
+
+.filter-menu.show {
+    display: block;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.filter-option {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.filter-option:hover {
+    background-color: #f5f5f5;
+}
+
+.filter-option.active {
+    color: #4CAF50;
+    font-weight: 500;
+    background-color: #f0f7f0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 #filter-menu.show {
@@ -925,9 +952,15 @@ target="_blank">Privacy Policy</a>
     <a href="copyright.html" target="_blank">Copyright Notice </a>
     </div>
 
-    <div id="filter-menu">
-    <p id="sort-newest" class="filter-option">Yeniden Eskiye</p>
-    <p id="sort-oldest" class="filter-option">Eskiden Yeniye</p>
+    <div id="filter-menu" class="filter-menu">
+        <div id="sort-newest" class="filter-option">
+            <img src="img/filter-list.png" alt="newest" style="width: 16px; height: 16px; margin-right: 8px;">
+            Yeniden Eskiye
+        </div>
+        <div id="sort-oldest" class="filter-option">
+            <img src="img/filter-list.png" alt="oldest" style="width: 16px; height: 16px; margin-right: 8px;">
+            Eskiden Yeniye
+        </div>
     </div>
         </div>
 </header>
