@@ -440,6 +440,20 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleFilterMenu();
     });
 
+    // Close filter menu when clicking outside
+    document.addEventListener("click", function(e) {
+        if (filterMenu.classList.contains('show') && 
+            !filterMenu.contains(e.target) && 
+            !filterBtn.contains(e.target)) {
+            filterMenu.classList.remove('show');
+        }
+    });
+
+    // Prevent menu from closing when clicking inside
+    filterMenu.addEventListener("click", function(e) {
+        e.stopPropagation();
+    });
+
     document.getElementById('sort-newest').addEventListener('click', () => {
         loadNotes('desc');
         toggleFilterMenu();
