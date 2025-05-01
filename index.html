@@ -520,6 +520,11 @@ header {
     display: none;
     min-width: 180px;
     pointer-events: auto;
+    transition: all 0.3s ease;
+}
+
+.filter-menu.show {
+    display: block;
 }
 
 .filter-menu.show {
@@ -957,19 +962,19 @@ target="_blank">Privacy Policy</a>
   <br>
     <a href="copyright.html" target="_blank">Copyright Notice </a>
     </div>
-
-    <div id="filter-menu" class="filter-menu">
-        <div id="sort-newest" class="filter-option">
-            <img src="img/filter-list.png" alt="newest" style="width: 16px; height: 16px; margin-right: 8px;">
-            Yeniden Eskiye
-        </div>
-        <div id="sort-oldest" class="filter-option">
-            <img src="img/filter-list.png" alt="oldest" style="width: 16px; height: 16px; margin-right: 8px;">
-            Eskiden Yeniye
-        </div>
-    </div>
         </div>
 </header>
+
+<div id="filter-menu" class="filter-menu">
+    <div id="sort-newest" class="filter-option">
+        <img src="img/filter-list.png" alt="newest" style="width: 16px; height: 16px; margin-right: 8px;">
+        Yeniden Eskiye
+    </div>
+    <div id="sort-oldest" class="filter-option">
+        <img src="img/filter-list.png" alt="oldest" style="width: 16px; height: 16px; margin-right: 8px;">
+        Eskiden Yeniye
+    </div>
+</div>
     <script>
         firebase.auth().onAuthStateChanged(user => {
             if (!user) {
