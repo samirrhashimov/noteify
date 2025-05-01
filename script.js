@@ -589,16 +589,19 @@ window.addEventListener("load", () => {
 document.addEventListener('DOMContentLoaded', () => {
     const filterBtn = document.getElementById("filter-btn");
     const filterMenu = document.getElementById("filter-menu");
-    
+
     filterBtn.addEventListener("click", function(e) {
+        e.preventDefault();
         e.stopPropagation();
         filterMenu.classList.toggle("show");
+        filterMenu.style.display = filterMenu.classList.contains("show") ? "block" : "none";
     });
 
     // Close filter menu when clicking outside
     document.addEventListener("click", function(e) {
         if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
             filterMenu.classList.remove("show");
+            filterMenu.style.display = "none";
         }
     });
 });
