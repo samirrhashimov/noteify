@@ -585,16 +585,22 @@ window.addEventListener("load", () => {
     loadNotes();
 });
 
-document.getElementById("filter-btn").addEventListener("click", function () {
-    let filterMenu = document.getElementById("filter-menu");
+// Filter menu toggle and click outside handling
+document.addEventListener('DOMContentLoaded', () => {
+    const filterBtn = document.getElementById("filter-btn");
+    const filterMenu = document.getElementById("filter-menu");
+    
+    filterBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        filterMenu.classList.toggle("show");
+    });
 
-    if (filterMenu.classList.contains("hidden")) {
-        filterMenu.classList.remove("hidden");
-        filterMenu.classList.add("show");
-    } else {
-        filterMenu.classList.remove("show");
-        filterMenu.classList.add("hidden");
-    }
+    // Close filter menu when clicking outside
+    document.addEventListener("click", function(e) {
+        if (!filterMenu.contains(e.target) && !filterBtn.contains(e.target)) {
+            filterMenu.classList.remove("show");
+        }
+    });
 });
 
 // password renew
