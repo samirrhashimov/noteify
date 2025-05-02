@@ -67,7 +67,7 @@ button:hover {
     text-align: center;
     font-size: 14px;
     font-weight: bold;
-    color: #777;
+    color: #d3d3d3;
     margin: 10px 0;
 }
 
@@ -104,4 +104,8 @@ button:hover {
   width: 250px; /* Boyut isteğe göre ayarlanabilir */
   height: auto;
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3)); /* Hafif gölge efekti */
+}
+
+a {
+  color: white;
 }

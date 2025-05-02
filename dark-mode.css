@@ -86,6 +86,7 @@ body.dark-mode {
   color: var(--dark-text);
 }
 
+/*
 .dark-mode input[type="text"],
 .dark-mode input[type="email"],
 .dark-mode input[type="password"] {
@@ -93,6 +94,7 @@ body.dark-mode {
   color: var(--dark-text);
   border-color: var(--dark-border);
 }
+*/
 
 .dark-mode input::placeholder {
   color: #888;
