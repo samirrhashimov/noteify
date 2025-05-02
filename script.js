@@ -327,19 +327,14 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelEdit();
         }
     });
-    const menuBtn = document.getElementById("menu-btn");
-    const menu = document.getElementById("menu");
-
-    menuBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        menu.classList.add("show");
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener("click", function(e) {
-        if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
-            menu.classList.remove("show");
-        }
+    // Settings panel toggle functionality is handled by the menu button click
+    document.getElementById('logout-button').addEventListener('click', function() {
+        firebase.auth().signOut().then(() => {
+            alert("Başarıyla çıkış yapıldı!");
+            window.location.href = "login.html";
+        }).catch((error) => {
+            console.error("Çıkış yapılırken hata oluştu:", error);
+        });
     });
 });
 

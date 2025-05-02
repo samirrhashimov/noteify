@@ -908,23 +908,15 @@ header {
 <body>
 
 <header>
-    <button id="menu-btn">☰</button>
+    <button id="menu-btn" onclick="toggleSettingsPanel()">☰</button>
     <a href="/">
   <img src="img/mainlogo.png" alt="Notepad Logosu" height="100"  width="70" style="position:relative;top:10px;">
 </a>
-
 
 <div id="searchBox">
     <button id="closeSearch">✕</button>
     <input type="text" id="searchInput" placeholder="Notları ara...">
 </div>
-    <div id="menu" class="hidden">
-<a href="profile.html" class="menu-link" id="profile-link">Profil</a>
-
-<button class="menu-link" id="settings-link" onclick="toggleSettingsPanel()" style="background: none; border: none; width: 100%; text-align: left; padding: 6px 0; cursor: pointer; color: #333; box-shadow: none;">Ayarlar</button>
-        
-<p id="logout-text" style="cursor: pointer; color: red; user-select: none;">Çıkış Yap</p>
- </div>
 
     <!-- Settings Panel -->
     <div id="settings-panel" class="settings-panel">
@@ -945,13 +937,15 @@ header {
                 </div>
  </div>
                 <div class="settings-buttons">
-                                <a href="change-password.html" style="text-decoration: none;">
-     <button id="change-password" class="settings-button">Şifre Değiştir</button>
-     </a>
-     <button class="feedback-button" onclick="window.location.href='feedback.html'">Geri Bildirim Gönder</button>
-    
-                    
-                </div>
+    <a href="profile.html" style="text-decoration: none;">
+        <button class="settings-button">Profil</button>
+    </a>
+    <a href="change-password.html" style="text-decoration: none;">
+        <button id="change-password" class="settings-button">Şifre Değiştir</button>
+    </a>
+    <button class="feedback-button" onclick="window.location.href='feedback.html'">Geri Bildirim Gönder</button>
+    <button id="logout-button" class="settings-button danger">Çıkış Yap</button>
+</div>
  <div class="settings-item version">
                     <span>Uygulama Sürümü: v14.9.0</span>
                 </div>
