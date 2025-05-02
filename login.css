@@ -91,3 +91,16 @@ button:hover {
     transform: translateX(-50%) translateY(-50%);
     object-fit: cover;
 }
+
+#logo-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px; /* Yukarıdan boşluk */
+  margin-bottom: -20px; /* Giriş kutusuyla arası sıkı olsun diye */
+}
+
+#noteify-logo {
+  width: 150px; /* Boyut isteğe göre ayarlanabilir */
+  height: auto;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3)); /* Hafif gölge efekti */
+}
