@@ -604,14 +604,18 @@ let translations = {};
 async function loadTranslations(lang) {
     try {
         const response = await fetch(`/lang/${lang}.json`);
-        translations = await response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        translations = data;
         localStorage.setItem('language', lang);
         localStorage.setItem('translations', JSON.stringify(translations));
         updatePageText();
-        // Reload page after language change
-        window.location.reload();
+        return true;
     } catch (error) {
         console.error('Error loading translations:', error);
+        return false;
     }
 }
 
@@ -628,18 +632,41 @@ function updatePageText() {
     });
 }
 
-function changeLanguage(lang) {
-    currentLanguage = lang;
-    loadTranslations(lang);
+async function changeLanguage(lang) {
+    if (lang && lang !== currentLanguage) {
+        const success = await loadTranslations(lang);
+        if (success) {
+            currentLanguage = lang;
+            // Update the select element to reflect the current language
+            const languageSelect = document.getElementById('language-select');
+            if (languageSelect) {
+                languageSelect.value = lang;
+            }
+            // Reload the page after changing the language
+            window.location.reload();
+        }
+    }
 }
 
-// Initialize translations
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize translations on page load
+document.addEventListener('DOMContentLoaded', async () => {
+    // Set the initial language select value
+    const languageSelect = document.getElementById('language-select');
+    if (languageSelect) {
+        languageSelect.value = currentLanguage;
+    }
+
+    // Try to load saved translations first
     const savedTranslations = localStorage.getItem('translations');
     if (savedTranslations) {
-        translations = JSON.parse(savedTranslations);
-        updatePageText();
+        try {
+            translations = JSON.parse(savedTranslations);
+            updatePageText();
+        } catch (error) {
+            console.error('Error parsing saved translations:', error);
+            await loadTranslations(currentLanguage);
+        }
     } else {
-        loadTranslations(currentLanguage);
+        await loadTranslations(currentLanguage);
     }
 });
