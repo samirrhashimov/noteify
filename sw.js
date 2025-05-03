@@ -1,4 +1,4 @@
-
+/*
 const CACHE_NAME = 'notepad-v2';
 const ASSETS_TO_CACHE = [
   '/',
@@ -67,3 +67,4 @@ self.addEventListener('fetch', (event) => {
       })
   );
 });
+/*

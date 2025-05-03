@@ -1,7 +1,7 @@
 entrypoint="index.html"
 hidden=[".config"]
 modules = ["nodejs-20", "python-3.11", "web:v2-20230623-0b7a606"]
-run = "python3 -m http.server 8080"
+run = "python3 -m http.server 3080"
 
 [nix]
 channel = "stable-23_11"
@@ -11,5 +11,5 @@ publicDir = "/"
 deploymentTarget = "static"
 
 [[ports]]
-localPort = 8080
+localPort = 3080
 externalPort = 80
