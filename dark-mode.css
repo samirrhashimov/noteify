@@ -18,7 +18,7 @@ body.dark-mode {
 }
 
 .dark-mode .note-container {
-  background-color: var(--dark-bg);
+  background-color: transparent;
   color: var(--dark-text);
 }
   
