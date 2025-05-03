@@ -20,6 +20,7 @@ body.dark-mode {
 .dark-mode .note-container {
   background-color: var(--dark-bg);
   color: var(--dark-text);
+}
   
 .dark-mode #settings-link {
   color: #ffffff !important;
