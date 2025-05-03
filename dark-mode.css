@@ -11,8 +11,14 @@ body.dark-mode {
   color: var(--dark-text);
 }
 
-.dark-mode .note-container {
+.dark-mode #notesList {
   background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .note-container {
+  background-color: var(--dark-bg);
   color: var(--dark-text);
   border: 1px solid var(--dark-border);
 }
