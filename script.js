@@ -604,7 +604,7 @@ let translations = {};
 
 async function loadTranslations(lang) {
     try {
-        const response = await fetch(`/lang/${lang}.json`);
+        const response = await fetch(`lang/${lang}.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -635,16 +635,12 @@ function updatePageText() {
 
 async function changeLanguage(lang) {
     if (lang && lang !== currentLanguage) {
-        const success = await loadTranslations(lang);
-        if (success) {
-            currentLanguage = lang;
-            // Update the select element to reflect the current language
-            const languageSelect = document.getElementById('language-select');
-            if (languageSelect) {
-                languageSelect.value = lang;
-            }
-            // Reload the page after changing the language
-            window.location.reload();
+        currentLanguage = lang;
+        await loadTranslations(lang);
+        // Update the select element to reflect the current language
+        const languageSelect = document.getElementById('language-select');
+        if (languageSelect) {
+            languageSelect.value = lang;
         }
     }
 }
@@ -658,10 +654,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Try to load saved translations first
-    const savedTranslations = localStorage.getItem('translations');
-    if (savedTranslations) {
+    const storedTranslations = localStorage.getItem('translations');
+    if (storedTranslations) {
         try {
-            translations = JSON.parse(savedTranslations);
+            translations = JSON.parse(storedTranslations);
             updatePageText();
         } catch (error) {
             console.error('Error parsing saved translations:', error);
@@ -669,5 +665,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } else {
         await loadTranslations(currentLanguage);
+    }
+
+    // Add event listener for language selection
+    if (languageSelect) {
+        languageSelect.addEventListener('change', (e) => {
+            changeLanguage(e.target.value);
+        });
     }
 });
