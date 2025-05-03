@@ -11,7 +11,7 @@ body.dark-mode {
   color: var(--dark-text);
 }
 
-.dark-mode #notesList {
+.dark-mode #notesList > div {
   background-color: var(--dark-input-bg);
   color: var(--dark-text);
   border: 1px solid var(--dark-border);
@@ -20,9 +20,7 @@ body.dark-mode {
 .dark-mode .note-container {
   background-color: var(--dark-bg);
   color: var(--dark-text);
-  border: 1px solid var(--dark-border);
-}
-
+  
 .dark-mode #settings-link {
   color: #ffffff !important;
 }
