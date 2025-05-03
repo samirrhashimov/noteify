@@ -597,8 +597,9 @@ document.getElementById("password-change-container").addEventListener("click", (
     }
 });
 
+
 // Language Management
-let currentLanguage = localStorage.getItem('language') || 'tr';
+let currentLanguage = localStorage.getItem('language') || 'en';
 let translations = {};
 
 async function loadTranslations(lang) {

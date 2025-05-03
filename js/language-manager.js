@@ -1,1 +1,0 @@
-// This file is now deprecated as the code has been moved to script.js
