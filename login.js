@@ -61,5 +61,6 @@ function register() {
                 });
         })
         .catch(error => {
-    showMessage("Hata: " + error.message, true); // Bu artık sayfa içinde yazı olarak görünecek
-});
+            alert("Error: " + error.message); //This alert needs to be replaced with inline message.
+        });
+}
