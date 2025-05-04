@@ -599,90 +599,71 @@ document.getElementById("password-change-container").addEventListener("click", (
 
 
 // Language Management
-class LanguageManager {
-    constructor() {
-        this.currentLanguage = localStorage.getItem('language') || 'en';
-        this.translations = {};
-        this.init();
-    }
+const defaultLanguage = 'tr';
+let currentLanguage = localStorage.getItem('language') || defaultLanguage;
+let translations = {};
 
-    async init() {
-        await this.loadInitialLanguage();
-        this.setupEventListeners();
-    }
-
-    async loadInitialLanguage() {
-        const storedTranslations = localStorage.getItem('translations');
-        if (storedTranslations) {
-            try {
-                this.translations = JSON.parse(storedTranslations);
-                this.updatePageText();
-            } catch (error) {
-                console.error('Error parsing stored translations:', error);
-                await this.loadTranslations(this.currentLanguage);
-            }
-        } else {
-            await this.loadTranslations(this.currentLanguage);
-        }
-    }
-
-    setupEventListeners() {
-        const languageSelect = document.getElementById('language-select');
-        if (languageSelect) {
-            languageSelect.value = this.currentLanguage;
-            languageSelect.addEventListener('change', (e) => this.changeLanguage(e.target.value));
-        }
-    }
-
-    async loadTranslations(lang) {
-        try {
-            const response = await fetch(`/lang/${lang}.json`);
+function loadLanguage(lang) {
+    return fetch(`/lang/${lang}.json`)
+        .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            this.translations = await response.json();
+            return response.json();
+        })
+        .then(data => {
+            translations = data;
             localStorage.setItem('language', lang);
-            localStorage.setItem('translations', JSON.stringify(this.translations));
-            this.updatePageText();
-            return true;
-        } catch (error) {
-            console.error(`Error loading ${lang} translations:`, error);
-            if (lang !== 'en') {
-                console.log('Falling back to English...');
-                return this.loadTranslations('en');
-            }
-            return false;
-        }
-    }
-
-    updatePageText() {
-        document.querySelectorAll('[data-i18n]').forEach(element => {
-            const key = element.getAttribute('data-i18n');
-            const translation = this.translations[key];
-            
-            if (translation) {
-                if (element.tagName === 'INPUT' && element.getAttribute('placeholder')) {
-                    element.placeholder = translation;
-                } else {
-                    element.textContent = translation;
-                }
+            localStorage.setItem('translations', JSON.stringify(translations));
+            translatePage();
+        })
+        .catch(error => {
+            console.error("Error loading language file:", error);
+            if (lang !== defaultLanguage) {
+                return loadLanguage(defaultLanguage);
             }
         });
-    }
+}
 
-    async changeLanguage(lang) {
-        if (lang && lang !== this.currentLanguage) {
-            this.currentLanguage = lang;
-            await this.loadTranslations(lang);
-            const languageSelect = document.getElementById('language-select');
-            if (languageSelect) {
-                languageSelect.value = lang;
-            }
+function translatePage() {
+    const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+    elementsToTranslate.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (!translations[key]) return;
+
+        if (element.tagName === 'INPUT' && element.getAttribute('placeholder')) {
+            element.placeholder = translations[key];
+        } else {
+            element.textContent = translations[key];
         }
+    });
+}
+
+function changeLanguage(lang) {
+    if (lang && lang !== currentLanguage) {
+        currentLanguage = lang;
+        loadLanguage(lang);
     }
 }
 
-// Initialize language management on page load
+// Initialize language handling
 document.addEventListener('DOMContentLoaded', () => {
-    window.languageManager = new LanguageManager();
+    const languageSelect = document.getElementById('language-select');
+    if (languageSelect) {
+        languageSelect.value = currentLanguage;
+        languageSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+    }
+
+    const storedTranslations = localStorage.getItem('translations');
+    if (storedTranslations) {
+        try {
+            translations = JSON.parse(storedTranslations);
+            translatePage();
+        } catch (error) {
+            console.error('Error parsing stored translations:', error);
+            loadLanguage(currentLanguage);
+        }
+    } else {
+        loadLanguage(currentLanguage);
+    }
 });
