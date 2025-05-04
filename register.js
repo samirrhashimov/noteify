@@ -25,7 +25,7 @@ function register() {
     let password = document.getElementById("password").value;
 
     if (!email || !password) {
-        showMessage("Lütfen tüm alanları doldurun.", true);
+        alert("Lütfen tüm alanları doldurun.", true);
         return;
     }
 
