@@ -482,15 +482,18 @@ document.addEventListener('click', (e) => {
 });
 
 // Settings Panel Functionality
-document.getElementById('settings-link').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('settings-panel').style.display = 'flex';
-    document.getElementById('menu').classList.remove('show');
-});
+let settingsPanelVisible = false; // Added state variable
 
-document.getElementById('close-settings').addEventListener('click', function() {
-    document.getElementById('settings-panel').style.display = 'none';
-});
+function toggleSettingsPanel() {
+    const settingsPanel = document.getElementById('settings-panel');
+    settingsPanelVisible = !settingsPanelVisible;
+    settingsPanel.style.display = settingsPanelVisible ? 'flex' : 'none';
+}
+
+
+document.getElementById('settings-link').addEventListener('click', toggleSettingsPanel);
+
+document.getElementById('close-settings').addEventListener('click', toggleSettingsPanel);
 
 // Theme Toggle
 document.getElementById('theme-toggle').addEventListener('change', function() {
