@@ -15,6 +15,14 @@ function handleNetworkStatus() {
 
 document.addEventListener('DOMContentLoaded', () => {
     handleNetworkStatus();
+    
+    // Setup menu button functionality
+    const menuBtn = document.getElementById('menu-btn');
+    menuBtn.addEventListener('click', function() {
+        const menu = document.getElementById('settings-panel');
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    });
+    
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             console.log("Giriş yapan:", user.displayName);
