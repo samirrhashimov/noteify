@@ -1,22 +1,22 @@
 // Google Login Function
 window.googleLogin = function() {
     let provider = new firebase.auth.GoogleAuthProvider();
-    
+
     firebase.auth().signInWithPopup(provider)
         .then(() => {
             window.location.href = "index.html";
         })
         .catch(error => {
-            alert("Error: " + error.message);
+            showInlineMessage("Hata: " + error.message, true);
         });
 }
 
 
 // Register Function
-function showMessage(message, isError = false) {
-    const messageDiv = document.getElementById("message");
+function showInlineMessage(message, isError = false) {
+    const messageDiv = document.getElementById("inline-message");
     messageDiv.textContent = message;
-    messageDiv.className = `message ${isError ? 'error-message' : 'success-message'}`;
+    messageDiv.className = `inline-message ${isError ? 'error' : 'success'}`;
     messageDiv.style.display = 'block';
 }
 
@@ -25,7 +25,7 @@ function register() {
     let password = document.getElementById("password").value;
 
     if (!email || !password) {
-        showMessage("Lütfen tüm alanları doldurun.", true);
+        showInlineMessage("Lütfen tüm alanları doldurun.", true);
         return;
     }
 
@@ -34,14 +34,14 @@ function register() {
             const user = userCredential.user;
             return user.sendEmailVerification()
                 .then(() => {
-                    showMessage("Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın.");
+                    showInlineMessage("Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın.");
                     setTimeout(() => {
                         window.location.href = "verify.html";
                     }, 2000);
                 });
         })
         .catch(error => {
-            showMessage("Hata: " + error.message, true);
+            showInlineMessage("Hata: " + error.message, true);
         });
 }
 
