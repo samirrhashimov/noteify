@@ -13,16 +13,35 @@ window.googleLogin = function() {
 
 
 // Register Function
+function showMessage(message, isError = false) {
+    const messageDiv = document.getElementById("message");
+    messageDiv.textContent = message;
+    messageDiv.className = `message ${isError ? 'error-message' : 'success-message'}`;
+    messageDiv.style.display = 'block';
+}
+
 function register() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
+    if (!email || !password) {
+        showMessage("Lütfen tüm alanları doldurun.", true);
+        return;
+    }
+
     firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            alert("Registration successful! You can now login.");
+        .then((userCredential) => {
+            const user = userCredential.user;
+            return user.sendEmailVerification()
+                .then(() => {
+                    showMessage("Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın.");
+                    setTimeout(() => {
+                        window.location.href = "verify.html";
+                    }, 2000);
+                });
         })
         .catch(error => {
-            alert("Error: " + error.message);
+            showMessage("Hata: " + error.message, true);
         });
 }
 
