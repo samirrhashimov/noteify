@@ -1,3 +1,21 @@
+// 🔥 Firebase Authentication ile giriş kontrolü
+// Auth State Observer
+// Network status handling
+function handleNetworkStatus() {
+    window.addEventListener('online', () => {
+        document.body.style.opacity = '1';
+        alert('İnternet bağlantısı kuruldu. Notlarınız senkronize ediliyor...');
+    });
+
+    window.addEventListener('offline', () => {
+        document.body.style.opacity = '0.8';
+        alert('İnternet bağlantısı kesildi. Çevrimdışı modda devam edebilirsiniz.');
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    handleNetworkStatus();
+    
     // Setup menu button functionality
     const menuBtn = document.getElementById('menu-btn');
     menuBtn.addEventListener('click', function() {
