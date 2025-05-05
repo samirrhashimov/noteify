@@ -214,8 +214,7 @@ body.dark-mode {
   color: var(--dark-link);
 }
 
-.dark-mode .modal,
-.dark-mode .settings-panel {
+.dark-mode .modal {
   background-color: var(--dark-bg);
 }
 
