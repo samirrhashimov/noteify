@@ -21,9 +21,11 @@ Noteify offers a minimalist, distraction-free environment.
 3. Start taking notes!
 4. Your notes are automatically saved and accessible from anywhere.
 
-## Links
+## Project Links
+- [Noteify Web-site](noteifynet.netlify.app)
+- [Download on Itch.io(apk)](https://samirrhashimov.itch.io/noteify)
 
-- [Download on Itch.io](https://samirrhashimov.itch.io/noteify)
+## Personal Links
 - [Portfolio on Behance](https://www.behance.net/samirhasimov)
 - [LinkedIn profile](https://www.linkedin.com/in/samirrhashimov)
 - [Other links](https://beacons.ai/samirrhashimov)
