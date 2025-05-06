@@ -22,7 +22,7 @@ Noteify offers a minimalist, distraction-free environment.
 4. Your notes are automatically saved and accessible from anywhere.
 
 ## Project Links
-- [Noteify Web-site](noteifynet.netlify.app)
+- [Noteify Web-site](https://noteifynet.netlify.app)
 - [Download on Itch.io(apk)](https://samirrhashimov.itch.io/noteify)
 
 ## Personal Links
