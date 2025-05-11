@@ -61,12 +61,11 @@ button {
   font-size: 14px;
   margin-bottom: 10px;
   max-width: 100%;
-  flex-wrap: wrap;
 }
 
 #agreeCheckbox {
   margin-top: 3px;
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 button+button {
