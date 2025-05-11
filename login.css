@@ -53,8 +53,12 @@ button {
     cursor: not-allowed;
 }
 
-#agreeCheckbox {
-    
+.t-container {
+    background: none;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: left;
 }
 
 button+button {
