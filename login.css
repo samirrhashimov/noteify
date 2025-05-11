@@ -47,10 +47,26 @@ button {
     align-items: center;
     justify-content:center;
 }
-    #registerBtn:disabled {
+
+#registerBtn:disabled {
     background-color: grey;
     cursor: not-allowed;
-    }
+}
+
+.terms-container {
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: sans-serif;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+#agreeCheckbox {
+    transform: scale(1.2);
+    margin: 0;
+}
 
 button+button {
     margin-top: 5px;
