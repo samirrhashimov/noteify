@@ -55,7 +55,7 @@ button {
 
 .terms-container {
   display: flex;
-  align-items: flex-start;
+  align-items: left;
   gap: 4px; /* Daha az boşluk */
   font-family: sans-serif;
   font-size: 14px;
@@ -65,6 +65,7 @@ button {
 
 #agreeCheckbox {
   margin-top: 3px;
+  margin-left: 5px;
   transform: scale(1.2);
 }
 
