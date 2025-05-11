@@ -53,20 +53,8 @@ button {
     cursor: not-allowed;
 }
 
-.terms-container {
-  display: flex;
-  align-items: left;
-  gap: 4px; /* Daha az boşluk */
-  font-family: sans-serif;
-  font-size: 14px;
-  margin-bottom: 10px;
-  max-width: 100%;
-}
-
 #agreeCheckbox {
-  margin-top: 3px;
-  margin-left: 5px;
-  transform: scale(1.2);
+    
 }
 
 button+button {
