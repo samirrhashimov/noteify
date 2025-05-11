@@ -47,6 +47,11 @@ button {
     align-items: center;
     justify-content:center;
 }
+    #registerBtn:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+    }
+
 button+button {
     margin-top: 5px;
 
