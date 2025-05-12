@@ -53,14 +53,6 @@ button {
     cursor: not-allowed;
 }
 
-.t-container {
-    display: block;
-    background: none;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    text-align: left;
-}
 
 button+button {
     margin-top: 5px;
@@ -145,5 +137,8 @@ a {
   color: white;
 
 .inline {
-    display: inline-block:
+    display: flex:
+    justify-content: center;
+    margin: 0;
+    
 }
