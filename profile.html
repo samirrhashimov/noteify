@@ -45,7 +45,7 @@ if (createdAt) {
   const formattedDate = `${day}/${month}/${year}, ${hour}:${minute}`;
   document.getElementById("created").textContent = formattedDate;
 }
-        document.getElementById("verified").textContent = user.emailVerified ? "Doğrulanmış" : "Doğrulanmamış";
+        document.getElementById("verified").textContent = user.emailVerified ? "Verified" : "Unverified";
         document.getElementById("uid").textContent = user.uid;
       } else {
         window.location.href = "login.html";
