@@ -144,3 +144,13 @@ a {
 #AgreeCheckbox, #AgreeCheckbox1 {
     display: inline-block;
 }
+
+.inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#agreeCheckbox {
+  margin-right: 8px;
+  vertical-align: middle;
+}
