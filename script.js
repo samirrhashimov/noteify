@@ -153,7 +153,7 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
                 let noteItem = document.createElement("div");
                 noteItem.classList.add("note-container");
 
-                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "Tarih yok";
+                let formattedDate = note.timestamp ? new Date(note.timestamp.toDate()).toLocaleString() : "No date";
                 const displayContent = note.content.replace(/\n/g, '<br>');
 
                 noteItem.innerHTML = `
@@ -161,8 +161,8 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
                         <small>${formattedDate}</small>
                         <button class="three-dot-menu">⋮</button>
                         <div class="note-menu">
-                            <div class="menu-item" onclick="editNote('${doc.id}')">Düzenle</div>
-    <div class="menu-item" onclick="confirmDelete('${doc.id}')">Sil</div>
+                            <div class="menu-item" onclick="editNote('${doc.id}')">Edit</div>
+    <div class="menu-item" onclick="confirmDelete('${doc.id}')">Delete</div>
                         </div>
                     </div>
                     <p>${displayContent}</p>
@@ -523,18 +523,18 @@ document.getElementById('confirm-delete').addEventListener('click', function() {
     const user = firebase.auth().currentUser;
     if (user) {
         user.delete().then(() => {
-            alert('Hesabınız başarıyla silindi.');
+            alert('Your account has been successfully deleted.');
             firebase.auth().signOut().then(() => {
                 window.location.href = 'login.html';
             });
         }).catch((error) => {
             if (error.code === 'auth/requires-recent-login') {
-                alert('Güvenlik nedeniyle, hesabınızı silmek için yeniden giriş yapmanız gerekmektedir.');
+                alert('For security reasons, you must log in again to delete your account.');
                 firebase.auth().signOut().then(() => {
                     window.location.href = 'login.html';
                 });
             } else {
-                alert('Hesap silme hatası: ' + error.message);
+                alert('Account deletion error: ' + error.message);
             }
         });
     }
