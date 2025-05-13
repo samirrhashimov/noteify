@@ -137,9 +137,10 @@ a {
   color: white;
 
 .agree-container {
+  width: 90%;
   display: flex;
   justify-content: right;
-  gap: 1px;
+  gap: 10px;
   margin-top: 0px;
   margin-bottom: 0px;
   padding: 0px;
@@ -147,6 +148,6 @@ a {
 
 #agreeCheckboxp {
   margin: 0 ;
-  font-size: 10px;
+  font-size: 2px;
   color: white;
 }
