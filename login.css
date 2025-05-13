@@ -136,21 +136,16 @@ button:hover {
 a {
   color: white;
 
-#AgreeCheckbox1 {
-    font-size: 10px;
-    color: white;
+.agree-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-#AgreeCheckbox, #AgreeCheckbox1 {
-    display: inline-block;
-}
-
-.inline {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#agreeCheckbox {
-  margin-right: 8px;
-  vertical-align: middle;
+#agreeCheckboxp {
+  margin: 0;
+  font-size: 10px;
+  color: white;
 }
