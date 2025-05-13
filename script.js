@@ -4,12 +4,12 @@
 function handleNetworkStatus() {
     window.addEventListener('online', () => {
         document.body.style.opacity = '1';
-        alert('İnternet bağlantısı kuruldu. Notlarınız senkronize ediliyor...');
+        alert('Internet connection established. Please restart the application.');
     });
 
     window.addEventListener('offline', () => {
         document.body.style.opacity = '0.8';
-        alert('İnternet bağlantısı kesildi. Çevrimdışı modda devam edebilirsiniz.');
+        alert('Internet connection is interrupted.');
     });
 }
 
@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            console.log("Giriş yapan:", user.displayName);
+            console.log("Logged in:", user.displayName);
             loadNotes(); // Kullanıcı giriş yaptıysa notları yükle
         } else {
-            console.log("Giriş yapan kullanıcı yok.");
+            console.log("There are no users logged in.");
             const notesList = document.getElementById("notesList");
             if (notesList) {
-                notesList.innerHTML = "<p>Lütfen giriş yapın.</p>";
+                notesList.innerHTML = "<p></p>";
             }
         }
     });
@@ -44,11 +44,11 @@ function googleLogin() {
     firebase.auth().signInWithPopup(provider)
         .then(result => {
             let user = result.user;
-            console.log("Giriş başarılı:", user.displayName);
-            alert("Hoş geldin, " + user.displayName);
+            console.log("Login successful:", user.displayName);
+            alert("Welcome, " + user.displayName);
         })
         .catch(error => {
-            console.error("Giriş hatası:", error);
+            console.error("Login Error: ", error);
         });
 }
 
@@ -64,17 +64,17 @@ function addNote() {
             content: noteContent,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
-            console.log("Not kaydedildi!");
+            console.log("Note saved!");
             closeNotePanel();
         }).catch(error => {
-            console.error("Not kaydetme hatası:", error);
+            console.error("Error saving notes:", error);
             // Still close panel in offline mode
             if (!navigator.onLine) {
                 closeNotePanel();
             }
         });
     } else {
-        alert("Not eklemek için giriş yapmalısınız!");
+        alert("You must be logged in to add a note!");
     }
 }
 
@@ -90,7 +90,7 @@ function loadNotes(order = "desc") {
     let notesList = document.getElementById("notesList");
 
     if (!user) {
-        console.log("Giriş yapmış kullanıcı yok.");
+        console.log("There are no users logged in.");
         return;
     }
 
@@ -111,7 +111,7 @@ function confirmDelete(noteId) {
 document.getElementById("confirmDelete").addEventListener("click", function () {
   if (deleteNoteId) {
     firebase.firestore().collection("notlar").doc(deleteNoteId).delete().then(() => {
-      console.log("Not silindi.");
+      console.log("The note was deleted.");
       document.getElementById("deleteModal").style.display = "none";
       deleteNoteId = null;
       loadNotes(); // Sayfayı güncelle
@@ -191,10 +191,10 @@ function confirmDelete(noteId) {
 function deleteNote(noteId) {
     firebase.firestore().collection("notlar").doc(noteId).delete()
         .then(() => {
-            console.log("Not silindi!");
+            console.log("Note deleted!");
         })
         .catch(error => {
-            console.error("Not silme hatası:", error);
+            console.error("Error deleting notes:", error);
         });
 }
 
@@ -228,11 +228,11 @@ function saveEdit() {
             content: newContent,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
-            console.log("Not güncellendi!");
+            console.log("note updated");
             loadNotes();
             cancelEdit();
         }).catch(error => {
-            console.error("Not güncelleme hatası:", error);
+            console.error("Note update error: ", error);
         });
     }
 }
@@ -338,10 +338,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Settings panel toggle functionality is handled by the menu button click
     document.getElementById('logout-button').addEventListener('click', function() {
         firebase.auth().signOut().then(() => {
-            alert("Başarıyla çıkış yapıldı!");
+            console.log("Successfully logged out!");
             window.location.href = "login.html";
         }).catch((error) => {
-            console.error("Çıkış yapılırken hata oluştu:", error);
+            console.error("An error occurred while logging out:", error);
         });
     });
 });
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Başarıyla çıkış yapıldı!");
                 window.location.href = "login.html";
             }).catch((error) => {
-                console.error("Çıkış yapılırken hata oluştu:", error);
+                console.error("An error occurred while logging out:", error);
             });
         });
     }
@@ -580,12 +580,12 @@ function changePassword() {
             return user.updatePassword(newPassword);
         })
         .then(() => {
-            alert("Şifre başarıyla güncellendi.");
+            alert("Password updated successfully.");
             document.getElementById("password-change-container").classList.add("hidden");
         })
         .catch((error) => {
-            console.error("Şifre değiştirme hatası:", error);
-            alert("Şifre değiştirilemedi: " + error.message);
+            console.error("Password change error:", error);
+            alert("Password change failed: " + error.message);
         });
 }
 document.getElementById("change-password").addEventListener("click", () => {

@@ -3,23 +3,23 @@ function resetPassword() {
     var resetMessage = document.getElementById("resetMessage");
 
     if (!email) {
-        resetMessage.innerText = "Lütfen e-posta adresinizi girin.";
+        resetMessage.innerText = "Please enter your email address.";
         return;
     }
 
     firebase.auth().sendPasswordResetEmail(email)
         .then(() => {
-            resetMessage.innerText = "Eğer bu e-posta adresi sistemde kayıtlıysa, şifre sıfırlama bağlantısı gönderildi.";
+            resetMessage.innerText = "If this email address is registered in the system, a password reset link will be sent.";
             resetMessage.style.color = "green";
         })
         .catch(error => {
-            resetMessage.innerText = "Hata: " + error.message;
+            resetMessage.innerText = "Error: " + error.message;
             resetMessage.style.color = "red";
         });
 }
 //console test
 if (typeof firebase === "undefined") {
-    console.error("Firebase not loaded! Lütfen Firebase dosyalarının yüklendiğinden emin olun.");
+    console.error("Firebase not loaded!");
 } else {
-    console.log("Firebase başarıyla yüklendi.");
+    console.log("Firebase loaded.");
 }

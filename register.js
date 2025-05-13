@@ -25,7 +25,7 @@ function register() {
     let password = document.getElementById("password").value;
 
     if (!email || !password) {
-        showMessage("Lütfen tüm alanları doldurun.", true);
+        showMessage("Please fill in all fields.", true);
         return;
     }
 
@@ -34,7 +34,7 @@ function register() {
             const user = userCredential.user;
             return user.sendEmailVerification()
                 .then(() => {
-                    showMessage("Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın.");
+                    showMessage("Registration successful! Please verify your email address.");
                     setTimeout(() => {
                         window.location.href = "verify.html";
                     }, 2000);
@@ -48,10 +48,10 @@ function register() {
 //mail verification 
 user.sendEmailVerification()
     .then(() => {
-        alert("E-posta doğrulama bağlantısı gönderildi. Lütfen e-postanızı kontrol edin.");
+        alert("Email verification link has been sent. Please check your email.");
     })
     .catch(error => {
-        console.error("E-posta doğrulama hatası:", error.message);
+        console.error("Email verification error:", error.message);
     });
 
 firebase.auth().signOut(); // Kullanıcıyı otomatik çıkış yap

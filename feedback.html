@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Geri Bildirim</title>
+  <title>Feedback</title>
   <style>
     body {
       font-family: sans-serif;
@@ -96,18 +96,18 @@
 </head>
 <body>
   
-<a href="index.html" class="back-button">← Geri</a>
+<a href="index.html" class="back-button">← Back</a>
   
   <div class="container">
-    <h2>Geri Bildirim Gönder</h2>
+    <h2>Send Feedback</h2>
     <form id="feedback-form" action="https://formspree.io/f/xdkgndej" method="POST">
-      <label for="email">Email adresiniz:</label>
+      <label for="email">Your Email adress:</label>
       <input type="email" name="email" id="email" required />
 
-      <label for="message">Mesajınız:</label>
+      <label for="message">Message:</label>
       <textarea name="message" id="message" rows="5" required></textarea>
 
-      <button type="submit">Gönder</button>
+      <button type="submit">Send</button>
       <div id="form-message" class="message"></div>
     </form>
   </div>
@@ -131,15 +131,15 @@
         });
 
         if (response.ok) {
-          messageDiv.textContent = "Geri bildiriminiz başarıyla gönderildi!";
+          messageDiv.textContent = "Your feedback has been sent successfully! Thanks for your feedback!";
           messageDiv.className = "message success";
           form.reset();
         } else {
-          messageDiv.textContent = "Gönderim sırasında bir hata oluştu. Lütfen tekrar deneyin.";
+          messageDiv.textContent = "An error occurred while sending. Please try again.";
           messageDiv.className = "message error";
         }
       } catch (error) {
-        messageDiv.textContent = "Bağlantı hatası. Lütfen internetinizi kontrol edin.";
+        messageDiv.textContent = "Connection error. Please check your internet connection.";
         messageDiv.className = "message error";
       }
     });

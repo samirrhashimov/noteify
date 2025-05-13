@@ -33,10 +33,10 @@ function login() {
             const user = userCredential.user;
             if (!user.emailVerified) {
                 firebase.auth().signOut();
-                showMessage("Lütfen giriş yapmadan önce e-postanızı doğrulayın. Doğrulama bağlantısı için gelen kutunuzu kontrol edin.", true);
+                showMessage("Please verify your email before logging in. Check your inbox for the verification link.", true);
                 return;
             }
-            showMessage("Giriş başarılı! Yönlendiriliyorsunuz...");
+            showMessage("Login successful! You are being redirected...");
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 1500);
