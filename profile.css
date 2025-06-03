@@ -1,16 +1,18 @@
-/* profile.css */
-
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   color: #333;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .profile-container {
   max-width: 600px;
   margin: 60px auto;
+  height: 90vh;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 12px;
@@ -22,6 +24,7 @@ h2 {
   margin-bottom: 30px;
   font-size: 28px;
   color: #444;
+  font-family: Outfit;
 }
 
 .profile-info {
@@ -32,13 +35,15 @@ h2 {
 
 .profile-info p {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
+  font-family: Inter;
 }
 
 .profile-info strong {
-  color: #205295; /* Koyu mavi */
-  font-weight: bold;
+  color: #205295;
+  font-size: 15px;
+  font-family: "Outfit", Sans-Serif;
 }
 
 .back-button {
@@ -59,3 +64,21 @@ h2 {
 .back-button:hover {
   background-color: #e0e0e0;
 }
+
+#email {
+  position: relative;
+  right: -60px;
+}
+#created {
+  position: relative;
+  right: -50px;
+}
+#verified {
+  position: relative;
+  right: -157px;
+}
+#uid {
+  position: relative;
+  right: -20px;
+}
+

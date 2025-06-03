@@ -1,5 +1,3 @@
-// 🔥 Firebase Authentication ile giriş kontrolü
-// Auth State Observer
 // Network status handling
 function handleNetworkStatus() {
     window.addEventListener('online', () => {
@@ -172,7 +170,7 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
         });
 }
 
-// 📌 Not silme onaylama fonksiyonu
+// Note delete confirmation
 function confirmDelete(noteId) {
     const deleteModal = document.getElementById('deleteModal');
     deleteModal.style.display = 'block';
@@ -187,7 +185,7 @@ function confirmDelete(noteId) {
     };
 }
 
-// 📌 Not silme fonksiyonu
+// Note delete Function
 function deleteNote(noteId) {
     firebase.firestore().collection("notlar").doc(noteId).delete()
         .then(() => {
@@ -200,7 +198,7 @@ function deleteNote(noteId) {
 
 
 //edit note
-let currentNoteId = null; // Düzenlenecek notun ID'si
+let currentNoteId = null;
 
 function editNote(noteId, currentContent) {
     // Get the note content directly from Firestore to avoid escaping issues
@@ -238,7 +236,6 @@ function saveEdit() {
 }
 
 function cancelEdit() {
-    // Düzenleme alanını gizle
     document.getElementById("editNoteContainer").style.display = "none";
 }
 function toggleNoteInput() {
@@ -493,7 +490,7 @@ document.addEventListener('click', (e) => {
 let settingsPanelVisible = false; // Added state variable
 
 function toggleSettingsPanel() {
-    const settingsPanel = document.getElementById('settings-panel');
+    const settingsPanel = document.getElementsByClassName('settings-panel');
     settingsPanelVisible = !settingsPanelVisible;
     settingsPanel.style.display = settingsPanelVisible ? 'flex' : 'none';
 }
@@ -555,7 +552,7 @@ window.addEventListener('click', function(e) {
     }
 });
 
-// Sayfa yüklendiğinde varsayılan olarak notları yükle
+// Load notes by default when page loads
 window.addEventListener("load", () => {
     loadNotes();
 });

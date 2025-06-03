@@ -10,8 +10,6 @@ window.googleLogin = function() {
             alert("Error: " + error.message);
         });
 }
-
-
 // Register Function
 function showMessage(message, isError = false) {
     const messageDiv = document.getElementById("message");
@@ -44,7 +42,6 @@ function register() {
             showMessage("Hata: " + error.message, true);
         });
 }
-
 //mail verification 
 user.sendEmailVerification()
     .then(() => {
@@ -54,10 +51,10 @@ user.sendEmailVerification()
         console.error("Email verification error:", error.message);
     });
 
-firebase.auth().signOut(); // Kullanıcıyı otomatik çıkış yap
-window.location.replace("login.html"); // Giriş sayfasına yönlendir
+firebase.auth().signOut();
+window.location.replace("login.html");
 
 
 function goToLogin() {
-    window.location.href = "login.html"; // Giriş sayfasına yönlendir
+    window.location.href = "login.html";
 }

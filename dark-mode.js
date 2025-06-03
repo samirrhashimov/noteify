@@ -1,4 +1,3 @@
-
 // Theme management
 const DARK_MODE_CLASS = 'dark-mode';
 const STORAGE_KEY = 'darkMode';

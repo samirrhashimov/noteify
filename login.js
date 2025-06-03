@@ -61,6 +61,6 @@ function register() {
                 });
         })
         .catch(error => {
-            alert("Error: " + error.message); //This alert needs to be replaced with inline message.
+            alert("Error: " + error.message);
         });
 }

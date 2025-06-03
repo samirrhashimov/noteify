@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ffffff" id="theme-color">
-    <title>Giriş Yap</title>
+    <title>Register - Noteify</title>
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="dark-mode.css">
     <script src="dark-mode.js"></script>
@@ -21,18 +21,17 @@
             Your browser does not support the video tag.
         </video>
     </div>
-    
     <div class="login-container">
         <h2>Register</h2>
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
         
+      <div class="agreement">
 <input class="inline" type="checkbox" id="agreeCheckbox" onchange="toggleButton(this)">
  <p class="inline" id="agreeCheckboxp"> I accept the <a href="termsandconditions.html" target="_blank">Terms & Conditions</a> and 
   <a href="privacypolicy.html" target="_blank">Privacy Policy</a>.
 </p>
-
-<br><br>
+   </div>
 
 <button id="registerBtn" onclick="register()" disabled>Register</button>
 
@@ -44,15 +43,13 @@
         <div id="message" class="message"></div>
     <p class="separator">or</p>
         
-<!--
+<!-- Google Button:
     <button class="google-btn"onclick="googleLogin()"style="background-color: black; color:white; font-family: 'roboto'">
 <span style="font-weight: bold;">Google&nbsp </span>  ile Devam Et
 </button>
-
     -->
         <p>Do you have an account? <a href="login.html">Login</a></p>
     </div>
-
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>

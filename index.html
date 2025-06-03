@@ -12,12 +12,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ffffff" id="theme-color">
-    <title>Noteify</title>
+    <title>Noteify - Cloud NotePad</title>
       <link rel="icon" href="img/mainlogosingle.png">
     <link rel="stylesheet" href="dark-mode.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <script src="dark-mode.js"></script>
     <style>
-        body {
+    * {
+transition: background-color 0.3s ease, color 0.4s ease;
+    }
+    body, html {
+      overflow-x: hidden;
+    }
+    body {
     font-family: Arial, sans-serif;
     background-color: #EEEEFF;
     color: #333;
@@ -28,15 +38,8 @@
     align-items: center;
     justify-content: flex-start;
     min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
-/*
-h1 {
-    font-size: 2rem;
-    color: #4CAF50;
-    margin-bottom: 20px;
-}
-*/
-
 textarea {
     width: 100%;
     height: 120px;
@@ -52,10 +55,6 @@ textarea {
     box-sizing: border-box;
 }
 
-textarea:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
-}
 
 #notesList > div {
   background-color: white;
@@ -79,7 +78,7 @@ textarea:focus {
 button {
     margin: var(--spacing-sm);
     padding: var(--spacing-md) var(--spacing-lg);
-    background-color: #4CAF50;
+    background-color: #0056b3;
     color: white;
     font-size: 1rem;
     font-family: var(--primary-font);
@@ -134,29 +133,31 @@ button:hover {
 #addNoteButton {
     z-index: 999;
 }
-
 /* Adjust spacing for content to not be hidden behind nav */
 body {
     padding-bottom: 50px;
 }
-
-/* standart margin top:20px */
 .note-container {
-    width: 90%;
-    margin-top: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin: 5px auto 23px auto;
     background-color: transparent;
-    padding: 11px 13px;
-    border-radius: 8px;
+    padding: 9px 9px;
+    border-radius: 5px;
+    font-family: Inter;
+    font-weight: 350;
     /*
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
     */
-    margin-bottom: 20px;
 }
 
 .note-container p {
     white-space: pre-wrap;
     word-wrap: break-word;
-    font-size: 1rem;
+    font-size: 0.93rem;
     margin: 5px 0;
 }
 
@@ -171,7 +172,6 @@ body {
     padding: 8px;
     color: #2c3e50;
     border-radius: 50%;
-    transition: all 0.2s ease-in-out;
     background-color: transparent;
 }
 
@@ -187,6 +187,7 @@ body {
     z-index: 1000;
     min-width: 150px;
     border: 1px solid #eee;
+    animation: fadeIn 0.25s ease-in-out;
 }
 
 .note-menu.show {
@@ -226,7 +227,7 @@ hr {
     border: none;
     border-top: 1px solid #f1f1f1;
 }
-        #editNoteContainer {
+   #editNoteContainer {
     position: fixed;
     top: 0;
     left: 0;
@@ -239,21 +240,24 @@ hr {
     z-index: 9999;
     display: flex;
     flex-direction: column;
+    animation: fadeIn 0.25s ease-in-out;
 }
 
 #editNoteContainer textarea {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 113px);
     margin: 0;
-    padding: 20px;
+    padding: 7px;
     padding-bottom: 90px;
-    border: none;
+    border: none !important;
     resize: none;
     box-sizing: border-box;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 15.3px;
     outline: none;
     background: white;
+    font-family: Inter, Sans-Serif;
+    outline: none;
 }
 
 #editNoteContainer .button-container {
@@ -268,7 +272,6 @@ hr {
     gap: 10px;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
 }
-        /*display: none; normalda*/
 .hidden {
     visibility: hidden ;
 }
@@ -303,7 +306,7 @@ hr {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #fff;
+    background-color: white;
     padding: 20px;
     z-index: 9999;
     visibility: hidden;
@@ -321,18 +324,17 @@ hr {
 
 #noteContainer textarea {
     width: 100%;
-    height: calc(100vh - 100px);
-    margin: 10px 0;
-    padding: 15px;
+    height: calc(100vh - 113px);
+    margin: 0px;
+    padding: 7px;
     padding-bottom: 90px;
-    border: none;
+    border: none !important;
     resize: none;
     box-sizing: border-box;
-    font-family: inherit;
-    font-size: 16px;
+    font-family: Inter, Sans-Serif;
+    font-size: 15.3px;
     outline: none;
 }
-
 #noteContainer .button-container {
     position: fixed;
     bottom: 0;
@@ -365,9 +367,9 @@ header {
     position: fixed;
     height: 52px;
     width: 100%;
-    top: 10px;
+    top: 0px;
     left: 0;
-    border-radius: 13px;
+    border-radius: 0px 0px 10px 10px;
     z-index: 1001;
 }
  #title {
@@ -431,15 +433,13 @@ header {
 #searchBox {
     display: none;
     position: fixed;
-    top: 65px;
+    top: 55px;
     left: 0px;
     right: 0px;
     margin: 0 auto;
-    background: transparent;
+    background: none;
     padding: 10px 20px;
     z-index: 997;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
@@ -454,31 +454,33 @@ header {
 #closeSearch {
     background: none;
     border: none;
-    color: #555;
+    color: #fff;
     font-size: 20px;
     padding: 6px;
     cursor: pointer;
     position: absolute;
     right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 10px;
 }
 
 #searchInput {
     width: 100%;
     padding: 12px 45px 12px 10px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
     font-size: 16px;
-    background: #f9f9f9;
+    background: #2B3E4F;
+    color: #fff;
+    border: none;
     outline: none;
     transition: border-color 0.2s ease;
     box-sizing: border-box;
+    animation: fadeIn 0.45s ease-in-out;
 }
 
 #searchInput:focus {
-    background: white;
-    border-color: #4CAF50;
+    background: #2B3E4F;
+}
+input::placeholder {
+  color: #aaa;
 }
 
 @media screen and (max-width: 768px) {
@@ -510,23 +512,18 @@ header {
     cursor: pointer;
 }
 
-.filter-option.active {
-    font-weight: bold;
-    color: blue;
-}
-
 .filter-menu {
     position: fixed;
-    bottom: 70px;
+    bottom: 90px;
     right: 10px;
-    background: white;
-    color: #333;
+    background-color: #2D3E50;
+    color: #fff;
     padding: 8px 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     z-index: 1010;
     display: none;
-    min-width: 180px;
+    min-width: 145px;
     pointer-events: auto;
     transition: all 0.3s ease;
 }
@@ -546,21 +543,23 @@ header {
 }
 
 .filter-option {
-    padding: 12px 16px;
+    padding: 12px 12px;
     display: flex;
     align-items: center;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    font-family: "Inter";
+    font-size: 15px;
 }
 
-.filter-option:hover {
-    background-color: #f5f5f5;
-}
 
 .filter-option.active {
-    color: #4CAF50;
+    color: #fff;
+    font-family: "Inter";
+    font-size: 15px;
     font-weight: 500;
-    background-color: #f0f7f0;
+    background-color: #0056b3;
+    border-radius: 5px;
 }
 
 @keyframes fadeIn {
@@ -572,33 +571,17 @@ header {
     visibility: visible;
     opacity: 1;
 }
-
-.filter-option {
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
 .filter-option:hover {
     background-color: #f5f5f5;
 }
-
-.filter-option.active {
-    color: #4CAF50;
-    font-weight: bold;
-    background-color: #f0f0f0;
-}
-
 #filter-btn img {
     width: 20px;
     height: 20px;
 }
-
 #notesList {
     margin-top: 50px;
     padding: 0 20px;
 }
-
 .empty-state {
     display: none;
     position: fixed;
@@ -640,8 +623,12 @@ header {
         justify-content: center;
         align-items: center;
         z-index: 1000;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        animation: fadeIn 0.25s ease-in-out;
     }
-
+    .settings-panel:show {
+      animation: fadeIn 0.2s ease-in-out;
+    }
     .settings-content {
         background: white;
         padding: 20px;
@@ -658,6 +645,7 @@ header {
         margin-bottom: 20px;
         padding-bottom: 10px;
         border-bottom: 1px solid #eee;
+        font-family: Outfit;
     }
 
     .settings-header h2 {
@@ -672,39 +660,74 @@ header {
         align-items: center;
         border-bottom: 1px solid #eee;
     }
-
+   #darkModeLabel {
+     font-family: Inter;
+     color:#000;
+     padding-left: 10px;
+   }
     .settings-buttons {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        margin-top: 20px;
+        gap: 5px;
+        margin-top: 10px;
+        font-family: Inter;
     }
-
     .settings-button {
+      display: flex;
+      text-align: center;
         width: 100%;
         padding: 12px;
         border: none;
         border-radius: 6px;
-        background: #0056b3;
-        color: white;
+        background: none;
+        color: #000;
         cursor: pointer;
     }
-
+   .settings-button .left {
+     text-align: left !important;
+   }
+   .settings-button .right1 {
+     position: relative;
+     left: 241px;
+     color: #333;
+     overflow: hidden;
+   }
+      .settings-button .right2 {
+     position: relative;
+     left: 153px;
+     color: #333;
+     overflow: hidden;
+   }
+   .settings-button .right3 {
+     position: relative;
+     left: 173px;
+     color: #333;
+     overflow: hidden;
+   }
+   .settings-button .right4 {
+     position: relative;
+     left: 215px;
+     color: #333;
+     overflow: hidden;
+   }
     .settings-button:hover {
-        background: #004494;
+        background: #eaf2f8;
+        color: #000;
     }
 
     .settings-button.danger {
-        background: #dc3545;
+        background: none;
+        color: #fd2130;
     }
 
     .settings-button.danger:hover {
         background: #bd2130;
+        color: #fff;
     }
 
     .version {
         color: #666;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 
     /* Switch Styles */
@@ -768,7 +791,7 @@ header {
 
     .modal-content {
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
         background: white;
@@ -783,6 +806,7 @@ header {
         justify-content: flex-end;
         gap: 10px;
         margin-top: 20px;
+        
     }
 
     .modal-buttons button {
@@ -796,11 +820,6 @@ header {
         background: #ff3b30;
         color: white;
     }
-    .filter-option.active {
-        color: #4CAF50;
-        font-weight: bold;
-        background-color: #f0f0f0;
-    }
 
     .menu-link {
         padding: 6px 0;
@@ -811,9 +830,12 @@ header {
   .modal {
     position: fixed;
     z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5) !important;
+    animation: fadeIn 0.25s ease-in-out;
   }
   .modal-content {
     background: white;
@@ -887,28 +909,21 @@ header {
 #cancelnote2:hover {
   text-decoration: underline;
 }
-
-#darkModeLabel {
-  color: #000000;
-}
         
 .feedback-button {
-    background-color: #ff4d4d;
-    color: white;
+    background: none;
+    color: #ff3b30;
     padding: 12px 24px;
     border: none;
     border-radius: 6px;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
     width: 100%;
     margin-top: 10px;
   }
 
   .feedback-button:hover {
     background-color: #e84343;
-    transform: scale(1.02);
   }
     </style>
 </head>
@@ -917,7 +932,7 @@ header {
 <header>
     <button id="menu-btn">☰</button>
     <a href="/">
-  <img src="img/mainlogo.png" alt="Notepad Logosu" height="100"  width="70" style="position:relative;top:3px;">
+  <img src="img/mainlogo2.png" alt="Notepad Logosu" height="40"  width="75" style="position:relative;top:2px;right:5px;">
 </a>
 
 <div id="searchBox">
@@ -929,7 +944,7 @@ header {
     <div id="settings-panel" class="settings-panel">
         <div class="settings-content">
             <div class="settings-header">
- <h2 id="settingsl" style="color:#333; text-align:center; ">Settings</h2>
+ <h2 id="settingsl" style="color:#333;">Settings</h2>
                 
  <button id="close-settings" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #333;">✕</button>
  </div>
@@ -940,39 +955,33 @@ header {
  <input type="checkbox" id="theme-toggle">
   <span class="slider round"></span>
   </label>
-
-                </div>
- </div>
-                <div class="settings-buttons">
+  </div>
+  </div>
+    <div class="settings-buttons">
     <a href="profile.html" style="text-decoration: none;">
-        <button class="settings-button">Profile</button>
+        <button class="settings-button dmsettings">
+          <span class="left">Profile</span><span class="right1">⟩</span></button>
     </a>
     <a href="change-password.html" style="text-decoration: none;">
-        <button id="change-password" class="settings-button">Change password</button>
+        <button id="change-password" class="settings-button dmsettings">Change password<span class="right2">⟩</span></button>
     </a>
-    <button class="feedback-button" onclick="window.location.href='feedback.html'">Send Feedback</button>
-    <button id="logout-button" class="settings-button danger">Logout</button>
-</div>
- <div class="settings-item version">
+    <button class="settings-button dmsettings" onclick="window.location.href='feedback.html'">Send Feedback<span class="right3">⟩</span></button>
+      <a href="legalinfo.html" style="text-decoration: none;">
+        <button class="settings-button dmsettings">Legal Info<span class="right4">⟩</span></button>
+    </a>
+    <button onclick="logout()" class="settings-button danger">Logout</button>
+    <div class="settings-item version">
     <span>App Version: v19.5.0</span>
-                </div>
-    <div>
-    <a href="termsandconditions.html" target="_blank">Terms&Conditions</a><br>
-    <a href="privacypolicy.html"
-target="_blank">Privacy Policy</a>
-  <br>
-    <a href="copyright.html" target="_blank">Copyright&Contact </a>
-    </div>
-        </div>
+</div>
+</div>
+      
 </header>
 
 <div id="filter-menu" class="filter-menu">
     <div id="sort-newest" class="filter-option">
-        <img src="img/filter-list.png" alt="newest" style="width: 16px; height: 16px; margin-right: 8px;">
         From New to Old
     </div>
     <div id="sort-oldest" class="filter-option">
-        <img src="img/filter-list.png" alt="oldest" style="width: 16px; height: 16px; margin-right: 8px;">
         From Old to New
     </div>
 </div>
@@ -1011,7 +1020,7 @@ target="_blank">Privacy Policy</a>
     <div id="notesList" class="note-container"></div>
     <div id="emptyState" class="empty-state">
         <img src="img/man.png" alt="No notes" width="70" height="70">
-        <h2>Too quiet here</h2>
+        <h2>Too quiet here...</h2>
         <p>Add a note to get started</p>
     </div>
 
@@ -1030,10 +1039,6 @@ target="_blank">Privacy Policy</a>
     <button id="cancelDelete">No</button>
   </div>
 </div>
-    
-
-
     </script>
-
 </body>
 </html>

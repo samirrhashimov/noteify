@@ -256,3 +256,18 @@ body.dark-mode .profile-info strong {
 body.dark-mode .profile-info span {
   color: #eeeeee;
 }
+.dark-mode .dmsettings {
+  color: #fff;
+}
+.dark-mode .right1 {
+  color: #fff !important;
+}
+.dark-mode .right2 {
+  color: #fff !important;
+}
+.dark-mode .right3 {
+  color: #fff !important;
+}
+.dark-mode .right4 {
+  color: #fff !important;
+}
