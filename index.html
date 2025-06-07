@@ -10,12 +10,20 @@
     <script src="script.js"></script>
     </script>
     <!-- For Telegram: -->
-    <script 
+    <script>
     async 
     src="https://tganalytics.xyz/index.js" 
     onload="initAnalytics()" 
     type="text/javascript"
-></script>
+    </script>
+    <script>
+    function initAnalytics() {
+      window.telegramAnalytics.init({
+        token:' eyJhcHBfbmFtZSI6Im5vdGVpZnkiLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL25vdGVpZnluZXQiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9ub3RlaWZ5bmV0Lm5ldGxpZnkuYXBwIn0=!XUrMRTsX2mz6mXbLXBqo2tx03RqqgbbSgyU5t2bOxDc=',
+        appName: 'noteify',
+      });
+    }
+</script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
