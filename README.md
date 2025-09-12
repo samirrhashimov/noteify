@@ -1,5 +1,8 @@
 ## About
 
+![GitHub license](https://img.shields.io/github/license/samirrhashimov/noteify?style=flat)
+![GitHub release](https://img.shields.io/github/v/release/samirrhashimov/noteify?style=flat)
+
 **Noteify** is a Fast, Simple, Secure cloud-based notepad application 
 designed for quick and easy note-taking on the go.
 Whether you're jotting down ideas or organizing your thoughts,
