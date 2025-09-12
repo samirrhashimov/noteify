@@ -30,7 +30,6 @@ Noteify offers a minimalist, distraction-free environment.
 - [LinkedIn profile](https://www.linkedin.com/in/samirrhashimov)
 - [Other links](https://beacons.ai/samirrhashimov)
 
-## License
+## 📜 Lisence
+Bu layihə **MIT Lisenziyası** altında yayımlanır. Daha ətraflı məlumat üçün [LICENSE](LICENSE) faylına baxın.  
 
-This project is released under the [CC BY-NC-ND 4.0 License](https://creativecommons.org/licenses/by-nc-nd/4.0/).  
-You're free to share it — as long as you credit the author, don’t use it commercially, and don’t modify it.
