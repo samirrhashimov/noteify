@@ -5,9 +5,9 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-    <script src="firebase-config.js"></script>
-    <script src="login.js"></script>
-    <script src="script.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
+    <script src="/assets/js/login.js"></script>
+    <script src="/assets/js/script.js"></script>
     </script>
 
     <meta charset="UTF-8">
@@ -15,13 +15,13 @@
     <meta name="theme-color" content="#ffffff" id="theme-color">
     <title>Noteify - Cloud NotePad</title>
       <link rel="icon" href="/assets/img/mainlogosingle.png">
-    <link rel="stylesheet" href="dark-mode.css">
+    <link rel="stylesheet" href="/assets/css/dark-mode.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <script src="dark-mode.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="/assets/js/dark-mode.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
@@ -30,10 +30,6 @@
     <a href="/">
   <img src="/assets/img/mainlogo2.png" alt="Noteify" height="40"  width="75" style="position:relative;top:2px;right:5px;">
 </a>
-<div id="searchBox">
-    <button id="closeSearch">✕</button>
-    <input type="text" id="searchInput" placeholder="Search">
-</div>
 
     <div id="settings-panel" class="settings-panel">
         <div class="settings-content">
@@ -67,10 +63,35 @@
     <div class="settings-item version">
     <span>App Version: v20.0.0</span>
 </div>
-<a id="producthuntembed" href="https://www.producthunt.com/products/noteify-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-noteify&#0045;2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=973914&theme=dark&t=1749029256774" alt="Noteify - Fast&#0044;&#0032;Simple&#0032;&#0038;&#0032;Secure&#0032;Cloud&#0032;Notepad | Product Hunt" style="width: 100%; height: 54px;" width="250" height="54" /></a>
+
+<div id="dev-info-box">
+  <p>
+    <strong id="appname">Noteify </strong><strong>by</strong> <strong id="company">linzaapps</strong>
+  </p>
+  <p>
+    <strong>Contact: </strong>
+    <a href="mailto:linzaapps@gmail.com">linzaapps@gmail.com</a>
+  </p>
+  <p>
+    <strong>GitHub:</strong>
+    <a id="github-link" href="https://github.com/samirrhashimov/noteify" target="_blank">
+      github.com/samirrhashimov/noteify
+    </a>
+  </p>
 </div>
-      
 </header>
+
+<div id="searchBox">
+    <input type="text" id="searchInput" placeholder="Search Notes">
+    <button id="filter-btn"><img src="/assets/img/filter-list.png" alt="filter"</button>
+</div>
+
+ <div id="notesList" class="note-container"></div>
+    <div id="emptyState" class="empty-state">
+        <img src="/assets/img/man.png" alt="No notes" width="70" height="70">
+        <h2>Too quiet here...</h2>
+        <p>Add a note to get started</p>
+    </div>
 
 <div id="filter-menu" class="filter-menu">
     <div id="sort-newest" class="filter-option">
@@ -97,12 +118,13 @@
     </script>
 
 <button id="addNoteButton" class="always-hover" onclick="toggleNoteInput()">+</button>
-
+<!--
 <nav class="bottom-nav">
-    <button id="searchButton"><img src="/assets/img/search.png"alt="search"</button>
+   <button id="searchButton"><img src="/assets/img/search.png"alt="search"</button>
     <div class="bottom-nav-center-gap"></div>
-    <button id="filter-btn"><img src="/assets/img/filter-list.png"alt="filter"</button>
+    <button id="filter-btn"><img src="/assets/img/filter-list.png"alt="filter"</button> 
 </nav>
+-->
 
 <div id="noteContainer" class="hidden">
     <textarea id="noteInput" placeholder="Write your thoughts..."></textarea>
@@ -111,13 +133,6 @@
         <button id="cancelnote2" onclick="cancelNote()">Cancel</button>
     </div>
 </div>
-
-    <div id="notesList" class="note-container"></div>
-    <div id="emptyState" class="empty-state">
-        <img src="/assets/img/man.png" alt="No notes" width="70" height="70">
-        <h2>Too quiet here...</h2>
-        <p>Add a note to get started</p>
-    </div>
 
 <div id="editNoteContainer" style="display:none;">
     <textarea id="editNoteInput"></textarea>
