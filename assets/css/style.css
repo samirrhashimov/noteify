@@ -459,8 +459,8 @@ input::placeholder {
 
 .filter-menu {
     position: fixed;
-    top: 110px;
-    right: 10px;
+    top: 115px;
+    right: 18px;
     background-color: #2D3E50;
     color: #fff;
     padding: 8px 0;
@@ -620,6 +620,7 @@ input::placeholder {
     .settings-button {
       display: flex;
       text-align: center;
+      justify-content: space-between;
         width: 100%;
         padding: 12px;
         border: none;
@@ -631,30 +632,7 @@ input::placeholder {
    .settings-button .left {
      text-align: left !important;
    }
-   .settings-button .right1 {
-     position: relative;
-     left: 241px;
-     color: #333;
-     overflow: hidden;
-   }
-      .settings-button .right2 {
-     position: relative;
-     left: 153px;
-     color: #333;
-     overflow: hidden;
-   }
-   .settings-button .right3 {
-     position: relative;
-     left: 173px;
-     color: #333;
-     overflow: hidden;
-   }
-   .settings-button .right4 {
-     position: relative;
-     left: 215px;
-     color: #333;
-     overflow: hidden;
-   }
+   
     .settings-button:hover {
         background: #eaf2f8;
         color: #000;

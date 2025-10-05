@@ -34,7 +34,5 @@ Noteify offers a minimalist, distraction-free environment.
 - [Other links](https://beacons.ai/samirrhashimov)
 
 ## 📜 Lisence
-Bu layihə **MIT Lisenziyası** altında yayımlanır. Daha ətraflı məlumat üçün [LICENSE](LICENSE) faylına baxın.  
-
 This project is released under the **MIT License**. For more information, see the [LICENSE](LICENCE) file.
 

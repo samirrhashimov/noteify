@@ -9,11 +9,19 @@
     <link rel="stylesheet" href="/assets/css/dark-mode.css">
     <script src="/assets/js/dark-mode.js"></script>
 </head>
+
 <body>
+<div class="emailicon">
+<img class="emailgif" src="assets/img/email.gif">
+</div>
+
  <div class="container">
-<h1>A verification link has been sent to your email address.</h1>
-<p> Please verify your email address then  <a id="loginreset"href="login.html">Login</a></p>
-   
+<h1 data-i18n="verify-sent-title">A verification link has been sent to your email address.</h1>
+<p>
+  <span data-i18n="verify-sent-text">Please verify your email address then</span>
+</p>
+     <button onclick="window.location.href='login.html'" class="loginbuttonverify">Log In
+  </button>
  </div>
 </body>
 </html>

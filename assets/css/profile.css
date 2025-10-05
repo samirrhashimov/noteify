@@ -34,10 +34,13 @@ h2 {
 }
 
 .profile-info p {
+  display: flex;
+  justify-content: space-between;
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
   font-family: Inter;
+  
 }
 
 .profile-info strong {
@@ -65,20 +68,5 @@ h2 {
   background-color: #e0e0e0;
 }
 
-#email {
-  position: relative;
-  right: -60px;
-}
-#created {
-  position: relative;
-  right: -50px;
-}
-#verified {
-  position: relative;
-  right: -157px;
-}
-#uid {
-  position: relative;
-  right: -20px;
-}
+
 
