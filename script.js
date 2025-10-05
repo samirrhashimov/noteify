@@ -1,4 +1,3 @@
-// Network status handling
 function handleNetworkStatus() {
     window.addEventListener('online', () => {
         document.body.style.opacity = '1';
@@ -14,7 +13,6 @@ function handleNetworkStatus() {
 document.addEventListener('DOMContentLoaded', () => {
     handleNetworkStatus();
     
-    // Setup menu button functionality
     const menuBtn = document.getElementById('menu-btn');
     menuBtn.addEventListener('click', function() {
         const menu = document.getElementById('settings-panel');
@@ -24,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             console.log("Logged in:", user.displayName);
-            loadNotes(); // Kullanıcı giriş yaptıysa notları yükle
+            loadNotes();
         } else {
             console.log("There are no users logged in.");
             const notesList = document.getElementById("notesList");
@@ -35,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 📌 Google ile giriş yap
 function googleLogin() {
     let provider = new firebase.auth.GoogleAuthProvider();
 
@@ -50,8 +47,6 @@ function googleLogin() {
         });
 }
 
-
-// 📌 Not ekleme fonksiyonu
 function addNote() {
     let noteContent = document.getElementById("noteInput").value;
     let user = firebase.auth().currentUser;
@@ -66,7 +61,6 @@ function addNote() {
             closeNotePanel();
         }).catch(error => {
             console.error("Error saving notes:", error);
-            // Still close panel in offline mode
             if (!navigator.onLine) {
                 closeNotePanel();
             }
@@ -82,7 +76,6 @@ function closeNotePanel() {
     noteContainer.classList.remove("show");
 }
 
-// 📌 Notları yükleme fonksiyonu (Gerçek Zamanlı)
 function loadNotes(order = "desc") {
     let user = firebase.auth().currentUser;
     let notesList = document.getElementById("notesList");
@@ -98,7 +91,6 @@ function loadNotes(order = "desc") {
         return;
     }
 
-//delete note confirmation
 let deleteNoteId = null;
 
 function confirmDelete(noteId) {
@@ -112,7 +104,7 @@ document.getElementById("confirmDelete").addEventListener("click", function () {
       console.log("The note was deleted.");
       document.getElementById("deleteModal").style.display = "none";
       deleteNoteId = null;
-      loadNotes(); // Sayfayı güncelle
+      loadNotes();
     });
   }
 });
@@ -127,7 +119,6 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
   deleteNoteId = null;
 });
 
-    // Update visual indication of sorting
     document.querySelectorAll('.filter-option').forEach(option => {
         option.classList.remove('active');
     });
@@ -170,7 +161,6 @@ document.getElementById("cancelDelete").addEventListener("click", function () {
         });
 }
 
-// Note delete confirmation
 function confirmDelete(noteId) {
     const deleteModal = document.getElementById('deleteModal');
     deleteModal.style.display = 'block';
@@ -185,7 +175,6 @@ function confirmDelete(noteId) {
     };
 }
 
-// Note delete Function
 function deleteNote(noteId) {
     firebase.firestore().collection("notlar").doc(noteId).delete()
         .then(() => {
@@ -196,12 +185,9 @@ function deleteNote(noteId) {
         });
 }
 
-
-//edit note
 let currentNoteId = null;
 
 function editNote(noteId, currentContent) {
-    // Get the note content directly from Firestore to avoid escaping issues
     firebase.firestore().collection("notlar").doc(noteId).get()
         .then(doc => {
             if (doc.exists) {
@@ -219,7 +205,6 @@ function editNote(noteId, currentContent) {
 function saveEdit() {
     let newContent = document.getElementById("editNoteInput").value;
     if (newContent.trim() !== "") {
-        // Normalize line breaks before saving
         newContent = newContent.replace(/\r\n/g, '\n').trim();
 
         firebase.firestore().collection("notlar").doc(currentNoteId).update({
@@ -242,54 +227,43 @@ function toggleNoteInput() {
     let noteContainer = document.getElementById("noteContainer");
     noteContainer.classList.toggle("show");
 }
-//+ button iptal zone
+
 function cancelNote() {
     let noteContainer = document.getElementById("noteContainer");
     noteContainer.classList.remove("show");
     document.getElementById("noteInput").value = "";
 }
 
-// Authentication state observer
 firebase.auth().onAuthStateChanged(user => {
-    // Normalize the current path by removing .html and leading/trailing slashes
     const currentPath = window.location.pathname
         .replace(/\.html$/, '')
         .replace(/^\/+|\/+$/g, '')
-        || 'index'; // Default to 'index' if path is empty
+        || 'index';
 
-    // Define auth pages without .html extension
     const authPages = ['login', 'register', 'reset', 'verify'];
     const isAuthPage = authPages.includes(currentPath);
 
     if (user) {
-        // User is signed in
         if (!user.emailVerified) {
-            // If email not verified
             if (currentPath !== 'verify' && !isAuthPage) {
-                // Redirect to verify page if not already there and not on auth pages
                 firebase.auth().signOut();
                 window.location.replace("verify.html");
                 return;
             }
         } else {
-            // Email is verified
             if (isAuthPage) {
-                // Redirect to index if trying to access auth pages
                 window.location.replace("index.html");
                 return;
             }
         }
     } else {
-        // No user is signed in
         if (!isAuthPage) {
-            // Redirect to login if trying to access protected pages
             window.location.replace("login.html");
             return;
         }
     }
 });
 
-// Logout function from edited snippet
 function logout() {
     firebase.auth().signOut().then(() => {
         window.location.href = "login.html";
@@ -298,7 +272,6 @@ function logout() {
     });
 }
 
-// Note container toggle function from edited snippet
 function toggleNoteInput() {
     let noteContainer = document.getElementById("noteContainer");
     noteContainer.classList.toggle("show");
@@ -310,12 +283,10 @@ function cancelNote() {
     document.getElementById("noteInput").value = "";
 }
 
-// Add click-outside listeners for both note containers
 document.addEventListener('DOMContentLoaded', () => {
     const noteContainer = document.getElementById("noteContainer");
     const editNoteContainer = document.getElementById("editNoteContainer");
 
-    // Click outside for add note
     document.addEventListener("click", function(e) {
         if (noteContainer.classList.contains("show") && 
             !noteContainer.contains(e.target) && 
@@ -324,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Click outside for edit note
     document.addEventListener("click", function(e) {
         if (editNoteContainer.style.display === "block" && 
             !editNoteContainer.contains(e.target) && 
@@ -332,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelEdit();
         }
     });
-    // Settings panel toggle functionality is handled by the menu button click
+
     document.getElementById('logout-button').addEventListener('click', function() {
         firebase.auth().signOut().then(() => {
             console.log("Successfully logged out!");
@@ -343,7 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-//logout text button
 document.addEventListener('DOMContentLoaded', () => {
     const logoutText = document.getElementById("logout-text");
     if (logoutText) {
@@ -358,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-//search 🔍 
 document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById("searchButton");
     const searchBox = document.getElementById("searchBox");
@@ -383,7 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 300);
         });
 
-        // Handle clicks outside search box
         document.addEventListener("click", function(e) {
             if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
                 searchBox.classList.remove("active");
@@ -396,7 +363,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-//Note search functionality
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
@@ -440,7 +406,6 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleFilterMenu();
     });
 
-    // Close filter menu when clicking outside
     document.addEventListener("click", function(e) {
         if (filterMenu.classList.contains('show') && 
             !filterMenu.contains(e.target) && 
@@ -449,7 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Prevent menu from closing when clicking inside
     filterMenu.addEventListener("click", function(e) {
         e.stopPropagation();
     });
@@ -465,29 +429,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Handle three-dot menu clicks
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('three-dot-menu')) {
         e.stopPropagation();
-        // Close all other menus
         document.querySelectorAll('.note-menu.show').forEach(menu => {
             if (menu !== e.target.nextElementSibling) {
                 menu.classList.remove('show');
             }
         });
-        // Toggle current menu
+
         const menu = e.target.nextElementSibling;
         menu.classList.toggle('show');
     } else if (!e.target.closest('.note-menu')) {
-        // Close all menus when clicking outside
+
         document.querySelectorAll('.note-menu.show').forEach(menu => {
             menu.classList.remove('show');
         });
     }
 });
 
-// Settings Panel Functionality
-let settingsPanelVisible = false; // Added state variable
+let settingsPanelVisible = false;
 
 function toggleSettingsPanel() {
     const settingsPanel = document.getElementsByClassName('settings-panel');
@@ -500,18 +461,14 @@ document.getElementById('settings-link').addEventListener('click', toggleSetting
 
 document.getElementById('close-settings').addEventListener('click', toggleSettingsPanel);
 
-// Theme Toggle
 document.getElementById('theme-toggle').addEventListener('change', function() {
     document.body.classList.toggle('dark-mode');
-    // You can add more dark mode styles as needed
 });
 
-// Password Change Redirect
 document.getElementById('change-password').addEventListener('click', () => {
     window.location.href = 'change-password.html';
 });
 
-// Delete Account
 document.getElementById('delete-account').addEventListener('click', function() {
     document.getElementById('confirm-modal').style.display = 'block';
 });
@@ -542,7 +499,6 @@ document.getElementById('cancel-delete').addEventListener('click', function() {
     document.getElementById('confirm-modal').style.display = 'none';
 });
 
-// Close modals when clicking outside
 window.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) {
         e.target.style.display = 'none';
@@ -552,13 +508,10 @@ window.addEventListener('click', function(e) {
     }
 });
 
-// Load notes by default when page loads
 window.addEventListener("load", () => {
     loadNotes();
 });
 
-
-// password renew
 function changePassword() {
     const user = firebase.auth().currentUser;
     const currentPassword = document.getElementById("current-password").value;
@@ -566,7 +519,7 @@ function changePassword() {
     const email = user.email;
 
     if (!currentPassword || !newPassword) {
-        alert("Lütfen tüm alanları doldurun.");
+        alert("Please fill all areas");
         return;
     }
 
@@ -593,12 +546,10 @@ function closePasswordChange() {
     const container = document.getElementById("password-change-container");
     container.classList.remove("show");
     container.classList.add("hidden");
-    // Clear inputs
     document.getElementById("current-password").value = "";
     document.getElementById("new-password").value = "";
 }
 
-// Close when clicking outside the content
 document.getElementById("password-change-container").addEventListener("click", (e) => {
     if (e.target.id === "password-change-container") {
         closePasswordChange();
