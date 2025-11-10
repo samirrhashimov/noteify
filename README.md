@@ -1,9 +1,15 @@
-## About
+<h1 align="center">Demo – Project</h1>
 
-![GitHub license](https://img.shields.io/github/license/samirrhashimov/noteify?style=flat)
-![GitHub release](https://img.shields.io/github/v/release/samirrhashimov/noteify?style=flat)
+<p align="center">
+<img src="https://skillicons.dev/icons?i=html,css,js,firebase,netlify" />
+</p>
+<p align="center">
+   <img src="https://img.shields.io/github/license/samirrhashimov/noteify?style=flat">
+   <img src="https://img.shields.io/github/v/release/samirrhashimov/noteify?style=flat">
+   <img src="https://img.shields.io/github/repo-size/samirrhashimov/noteify?style=flat">
+   <img src="https://img.shields.io/github/languages/top/samirrhashimov/noteify?style=flat">
 
-**Noteify** is a Fast, Simple, Secure cloud-based notepad application 
+**Noteify** - is a Fast, Simple, Secure cloud-based notepad application 
 designed for quick and easy note-taking on the go.
 Whether you're jotting down ideas or organizing your thoughts,
 Noteify offers a minimalist, distraction-free environment.
@@ -22,17 +28,12 @@ Noteify offers a minimalist, distraction-free environment.
 1. Open the app.
 2. Sign in or create your account.
 3. Start taking notes!
-4. Your notes are automatically saved and accessible from anywhere.
 
-## Project Links
-- [Noteify Web-site](https://noteifynet.netlify.app)
-- [Download on Itch.io(apk)](https://samirrhashimov.itch.io/noteify)
+## Security
+If you discover a security vulnerability in the project, **do not open a public issue**.  
+Instead, submit a private report through the [Security advisories](../../security/advisories) section.  
 
-## Personal Links
-- [Portfolio on Behance](https://www.behance.net/samirhasimov)
-- [LinkedIn profile](https://www.linkedin.com/in/samirrhashimov)
-- [Other links](https://beacons.ai/samirrhashimov)
+---
 
-## 📜 Lisence
-This project is released under the **MIT License**. For more information, see the [LICENSE](LICENCE) file.
-
+## License
+This project is licensed under the **APGLv3 License**. For more details, see the [LICENSE](LICENSE) file.
