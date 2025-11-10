@@ -37,3 +37,8 @@ Instead, submit a private report through the [Security advisories](../../securit
 
 ## License
 This project is licensed under the **APGLv3 License**. For more details, see the [LICENSE](LICENSE) file.
+
+---
+## Support
+
+For issues and questions, please open an issue on GitHub.
