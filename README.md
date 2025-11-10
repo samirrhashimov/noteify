@@ -1,4 +1,4 @@
-<h1 align="center">Demo – Project</h1>
+<h1 align="center">Noteify – Simple Cloud Notepad</h1>
 
 <p align="center">
 <img src="https://skillicons.dev/icons?i=html,css,js,firebase,netlify" />
