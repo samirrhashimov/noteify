@@ -570,7 +570,7 @@
     }
 
     #notesList {
-        margin-top: 120px;
+        margin-top: 55px;
         padding: 0 20px;
         width: 100%;
         max-width: 670px;
@@ -1394,6 +1394,105 @@
         background: #333 !important;
     }
 
+
+    /* Keyboard Hint Styles */
+    .keyboard-hint-wrapper {
+        position: relative;
+    }
+
+    .keyboard-hint {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 8px;
+        padding: 6px 10px;
+        background: #333;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        white-space: nowrap;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        pointer-events: none;
+        font-family: 'Inter', 'Arial', sans-serif;
+        letter-spacing: 0.5px;
+    }
+
+    .keyboard-hint::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: #333;
+    }
+
+    /* Special positioning for bottom hints (like addNoteButton) */
+    .keyboard-hint-bottom {
+        bottom: auto !important;
+        top: 100% !important;
+        margin-bottom: 0 !important;
+        margin-top: 8px !important;
+    }
+
+    .keyboard-hint-bottom::after {
+        top: auto !important;
+        bottom: 100% !important;
+        border-top-color: transparent !important;
+        border-bottom-color: #333 !important;
+    }
+
+    /* Special positioning for addNoteButton - hint should appear above */
+    .add-note-hint {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 10px !important;
+        z-index: 1000 !important;
+    }
+
+    .add-note-hint .keyboard-hint,
+    .add-note-hint .keyboard-hint-top {
+        bottom: auto !important;
+        top: -100px !important;
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+        left: -100px !important;
+        transform: none !important;
+        z-index: 10001 !important;
+    }
+
+    .add-note-hint .keyboard-hint::after {
+        top: 100% !important;
+        bottom: auto !important;
+        border-top-color: #333 !important;
+        border-bottom-color: transparent !important;
+    }
+
+    body.dark-mode .add-note-hint .keyboard-hint::after {
+        border-top-color: #1a1a1a !important;
+    }
+
+    body.dark-mode .keyboard-hint {
+        background: #1a1a1a;
+        border: 1px solid #444;
+    }
+
+    body.dark-mode .keyboard-hint::after {
+        border-top-color: #1a1a1a;
+    }
+
+    body.dark-mode .keyboard-hint-bottom::after {
+        border-bottom-color: #1a1a1a !important;
+    }
+
+    @media screen and (max-width: 768px) {
+        .keyboard-hint {
+            display: none !important;
+        }
+    }
 
     /* Rich Text Editor Toolbar Buttons */
     .rt-btn {

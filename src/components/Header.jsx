@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes, FaChevronRight, FaUser, FaKey, FaCommentDots, FaFileContract, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { auth } from '../lib/firebase';
 import logo from '../assets/img/mainlogo2.png';
+import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
+import KeyboardHint from './KeyboardHint';
 
 const Header = () => {
     const [settingsOpen, setSettingsOpen] = useState(false);
@@ -12,9 +14,9 @@ const Header = () => {
     const { isDarkMode, toggleTheme } = useTheme();
     const navigate = useNavigate();
 
-    const toggleSettings = () => {
-        setSettingsOpen(!settingsOpen);
-    };
+    const toggleSettings = useCallback(() => {
+        setSettingsOpen(prev => !prev);
+    }, []);
 
     const handleLogout = async () => {
         try {
@@ -25,9 +27,20 @@ const Header = () => {
         }
     };
 
+    // Keyboard shortcuts
+    useKeyboardShortcut('m', useCallback(() => {
+        if (currentUser) toggleSettings();
+    }, [currentUser, toggleSettings]), [currentUser, toggleSettings]);
+
+    useKeyboardShortcut({ key: 'Escape' }, useCallback(() => {
+        if (settingsOpen) setSettingsOpen(false);
+    }, [settingsOpen]), [settingsOpen]);
+
     return (
-        <header>
-            <button id="menu-btn" onClick={toggleSettings}><FaBars /></button>
+        <header style={{ position: 'relative', zIndex: 1001 }}>
+            <KeyboardHint shortcut="m" style={{ zIndex: 10002 }}>
+                <button id="menu-btn" onClick={toggleSettings}><FaBars /></button>
+            </KeyboardHint>
             <Link to="/">
                 <img src={logo} alt="Noteify" height="40" width="75" style={{ position: 'relative', top: '2px', right: '5px' }} />
             </Link>
@@ -36,9 +49,11 @@ const Header = () => {
                 <div className="settings-content">
                     <div className="settings-header">
                         <h2 id="settingsl">Settings</h2>
-                        <button id="close-settings" onClick={toggleSettings}>
-                            <FaTimes />
-                        </button>
+                        <KeyboardHint shortcut={{ key: 'Escape' }}>
+                            <button id="close-settings" onClick={toggleSettings}>
+                                <FaTimes />
+                            </button>
+                        </KeyboardHint>
                     </div>
 
                     {/* Dark Mode Toggle */}

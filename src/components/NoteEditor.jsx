@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, createContext, useContext } from 'react';
+import React, { useRef, useEffect, useState, createContext, useContext, useCallback } from 'react';
 import {
     MdFormatBold,
     MdFormatItalic,
@@ -8,6 +8,8 @@ import {
     MdLooksOne,
     MdLooks6
 } from 'react-icons/md';
+import KeyboardHint from './KeyboardHint';
+import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
 
 const EditorContext = createContext({
     activeFormats: {},
@@ -117,6 +119,34 @@ export const RichToolbar = () => {
     const { activeFormats, execCommand } = useContext(EditorContext);
     const [showHeadingMenu, setShowHeadingMenu] = useState(false);
     const dropdownRef = useRef(null);
+
+    // Keyboard shortcuts for formatting
+    const handleBold = useCallback(() => {
+        execCommand('bold');
+    }, [execCommand]);
+
+    const handleItalic = useCallback(() => {
+        execCommand('italic');
+    }, [execCommand]);
+
+    const handleUnderline = useCallback(() => {
+        execCommand('underline');
+    }, [execCommand]);
+
+    const handleStrikethrough = useCallback(() => {
+        execCommand('strikeThrough');
+    }, [execCommand]);
+
+    const handleBulletList = useCallback(() => {
+        execCommand('insertUnorderedList');
+    }, [execCommand]);
+
+    // Register keyboard shortcuts
+    useKeyboardShortcut({ key: 'b', ctrl: true }, handleBold, [handleBold]);
+    useKeyboardShortcut({ key: 'i', ctrl: true }, handleItalic, [handleItalic]);
+    useKeyboardShortcut({ key: 'u', ctrl: true }, handleUnderline, [handleUnderline]);
+    useKeyboardShortcut({ key: 's', ctrl: true, shift: true }, handleStrikethrough, [handleStrikethrough]);
+    useKeyboardShortcut({ key: 'l', ctrl: true, shift: true }, handleBulletList, [handleBulletList]);
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -230,21 +260,31 @@ export const RichToolbar = () => {
 
             <div style={{ width: '1px', height: '24px', background: '#eee', margin: '0 4px 0 2px' }}></div>
 
-            <button type="button" style={getBtnStyle(activeFormats.bold)} onMouseDown={onMouseDown} onClick={() => execCommand('bold')} title="Bold">
-                <MdFormatBold style={iconStyle(activeFormats.bold)} />
-            </button>
-            <button type="button" style={getBtnStyle(activeFormats.italic)} onMouseDown={onMouseDown} onClick={() => execCommand('italic')} title="Italic">
-                <MdFormatItalic style={iconStyle(activeFormats.italic)} />
-            </button>
-            <button type="button" style={getBtnStyle(activeFormats.underline)} onMouseDown={onMouseDown} onClick={() => execCommand('underline')} title="Underline">
-                <MdFormatUnderlined style={iconStyle(activeFormats.underline)} />
-            </button>
-            <button type="button" style={getBtnStyle(activeFormats.strikeThrough)} onMouseDown={onMouseDown} onClick={() => execCommand('strikeThrough')} title="Strikethrough">
-                <MdFormatStrikethrough style={iconStyle(activeFormats.strikeThrough)} />
-            </button>
-            <button type="button" style={getBtnStyle(activeFormats.insertUnorderedList)} onMouseDown={onMouseDown} onClick={() => execCommand('insertUnorderedList')} title="Bullet List">
-                <MdFormatListBulleted style={iconStyle(activeFormats.insertUnorderedList)} />
-            </button>
+            <KeyboardHint shortcut={{ key: 'b', ctrl: true }}>
+                <button type="button" style={getBtnStyle(activeFormats.bold)} onMouseDown={onMouseDown} onClick={handleBold} title="Bold">
+                    <MdFormatBold style={iconStyle(activeFormats.bold)} />
+                </button>
+            </KeyboardHint>
+            <KeyboardHint shortcut={{ key: 'i', ctrl: true }}>
+                <button type="button" style={getBtnStyle(activeFormats.italic)} onMouseDown={onMouseDown} onClick={handleItalic} title="Italic">
+                    <MdFormatItalic style={iconStyle(activeFormats.italic)} />
+                </button>
+            </KeyboardHint>
+            <KeyboardHint shortcut={{ key: 'u', ctrl: true }}>
+                <button type="button" style={getBtnStyle(activeFormats.underline)} onMouseDown={onMouseDown} onClick={handleUnderline} title="Underline">
+                    <MdFormatUnderlined style={iconStyle(activeFormats.underline)} />
+                </button>
+            </KeyboardHint>
+            <KeyboardHint shortcut={{ key: 's', ctrl: true, shift: true }}>
+                <button type="button" style={getBtnStyle(activeFormats.strikeThrough)} onMouseDown={onMouseDown} onClick={handleStrikethrough} title="Strikethrough">
+                    <MdFormatStrikethrough style={iconStyle(activeFormats.strikeThrough)} />
+                </button>
+            </KeyboardHint>
+            <KeyboardHint shortcut={{ key: 'l', ctrl: true, shift: true }}>
+                <button type="button" style={getBtnStyle(activeFormats.insertUnorderedList)} onMouseDown={onMouseDown} onClick={handleBulletList} title="Bullet List">
+                    <MdFormatListBulleted style={iconStyle(activeFormats.insertUnorderedList)} />
+                </button>
+            </KeyboardHint>
         </div>
     );
 };

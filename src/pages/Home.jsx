@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../lib/firebase';
 import { collection, query, where, onSnapshot, addDoc, doc, deleteDoc, updateDoc, orderBy, serverTimestamp } from 'firebase/firestore';
 import { FaPlus, FaFilter, FaEllipsisV } from 'react-icons/fa';
 import '../styles/style.css';
 import { RichEditor, RichToolbar, EditorProvider } from '../components/NoteEditor';
+import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
+import KeyboardHint from '../components/KeyboardHint';
 
 import manImg from '../assets/img/man.png';
 
@@ -42,7 +44,7 @@ const Home = () => {
         return unsubscribe;
     }, [currentUser, sortOrder]);
 
-    const handleAddNote = async () => {
+    const handleAddNote = useCallback(async () => {
         if (!noteInput.trim()) return;
         try {
             await addDoc(collection(db, "notlar"), {
@@ -55,7 +57,7 @@ const Home = () => {
         } catch (error) {
             console.error("Error adding note: ", error);
         }
-    };
+    }, [noteInput, currentUser]);
 
     const confirmDelete = (noteId) => {
         setDeleteNoteId(noteId);
@@ -71,7 +73,7 @@ const Home = () => {
         }
     };
 
-    const handleUpdateNote = async () => {
+    const handleUpdateNote = useCallback(async () => {
         if (!editingNote || !editInput.trim()) return;
         try {
             await updateDoc(doc(db, "notlar", editingNote.id), {
@@ -83,7 +85,7 @@ const Home = () => {
         } catch (error) {
             console.error("Error updating note: ", error);
         }
-    };
+    }, [editingNote, editInput]);
 
     const openEdit = (note) => {
         setEditingNote(note);
@@ -91,9 +93,9 @@ const Home = () => {
         setOpenMenuId(null);
     };
 
-    const toggleFilterMenu = () => {
-        setShowFilterMenu(!showFilterMenu);
-    };
+    const toggleFilterMenu = useCallback(() => {
+        setShowFilterMenu(prev => !prev);
+    }, []);
 
     const handleSort = (order) => {
         setSortOrder(order);
@@ -129,6 +131,48 @@ const Home = () => {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
+    // Keyboard shortcuts - Chrome ile çakışmayan kısayollar
+    useKeyboardShortcut({ key: 'n', alt: true }, useCallback(() => {
+        if (!isNoteInputVisible && !editingNote) {
+            setIsNoteInputVisible(true);
+        }
+    }, [isNoteInputVisible, editingNote]), [isNoteInputVisible, editingNote]);
+
+    useKeyboardShortcut({ key: 'Escape' }, useCallback(() => {
+        if (isNoteInputVisible) {
+            setIsNoteInputVisible(false);
+            setNoteInput('');
+        }
+        if (editingNote) {
+            setEditingNote(null);
+            setEditInput('');
+        }
+        if (showDeleteModal) {
+            setShowDeleteModal(false);
+            setDeleteNoteId(null);
+        }
+    }, [isNoteInputVisible, editingNote, showDeleteModal]), [isNoteInputVisible, editingNote, showDeleteModal]);
+
+    useKeyboardShortcut({ key: 'Enter', ctrl: true }, useCallback((e) => {
+        const target = e.target;
+        const isInEditor = target.closest('.rich-editor') || target.isContentEditable;
+        
+        // Only save if editor is open and user is not typing in the editor
+        if (isNoteInputVisible && noteInput.trim() && !isInEditor) {
+            e.preventDefault();
+            handleAddNote();
+        } else if (editingNote && editInput.trim() && !isInEditor) {
+            e.preventDefault();
+            handleUpdateNote();
+        }
+    }, [isNoteInputVisible, editingNote, noteInput, editInput, handleAddNote, handleUpdateNote]), [isNoteInputVisible, editingNote, noteInput, editInput, handleAddNote, handleUpdateNote]);
+
+    useKeyboardShortcut('f', useCallback(() => {
+        if (!isNoteInputVisible && !editingNote) {
+            toggleFilterMenu();
+        }
+    }, [isNoteInputVisible, editingNote, toggleFilterMenu]), [isNoteInputVisible, editingNote, toggleFilterMenu]);
+
     return (
         <div className="home-container">
             <div id="searchBox">
@@ -139,9 +183,11 @@ const Home = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <button id="filter-btn" onClick={toggleFilterMenu}>
-                    <FaFilter />
-                </button>
+                <KeyboardHint shortcut="f" style={{ zIndex: 10002 }}>
+                    <button id="filter-btn" onClick={toggleFilterMenu}>
+                        <FaFilter />
+                    </button>
+                </KeyboardHint>
             </div>
 
             {/* Filter Menu */}
@@ -190,13 +236,15 @@ const Home = () => {
                 ))}
             </div>
 
-            <button
-                id="addNoteButton"
-                className="always-hover"
-                onClick={() => setIsNoteInputVisible(true)}
-            >
-                <FaPlus />
-            </button>
+            <KeyboardHint shortcut={{ key: 'n', alt: true }} position="top" className="add-note-hint">
+                <button
+                    id="addNoteButton"
+                    className="always-hover"
+                    onClick={() => setIsNoteInputVisible(true)}
+                >
+                    <FaPlus />
+                </button>
+            </KeyboardHint>
 
             {/* Add Note Container */}
             {isNoteInputVisible && (
@@ -210,11 +258,15 @@ const Home = () => {
                         />
                         <div className="button-container">
                             <RichToolbar />
-                            <button id="savenote1" onClick={handleAddNote}>Save</button>
-                            <button id="cancelnote2" onClick={() => {
-                                setIsNoteInputVisible(false);
-                                setNoteInput('');
-                            }}>Cancel</button>
+                            <KeyboardHint shortcut={{ key: 'Enter', ctrl: true }}>
+                                <button id="savenote1" onClick={handleAddNote}>Save</button>
+                            </KeyboardHint>
+                            <KeyboardHint shortcut={{ key: 'Escape' }}>
+                                <button id="cancelnote2" onClick={() => {
+                                    setIsNoteInputVisible(false);
+                                    setNoteInput('');
+                                }}>Cancel</button>
+                            </KeyboardHint>
                         </div>
                     </EditorProvider>
                 </div>
@@ -231,11 +283,15 @@ const Home = () => {
                         />
                         <div className="button-container">
                             <RichToolbar />
-                            <button id="savenote1" onClick={handleUpdateNote}>Save</button>
-                            <button id="cancelnote2" onClick={() => {
-                                setEditingNote(null);
-                                setEditInput('');
-                            }}>Cancel</button>
+                            <KeyboardHint shortcut={{ key: 'Enter', ctrl: true }}>
+                                <button id="savenote1" onClick={handleUpdateNote}>Save</button>
+                            </KeyboardHint>
+                            <KeyboardHint shortcut={{ key: 'Escape' }}>
+                                <button id="cancelnote2" onClick={() => {
+                                    setEditingNote(null);
+                                    setEditInput('');
+                                }}>Cancel</button>
+                            </KeyboardHint>
                         </div>
                     </EditorProvider>
                 </div>
