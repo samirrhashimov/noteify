@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes, FaChevronRight } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronRight, FaUser, FaKey, FaCommentDots, FaFileContract, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { auth } from '../lib/firebase';
@@ -35,14 +35,19 @@ const Header = () => {
             <div id="settings-panel" className="settings-panel" style={{ display: settingsOpen ? 'flex' : 'none' }}>
                 <div className="settings-content">
                     <div className="settings-header">
-                        <h2 id="settingsl" style={{ color: '#333' }}>Settings</h2>
-                        <button id="close-settings" onClick={toggleSettings} style={{ background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer', color: '#333', width: 'auto', flexShrink: 0 }}>
+                        <h2 id="settingsl">Settings</h2>
+                        <button id="close-settings" onClick={toggleSettings}>
                             <FaTimes />
                         </button>
                     </div>
-                    <div className="settings-options">
-                        <div className="settings-item">
-                            <span id="darkModeLabel">Dark mode</span>
+
+                    {/* Dark Mode Toggle */}
+                    <div className="settings-section">
+                        <div className="settings-item theme-toggle">
+                            <div className="item-left">
+                                {isDarkMode ? <FaMoon className="item-icon" /> : <FaSun className="item-icon" />}
+                                <span>Dark Mode</span>
+                            </div>
                             <label className="switch">
                                 <input
                                     type="checkbox"
@@ -54,29 +59,61 @@ const Header = () => {
                             </label>
                         </div>
                     </div>
-                    <div className="settings-buttons">
-                        <Link to="/profile" style={{ textDecoration: 'none' }}>
-                            <button className="settings-button dmsettings">
-                                <span className="left">Profile</span><span className="right1"><FaChevronRight /></span>
-                            </button>
+
+                    {/* Menu Items */}
+                    <div className="settings-section">
+                        <Link to="/profile" className="settings-link">
+                            <div className="settings-menu-item">
+                                <div className="item-left">
+                                    <FaUser className="item-icon" />
+                                    <span>Profile</span>
+                                </div>
+                                <FaChevronRight className="chevron-icon" />
+                            </div>
                         </Link>
-                        <Link to="/change-password" style={{ textDecoration: 'none' }}>
-                            <button id="change-password" className="settings-button dmsettings">
-                                Change password<span className="right2"><FaChevronRight /></span>
-                            </button>
+
+                        <Link to="/change-password" className="settings-link">
+                            <div className="settings-menu-item">
+                                <div className="item-left">
+                                    <FaKey className="item-icon" />
+                                    <span>Change Password</span>
+                                </div>
+                                <FaChevronRight className="chevron-icon" />
+                            </div>
                         </Link>
-                        <Link to="/feedback" style={{ textDecoration: 'none' }}>
-                            <button className="settings-button dmsettings">
-                                Send Feedback<span className="right3"><FaChevronRight /></span>
-                            </button>
+
+                        <Link to="/feedback" className="settings-link">
+                            <div className="settings-menu-item">
+                                <div className="item-left">
+                                    <FaCommentDots className="item-icon" />
+                                    <span>Send Feedback</span>
+                                </div>
+                                <FaChevronRight className="chevron-icon" />
+                            </div>
                         </Link>
-                        <Link to="/legal" style={{ textDecoration: 'none' }}>
-                            <button className="settings-button dmsettings">
-                                Legal Info<span className="right4"><FaChevronRight /></span>
-                            </button>
+
+                        <Link to="/legal" className="settings-link">
+                            <div className="settings-menu-item">
+                                <div className="item-left">
+                                    <FaFileContract className="item-icon" />
+                                    <span>Legal Info</span>
+                                </div>
+                                <FaChevronRight className="chevron-icon" />
+                            </div>
                         </Link>
-                        <button onClick={handleLogout} className="settings-button danger">Logout</button>
-                        <div className="settings-item version">
+                    </div>
+
+                    {/* Logout Button */}
+                    <div className="settings-section">
+                        <button onClick={handleLogout} className="settings-logout-btn">
+                            <FaSignOutAlt className="item-icon" />
+                            <span>Logout</span>
+                        </button>
+                    </div>
+
+                    {/* Version Info */}
+                    <div className="settings-footer">
+                        <div className="version-info">
                             <span>App Version: v20.2.3</span>
                         </div>
 
