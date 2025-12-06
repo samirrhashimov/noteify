@@ -1,7 +1,7 @@
 <h1 align="center">Noteify – Simple Cloud Notepad</h1>
 
 <p align="center">
-<img src="https://skillicons.dev/icons?i=html,css,js,firebase,netlify" />
+<img src="https://skillicons.dev/icons?i=html,css,js,react,firebase,netlify" />
 </p>
 <p align="center">
    <img src="https://img.shields.io/github/license/samirrhashimov/noteify?style=flat">

@@ -37,7 +37,7 @@ const Header = () => {
     }, [settingsOpen]), [settingsOpen]);
 
     return (
-        <header style={{ position: 'relative', zIndex: 1001 }}>
+        <header>
             <KeyboardHint shortcut="m" style={{ zIndex: 10002 }}>
                 <button id="menu-btn" onClick={toggleSettings}><FaBars /></button>
             </KeyboardHint>

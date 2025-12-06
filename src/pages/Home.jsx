@@ -23,6 +23,7 @@ const Home = () => {
     const [showFilterMenu, setShowFilterMenu] = useState(false);
     const [sortOrder, setSortOrder] = useState('desc'); // 'desc' for newest first, 'asc' for oldest first
     const [openMenuId, setOpenMenuId] = useState(null);
+    const [expandedNotes, setExpandedNotes] = useState(new Set());
 
     useEffect(() => {
         if (!currentUser) return;
@@ -105,6 +106,35 @@ const Home = () => {
     const toggleNoteMenu = (noteId) => {
         setOpenMenuId(openMenuId === noteId ? null : noteId);
     };
+
+    const toggleNoteExpansion = (noteId) => {
+        setExpandedNotes(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(noteId)) {
+                newSet.delete(noteId);
+            } else {
+                newSet.add(noteId);
+            }
+            return newSet;
+        });
+    };
+
+    const getPlainText = (html) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html || '';
+        return tempDiv.textContent || tempDiv.innerText || '';
+    };
+
+    const truncateHTML = (html, maxLength) => {
+        const plainText = getPlainText(html);
+        if (plainText.length <= maxLength) {
+            return html;
+        }
+        // Simple truncation - just show plain text truncated
+        return plainText.substring(0, maxLength) + '...';
+    };
+
+    const MAX_NOTE_LENGTH = 700;
 
     const filteredNotes = notes.filter(note =>
         note.content?.toLowerCase().includes(search.toLowerCase())
@@ -216,24 +246,49 @@ const Home = () => {
                         <p>Add a note to get started</p>
                     </div>
                 )}
-                {filteredNotes.map(note => (
-                    <div key={note.id} className="note-container">
-                        <div className="note-header">
-                            <small>{formatDate(note.timestamp)}</small>
-                            <button
-                                className="three-dot-menu"
-                                onClick={() => toggleNoteMenu(note.id)}
-                            >
-                                ⋮
-                            </button>
-                            <div className={`note-menu ${openMenuId === note.id ? 'show' : ''}`}>
-                                <div className="menu-item" onClick={() => openEdit(note)}>Edit</div>
-                                <div className="menu-item" onClick={() => confirmDelete(note.id)}>Delete</div>
+                {filteredNotes.map(note => {
+                    const plainText = getPlainText(note.content || '');
+                    const isLong = plainText.length > MAX_NOTE_LENGTH;
+                    const isExpanded = expandedNotes.has(note.id);
+                    const shouldTruncate = isLong && !isExpanded;
+                    
+                    return (
+                        <div key={note.id} className="note-container">
+                            <div className="note-header">
+                                <small>{formatDate(note.timestamp)}</small>
+                                <button
+                                    className="three-dot-menu"
+                                    onClick={() => toggleNoteMenu(note.id)}
+                                >
+                                    ⋮
+                                </button>
+                                <div className={`note-menu ${openMenuId === note.id ? 'show' : ''}`}>
+                                    <div className="menu-item" onClick={() => openEdit(note)}>Edit</div>
+                                    <div className="menu-item" onClick={() => confirmDelete(note.id)}>Delete</div>
+                                </div>
+                            </div>
+                            <div className="note-content">
+                                {shouldTruncate ? (
+                                    <>
+                                        <p>{truncateHTML(note.content || '', MAX_NOTE_LENGTH)}</p>
+                                        <button className="show-all-btn" onClick={() => toggleNoteExpansion(note.id)}>
+                                            Show All
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p dangerouslySetInnerHTML={{ __html: note.content || '' }}></p>
+                                        {isLong && (
+                                            <button className="show-all-btn" onClick={() => toggleNoteExpansion(note.id)}>
+                                                Show Less
+                                            </button>
+                                        )}
+                                    </>
+                                )}
                             </div>
                         </div>
-                        <p dangerouslySetInnerHTML={{ __html: note.content || '' }}></p>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             <KeyboardHint shortcut={{ key: 'n', alt: true }} position="top" className="add-note-hint">

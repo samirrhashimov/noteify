@@ -112,6 +112,39 @@
         margin: 5px 0;
     }
 
+    .note-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .show-all-btn {
+        background: none;
+        border: none;
+        color: #0056b3;
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 8px 0;
+        margin-top: 5px;
+        margin-left: 0;
+        text-align: left;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        align-self: flex-start;
+    }
+
+    .show-all-btn:hover {
+        color: #004494;
+        text-decoration: underline;
+    }
+
+    body.dark-mode .show-all-btn {
+        color: #63b3ed;
+    }
+
+    body.dark-mode .show-all-btn:hover {
+        color: #90cdf4;
+    }
+
     .note-header {
         display: flex;
         justify-content: space-between;
@@ -464,6 +497,13 @@
     }
 
     @media screen and (max-width: 768px) {
+        #searchBox {
+            left: 0;
+            right: 0;
+            padding: 0 10px;
+            max-width: 100%;
+        }
+
         #searchBox.active {
             transform: translateY(-62px);
             padding-bottom: env(safe-area-inset-bottom);
@@ -471,6 +511,150 @@
 
         .bottom-nav {
             padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        #notesList {
+            padding: 0 10px;
+            margin-top: 105px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .note-container {
+            padding: 12px;
+            margin: 5px auto 15px auto;
+            width: 100%;
+        }
+
+        .note-container p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        #notesList > div {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .note-header {
+            flex-wrap: wrap;
+        }
+
+        .note-header small {
+            font-size: 0.75rem;
+        }
+
+        .show-all-btn {
+            font-size: 0.85rem;
+            padding: 6px 0;
+        }
+
+        #searchInput {
+            padding: 10px 40px 10px 10px;
+            font-size: 14px;
+        }
+
+        /* Mobile styles for Add/Edit Note containers */
+        #noteContainer .button-container,
+        #editNoteContainer .button-container {
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 10px;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .rich-toolbar {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            padding: 8px 0;
+            margin-bottom: 8px;
+            width: 100%;
+            flex-wrap: nowrap;
+            max-width: 100%;
+        }
+
+        .rich-toolbar::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .rich-toolbar::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+
+        .rich-toolbar > div {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .rich-toolbar button {
+            flex-shrink: 0;
+            padding: 6px 4px;
+            margin: 0 1px;
+            min-width: 32px;
+            font-size: 12px;
+        }
+
+        .rich-toolbar button svg {
+            font-size: 18px !important;
+        }
+
+        .rich-toolbar > div:first-child button {
+            font-size: 11px;
+            padding: 6px 6px;
+            min-width: 70px;
+        }
+
+        .rt-btn {
+            padding: 6px 4px;
+            margin: 0 1px;
+            min-width: 32px;
+        }
+
+        .rt-btn svg {
+            font-size: 18px;
+        }
+
+        #savenote1,
+        #cancelnote2 {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            min-height: 44px;
+            margin: 0;
+        }
+
+        #noteContainer .button-container,
+        #editNoteContainer .button-container {
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        #noteContainer .button-container > .rich-toolbar,
+        #editNoteContainer .button-container > .rich-toolbar {
+            order: 1;
+            width: 100%;
+            margin-bottom: 8px;
+            margin-right: 0;
+        }
+
+        #noteContainer .button-container > button,
+        #editNoteContainer .button-container > button {
+            order: 2;
+            flex: 1;
+            min-width: calc(50% - 4px);
+        }
+
+        #noteContainer .button-container > .keyboard-hint-wrapper,
+        #editNoteContainer .button-container > .keyboard-hint-wrapper {
+            order: 2;
+            flex: 1;
+            min-width: calc(50% - 4px);
         }
     }
 
