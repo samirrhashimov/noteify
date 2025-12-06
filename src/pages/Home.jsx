@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../lib/firebase';
+import { uploadTextFileToDrive } from '../lib/googleDrive';
 import { collection, query, where, onSnapshot, addDoc, doc, deleteDoc, updateDoc, orderBy, serverTimestamp } from 'firebase/firestore';
-import { FaPlus, FaFilter, FaEllipsisV, FaEdit, FaCopy, FaTrash } from 'react-icons/fa';
+import { FaPlus, FaFilter, FaEllipsisV, FaEdit, FaCopy, FaTrash, FaGoogleDrive } from 'react-icons/fa';
 import '../styles/style.css';
 import { RichEditor, RichToolbar, EditorProvider } from '../components/NoteEditor';
 import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
@@ -24,6 +25,9 @@ const Home = () => {
     const [sortOrder, setSortOrder] = useState('desc'); // 'desc' for newest first, 'asc' for oldest first
     const [openMenuId, setOpenMenuId] = useState(null);
     const [expandedNotes, setExpandedNotes] = useState(new Set());
+    const [showDriveModal, setShowDriveModal] = useState(false);
+    const [driveModalMessage, setDriveModalMessage] = useState('');
+    const [driveFileUrl, setDriveFileUrl] = useState('');
 
     useEffect(() => {
         if (!currentUser) return;
@@ -152,6 +156,22 @@ const Home = () => {
             } catch (fallbackErr) {
                 console.error('Failed to copy text', fallbackErr);
             }
+        } finally {
+            setOpenMenuId(null);
+        }
+    };
+
+    const handleSaveToDrive = async (note) => {
+        const noteContent = getPlainText(note?.content || '');
+        try {
+            const res = await uploadTextFileToDrive({ content: noteContent, fileName: 'note.txt' });
+            const url = res && res.id ? `https://drive.google.com/file/d/${res.id}/view` : 'https://drive.google.com/drive/my-drive';
+            setDriveFileUrl(url);
+            setDriveModalMessage('Note saved to Google Drive as note.txt');
+            setShowDriveModal(true);
+        } catch (error) {
+            console.error('Failed to save note to Google Drive', error);
+            alert(error.message || 'Failed to save note to Google Drive');
         } finally {
             setOpenMenuId(null);
         }
@@ -294,6 +314,10 @@ const Home = () => {
                                         <FaCopy />
                                         <span>Copy text</span>
                                     </div>
+                                    <div className="menu-item" onClick={() => handleSaveToDrive(note)}>
+                                        <FaGoogleDrive />
+                                        <span>Save to Google Drive</span>
+                                    </div>
                                     <div className="menu-item" onClick={() => confirmDelete(note.id)}>
                                         <FaTrash />
                                         <span>Delete</span>
@@ -395,6 +419,24 @@ const Home = () => {
                             setShowDeleteModal(false);
                             setDeleteNoteId(null);
                         }}>No</button>
+                    </div>
+                </div>
+            )}
+
+            {/* Drive Success Modal */}
+            {showDriveModal && (
+                <div id="driveSuccessModal" className="modal" style={{ display: 'block' }}>
+                    <div className="modal-content">
+                        <h3 style={{ marginTop: 0 }}>Saved to Google Drive</h3>
+                        <p>{driveModalMessage}</p>
+                        <div className="modal-actions">
+                            {driveFileUrl && (
+                                <a href={driveFileUrl} target="_blank" rel="noreferrer">
+                                    Open in Drive
+                                </a>
+                            )}
+                            <button onClick={() => { setShowDriveModal(false); setDriveModalMessage(''); setDriveFileUrl(''); }}>OK</button>
+                        </div>
                     </div>
                 </div>
             )}

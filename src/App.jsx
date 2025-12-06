@@ -15,7 +15,7 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import Copyright from './pages/Copyright';
 
 // Placeholder components for now
-const Reset = () => <div>Reset Password Page</div>;
+import Reset from './pages/Reset';
 
 function App() {
   return (

@@ -228,6 +228,12 @@
     backdrop-filter: blur(5px);
 }
 
+.login-body .login-container .message.success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #86efac;
+}
+
 /* Safety rule: Hide empty error boxes if JS fails to prevent rendering */
 .login-body .login-container .message:empty {
     display: none;
