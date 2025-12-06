@@ -10,6 +10,9 @@ import ChangePassword from './pages/ChangePassword';
 import Profile from './pages/Profile';
 import Feedback from './pages/Feedback';
 import Legal from './pages/Legal';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import Copyright from './pages/Copyright';
 
 // Placeholder components for now
 const Reset = () => <div>Reset Password Page</div>;
@@ -27,6 +30,9 @@ function App() {
         <Route path="feedback" element={<Feedback />} />
         <Route path="change-password" element={<ChangePassword />} />
         <Route path="legal" element={<Legal />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="copyright" element={<Copyright />} />
       </Route>
     </Routes>
   );

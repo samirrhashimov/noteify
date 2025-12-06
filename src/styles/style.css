@@ -20,6 +20,14 @@
         min-height: 100vh;
         transition: background-color 0.4s ease, color 0.4s ease;
         box-sizing: border-box;
+        width: 100%;
+    }
+
+    #root {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     textarea {
@@ -43,6 +51,7 @@
         border-radius: 10px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
         margin-bottom: 12px;
+        width: 100%;
     }
 
     /*top */
@@ -68,6 +77,9 @@
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     button:hover {
@@ -206,8 +218,8 @@
         font-size: 15.3px;
         outline: none;
         background: white;
+        color: #333;
         font-family: Inter, Sans-Serif;
-        outline: none;
     }
 
 
@@ -282,6 +294,8 @@
         font-family: Inter, Sans-Serif;
         font-size: 15.3px;
         outline: none;
+        background-color: white;
+        color: #333;
     }
 
     #noteContainer .button-container {
@@ -558,6 +572,11 @@
     #notesList {
         margin-top: 120px;
         padding: 0 20px;
+        width: 100%;
+        max-width: 670px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
     }
 
     .empty-state {
@@ -567,6 +586,8 @@
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
+        background: none !important;
+        box-shadow: none !important;
     }
 
     .empty-state img {
@@ -1091,24 +1112,29 @@
 
     #savenote1,
     #cancelnote2 {
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: 18px 24px;
+        font-size: 15px;
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        transition: background-color 0.3s ease;
         margin: 5px;
         font-weight: 500;
+        min-width: 100px;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     #savenote1 {
-        background-color: #28a745;
+        background-color: #0056b3;
         color: white;
     }
 
     #savenote1:hover {
-        background-color: #218838;
-        transform: scale(1.05);
+        background-color: #004494;
+        transform: none;
     }
 
     #cancelnote2 {
@@ -1191,4 +1217,29 @@
         font-family: 'Inter', 'Mono', monospace;
         font-weight: 600;
         color: #764ba2;
+    }
+
+    /* Add/Edit Note Dark Mode Support */
+    body.dark-mode #noteContainer,
+    body.dark-mode #editNoteContainer {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+    }
+
+    body.dark-mode #noteContainer textarea,
+    body.dark-mode #editNoteContainer textarea {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+    }
+
+    body.dark-mode #noteContainer textarea::placeholder,
+    body.dark-mode #editNoteContainer textarea::placeholder {
+        color: #888;
+    }
+
+    body.dark-mode #noteContainer .button-container,
+    body.dark-mode #editNoteContainer .button-container {
+        background-color: #1a1a1a;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+        border-top: 1px solid #333;
     }

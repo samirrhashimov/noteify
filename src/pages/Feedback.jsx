@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../contexts/ThemeContext';
 import { db } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
-import { FaPaperPlane } from 'react-icons/fa';
+import { FaPaperPlane, FaArrowLeft } from 'react-icons/fa';
 
 const Feedback = () => {
     const { currentUser } = useAuth();
+    const { isDarkMode } = useTheme();
+    const navigate = useNavigate();
     const [feedback, setFeedback] = useState('');
     const [message, setMessage] = useState('');
 
@@ -30,12 +34,43 @@ const Feedback = () => {
 
     return (
         <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', textAlign: 'center' }}>
-            <h2>Send Feedback</h2>
-            <p>We would love to hear your thoughts!</p>
+            <button
+                onClick={() => navigate('/')}
+                style={{
+                    position: 'absolute',
+                    top: '70px',
+                    left: '20px',
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    color: isDarkMode ? '#ffffff' : '#0056b3',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    width: '24px',
+                    height: '24px',
+                    padding: '0',
+                    margin: '0'
+                }}
+            >
+                <FaArrowLeft />
+            </button>
+            <h2 style={{ color: isDarkMode ? '#ffffff' : '#333' }}>Send Feedback</h2>
+            <p style={{ color: isDarkMode ? '#ccc' : '#666' }}>We would love to hear your thoughts!</p>
             {message && <p style={{ color: 'green' }}>{message}</p>}
             <form onSubmit={handleSubmit}>
                 <textarea
-                    style={{ width: '100%', height: '150px', padding: '10px', marginTop: '10px' }}
+                    style={{
+                        width: '100%',
+                        height: '150px',
+                        padding: '10px',
+                        marginTop: '10px',
+                        background: isDarkMode ? '#2a2a2a' : '#ffffff',
+                        color: isDarkMode ? '#ffffff' : '#000',
+                        border: `1px solid ${isDarkMode ? '#444' : '#ddd'}`,
+                        borderRadius: '4px'
+                    }}
                     placeholder="Write your feedback here..."
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}

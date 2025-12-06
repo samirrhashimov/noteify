@@ -62,7 +62,7 @@ const Header = () => {
 
                     {/* Menu Items */}
                     <div className="settings-section">
-                        <Link to="/profile" className="settings-link">
+                        <Link to="/profile" className="settings-link" onClick={toggleSettings}>
                             <div className="settings-menu-item">
                                 <div className="item-left">
                                     <FaUser className="item-icon" />
@@ -72,7 +72,7 @@ const Header = () => {
                             </div>
                         </Link>
 
-                        <Link to="/change-password" className="settings-link">
+                        <Link to="/change-password" className="settings-link" onClick={toggleSettings}>
                             <div className="settings-menu-item">
                                 <div className="item-left">
                                     <FaKey className="item-icon" />
@@ -82,7 +82,7 @@ const Header = () => {
                             </div>
                         </Link>
 
-                        <Link to="/feedback" className="settings-link">
+                        <Link to="/feedback" className="settings-link" onClick={toggleSettings}>
                             <div className="settings-menu-item">
                                 <div className="item-left">
                                     <FaCommentDots className="item-icon" />
@@ -92,7 +92,7 @@ const Header = () => {
                             </div>
                         </Link>
 
-                        <Link to="/legal" className="settings-link">
+                        <Link to="/legal" className="settings-link" onClick={toggleSettings}>
                             <div className="settings-menu-item">
                                 <div className="item-left">
                                     <FaFileContract className="item-icon" />

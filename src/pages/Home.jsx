@@ -5,6 +5,8 @@ import { collection, query, where, onSnapshot, addDoc, doc, deleteDoc, updateDoc
 import { FaPlus, FaFilter, FaEllipsisV } from 'react-icons/fa';
 import '../styles/style.css';
 
+import manImg from '../assets/img/man.png';
+
 const Home = () => {
     const { currentUser } = useAuth();
     const [notes, setNotes] = useState([]);
@@ -162,7 +164,7 @@ const Home = () => {
             <div id="notesList">
                 {filteredNotes.length === 0 && (
                     <div id="emptyState" className="empty-state" style={{ display: 'block' }}>
-                        <img src="/assets/img/man.png" alt="No notes" width="70" height="70" />
+                        <img src={manImg} alt="No notes" width="70" height="70" />
                         <h2>Too quiet here...</h2>
                         <p>Add a note to get started</p>
                     </div>
