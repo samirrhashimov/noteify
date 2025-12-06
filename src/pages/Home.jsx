@@ -4,6 +4,7 @@ import { db } from '../lib/firebase';
 import { collection, query, where, onSnapshot, addDoc, doc, deleteDoc, updateDoc, orderBy, serverTimestamp } from 'firebase/firestore';
 import { FaPlus, FaFilter, FaEllipsisV } from 'react-icons/fa';
 import '../styles/style.css';
+import { RichEditor, RichToolbar, EditorProvider } from '../components/NoteEditor';
 
 import manImg from '../assets/img/man.png';
 
@@ -184,7 +185,7 @@ const Home = () => {
                                 <div className="menu-item" onClick={() => confirmDelete(note.id)}>Delete</div>
                             </div>
                         </div>
-                        <p dangerouslySetInnerHTML={{ __html: note.content?.replace(/\n/g, '<br>') || '' }}></p>
+                        <p dangerouslySetInnerHTML={{ __html: note.content || '' }}></p>
                     </div>
                 ))}
             </div>
@@ -200,37 +201,43 @@ const Home = () => {
             {/* Add Note Container */}
             {isNoteInputVisible && (
                 <div id="noteContainer" className="show" style={{ display: 'block' }}>
-                    <textarea
-                        id="noteInput"
-                        placeholder="Write your thoughts..."
-                        value={noteInput}
-                        onChange={(e) => setNoteInput(e.target.value)}
-                    ></textarea>
-                    <div className="button-container">
-                        <button id="savenote1" onClick={handleAddNote}>Save</button>
-                        <button id="cancelnote2" onClick={() => {
-                            setIsNoteInputVisible(false);
-                            setNoteInput('');
-                        }}>Cancel</button>
-                    </div>
+                    <EditorProvider>
+                        <RichEditor
+                            id="noteInput"
+                            placeholder="Write your thoughts..."
+                            value={noteInput}
+                            onChange={setNoteInput}
+                        />
+                        <div className="button-container">
+                            <RichToolbar />
+                            <button id="savenote1" onClick={handleAddNote}>Save</button>
+                            <button id="cancelnote2" onClick={() => {
+                                setIsNoteInputVisible(false);
+                                setNoteInput('');
+                            }}>Cancel</button>
+                        </div>
+                    </EditorProvider>
                 </div>
             )}
 
             {/* Edit Note Container */}
             {editingNote && (
                 <div id="editNoteContainer" style={{ display: 'block' }}>
-                    <textarea
-                        id="editNoteInput"
-                        value={editInput}
-                        onChange={(e) => setEditInput(e.target.value)}
-                    ></textarea>
-                    <div className="button-container">
-                        <button id="savenote1" onClick={handleUpdateNote}>Save</button>
-                        <button id="cancelnote2" onClick={() => {
-                            setEditingNote(null);
-                            setEditInput('');
-                        }}>Cancel</button>
-                    </div>
+                    <EditorProvider>
+                        <RichEditor
+                            id="editNoteInput"
+                            value={editInput}
+                            onChange={setEditInput}
+                        />
+                        <div className="button-container">
+                            <RichToolbar />
+                            <button id="savenote1" onClick={handleUpdateNote}>Save</button>
+                            <button id="cancelnote2" onClick={() => {
+                                setEditingNote(null);
+                                setEditInput('');
+                            }}>Cancel</button>
+                        </div>
+                    </EditorProvider>
                 </div>
             )}
 

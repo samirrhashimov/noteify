@@ -1210,13 +1210,13 @@
     #company {
         font-family: 'Inter', 'Poppins', sans-serif;
         font-weight: 700;
-        color: #667eea;
+        color: #1a1a1a;
     }
 
     #appname {
         font-family: 'Inter', 'Mono', monospace;
         font-weight: 600;
-        color: #764ba2;
+        color: #1a1a1a;
     }
 
     /* Add/Edit Note Dark Mode Support */
@@ -1242,4 +1242,246 @@
         background-color: #1a1a1a;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
         border-top: 1px solid #333;
+    }
+
+    /* Rich Editor Styles */
+    .rich-editor {
+        background-color: white;
+        color: #333;
+    }
+
+    .rich-editor[data-placeholder]:empty:before {
+        content: attr(data-placeholder);
+        color: #888;
+        cursor: text;
+    }
+
+    body.dark-mode .rich-editor {
+        background-color: #1a1a1a !important;
+        color: #e0e0e0 !important;
+    }
+
+    /* Rich Toolbar Dark Mode Overrides */
+    body.dark-mode .rich-toolbar button svg {
+        color: #e0e0e0 !important;
+    }
+
+    .rich-toolbar button:hover {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+
+    body.dark-mode .rich-toolbar button:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+
+    /* Rich Editor Content Styles */
+
+    .rich-editor ul,
+    .rich-editor ol {
+        padding-left: 20px !important;
+        margin: 10px 0 !important;
+        list-style-position: inside !important;
+    }
+
+    .rich-editor ul {
+        list-style-type: disc !important;
+    }
+
+    .rich-editor ol {
+        list-style-type: decimal !important;
+    }
+
+    .rich-editor li {
+        display: list-item !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* Heading Styles in Editor */
+    .rich-editor h1 {
+        font-size: 2em !important;
+        font-weight: bold !important;
+        margin: 0.67em 0 !important;
+        display: block !important;
+    }
+
+    .rich-editor h6 {
+        font-size: 0.67em !important;
+        font-weight: bold !important;
+        margin: 2.33em 0 !important;
+        color: #666;
+        display: block !important;
+    }
+
+    /* Fix for dark mode if strictly needed */
+    body.dark-mode .rich-editor h6 {
+        color: #aaa;
+    }
+
+    /* Ensure note content display also handles these */
+    .note-container ul,
+    .note-container ol {
+        padding-left: 20px;
+        margin: 5px 0;
+        list-style-position: inside;
+    }
+
+    .note-container ul {
+        list-style-type: disc;
+    }
+
+    .note-container li {
+        display: list-item;
+    }
+
+    .note-container h1 {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .note-container h6 {
+        font-size: 0.8em;
+        font-weight: bold;
+        color: #666;
+        margin: 5px 0;
+    }
+
+
+    /* H1-H6 sizes for dropdown and content */
+    .rich-editor h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+    }
+
+    .rich-editor h2 {
+        font-size: 1.5em;
+        margin: 0.75em 0;
+    }
+
+    .rich-editor h3 {
+        font-size: 1.17em;
+        margin: 0.83em 0;
+    }
+
+    .rich-editor h4 {
+        font-size: 1em;
+        margin: 1.12em 0;
+    }
+
+    .rich-editor h5 {
+        font-size: 0.83em;
+        margin: 1.5em 0;
+    }
+
+    .rich-editor h6 {
+        font-size: 0.75em;
+        margin: 1.67em 0;
+        color: #666;
+    }
+
+    /* Dropdown override for dark mode */
+    body.dark-mode .heading-dropdown {
+        background: #2a2a2a !important;
+        border-color: #444 !important;
+    }
+
+    body.dark-mode .heading-dropdown button {
+        color: #e0e0e0 !important;
+    }
+
+    body.dark-mode .heading-dropdown button:hover {
+        background: #333 !important;
+    }
+
+
+    /* Rich Text Editor Toolbar Buttons */
+    .rt-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        margin: 0 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        min-width: auto;
+        color: #555;
+        transition: all 0.2s ease;
+    }
+
+    .rt-btn svg {
+        font-size: 24px;
+        color: inherit;
+        /* Inherit from button */
+    }
+
+    .rt-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Active State - Light Mode */
+    .rt-btn.active {
+        color: #0056b3 !important;
+        background-color: #e8f0fe !important;
+    }
+
+    /* Dark Mode overrides */
+    body.dark-mode .rt-btn {
+        color: #e0e0e0;
+    }
+
+    body.dark-mode .rt-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Active State - Dark Mode */
+    body.dark-mode .rt-btn.active {
+        color: #63b3ed !important;
+        /* Lighter blue */
+        background-color: rgba(0, 86, 179, 0.4) !important;
+    }
+
+    /* Dropdown specific */
+    .rt-dropdown-btn {
+        border: 1px solid #e0e0e0;
+        font-size: 14px;
+        font-weight: 600;
+        min-width: 100px;
+        justify-content: space-between;
+        padding: 6px 12px;
+    }
+
+    body.dark-mode .rt-dropdown-btn {
+        border-color: #444;
+        background-color: #2a2a2a;
+        /* Ensure it contrasts */
+    }
+
+
+    /* Toolbar Icon Colors using Variables for Dark Mode toggle capability */
+    :root {
+        --toolbar-icon-color: #555;
+        --toolbar-text-color: #333;
+        --dropdown-bg: white;
+        --dropdown-border: #ddd;
+    }
+
+    body.dark-mode {
+        --toolbar-icon-color: #e0e0e0;
+        --toolbar-text-color: #e0e0e0;
+        --dropdown-bg: #2a2a2a;
+        --dropdown-border: #444;
+    }
+
+    /* Base styles for toolbar buttons - removes previous !important overrides */
+    .rich-toolbar button svg {
+        color: inherit;
+        /* Allow inline styles or parent color */
+    }
+
+    /* Ensure inactive buttons get the variable color via class or just default text color */
+    .rich-toolbar button {
+        color: var(--toolbar-icon-color);
     }

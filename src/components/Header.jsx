@@ -126,7 +126,7 @@ const Header = () => {
                                 <a href="mailto:linzaapps@gmail.com">linzaapps@gmail.com</a>
                             </p>
                             <p>
-                                <strong>GitHub:</strong>
+                                <strong>GitHub: </strong>
                                 <a id="github-link" href="https://github.com/samirrhashimov/noteify" target="_blank" rel="noopener noreferrer">
                                     github.com/samirrhashimov/noteify
                                 </a>

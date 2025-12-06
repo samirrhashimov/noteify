@@ -1,16 +1,44 @@
-# React + Vite
+<h1 align="center">Noteify – Simple Cloud Notepad</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+<img src="https://skillicons.dev/icons?i=html,css,js,firebase,netlify" />
+</p>
+<p align="center">
+   <img src="https://img.shields.io/github/license/samirrhashimov/noteify?style=flat">
+   <img src="https://img.shields.io/github/v/release/samirrhashimov/noteify?style=flat">
+   <img src="https://img.shields.io/github/repo-size/samirrhashimov/noteify?style=flat">
+   <img src="https://img.shields.io/github/languages/top/samirrhashimov/noteify?style=flat">
 
-Currently, two official plugins are available:
+**Noteify** - is a Fast, Simple, Secure cloud-based notepad application 
+designed for quick and easy note-taking on the go.
+Whether you're jotting down ideas or organizing your thoughts,
+Noteify offers a minimalist, distraction-free environment.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Cloud-based note storage
+- Create, edit, and delete notes
+- Simple, intuitive user interface
+- Mobile-optimized
+- Light and fast
+- Light and Dark theme
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How to Use
 
-## Expanding the ESLint configuration
+1. Open the app.
+2. Sign in or create your account.
+3. Start taking notes!
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Security
+If you discover a security vulnerability in the project, **do not open a public issue**.  
+Instead, submit a private report through the [Security advisories](../../security/advisories) section.  
+
+---
+
+## License
+This project is licensed under the **APGLv3 License**. For more details, see the [LICENSE](LICENSE) file.
+
+---
+## Support
+
+For issues and questions, please open an issue on GitHub.
