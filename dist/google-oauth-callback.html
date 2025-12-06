@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Google OAuth Callback</title>
+</head>
+<body>
+<script>
+(function () {
+    function parseHashParams(hash) {
+        var result = {};
+        if (!hash) return result;
+        var query = hash.charAt(0) === '#' ? hash.substring(1) : hash;
+        var pairs = query.split('&');
+        for (var i = 0; i < pairs.length; i++) {
+            var parts = pairs[i].split('=');
+            if (parts.length !== 2) continue;
+            var key = decodeURIComponent(parts[0]);
+            var value = decodeURIComponent(parts[1]);
+            result[key] = value;
+        }
+        return result;
+    }
+
+    var params = parseHashParams(window.location.hash);
+    if (window.opener && window.opener !== window) {
+        window.opener.postMessage(
+            {
+                type: 'google_oauth',
+                access_token: params.access_token,
+                expires_in: params.expires_in,
+                error: params.error,
+            },
+            window.location.origin
+        );
+    }
+    window.close();
+})();
+</script>
+</body>
+</html>
