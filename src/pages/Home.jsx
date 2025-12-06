@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../lib/firebase';
 import { collection, query, where, onSnapshot, addDoc, doc, deleteDoc, updateDoc, orderBy, serverTimestamp } from 'firebase/firestore';
-import { FaPlus, FaFilter, FaEllipsisV } from 'react-icons/fa';
+import { FaPlus, FaFilter, FaEllipsisV, FaEdit, FaCopy, FaTrash } from 'react-icons/fa';
 import '../styles/style.css';
 import { RichEditor, RichToolbar, EditorProvider } from '../components/NoteEditor';
 import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
@@ -134,6 +134,29 @@ const Home = () => {
         return plainText.substring(0, maxLength) + '...';
     };
 
+    const handleCopyText = async (note) => {
+        const text = getPlainText(note?.content || '');
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch (err) {
+            try {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            } catch (fallbackErr) {
+                console.error('Failed to copy text', fallbackErr);
+            }
+        } finally {
+            setOpenMenuId(null);
+        }
+    };
+
     const MAX_NOTE_LENGTH = 700;
 
     const filteredNotes = notes.filter(note =>
@@ -263,8 +286,18 @@ const Home = () => {
                                     ⋮
                                 </button>
                                 <div className={`note-menu ${openMenuId === note.id ? 'show' : ''}`}>
-                                    <div className="menu-item" onClick={() => openEdit(note)}>Edit</div>
-                                    <div className="menu-item" onClick={() => confirmDelete(note.id)}>Delete</div>
+                                    <div className="menu-item" onClick={() => openEdit(note)}>
+                                        <FaEdit />
+                                        <span>Edit</span>
+                                    </div>
+                                    <div className="menu-item" onClick={() => handleCopyText(note)}>
+                                        <FaCopy />
+                                        <span>Copy text</span>
+                                    </div>
+                                    <div className="menu-item" onClick={() => confirmDelete(note.id)}>
+                                        <FaTrash />
+                                        <span>Delete</span>
+                                    </div>
                                 </div>
                             </div>
                             <div className="note-content">

@@ -193,6 +193,9 @@
         cursor: pointer;
         transition: all 0.2s ease;
         font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .menu-item:last-child {
@@ -206,6 +209,12 @@
 
     .menu-item:first-child:hover {
         background: #e8f0fe;
+    }
+
+    .menu-item svg {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 auto;
     }
 
     .menu-item:last-child:hover {
@@ -754,7 +763,7 @@
     }
 
     #notesList {
-        margin-top: 55px;
+        margin-top: 110px;
         padding: 0 20px;
         width: 100%;
         max-width: 670px;
