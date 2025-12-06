@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* Scope everything specifically to avoid conflicts */
+.login-body {
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 20px;
+    overflow-y: auto;
+    color: #fff;
+    background-color: #1a1a1a;
+    z-index: 2000;
+    box-sizing: border-box;
+}
+
+/* Video Background */
+.login-body .video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.login-body .video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+}
+
+/* Logo */
+.login-body #logo-container {
+    position: relative;
+    margin-bottom: 5px;
+    /* Minimal space */
+    z-index: 10;
+    flex-shrink: 0;
+    animation: fadeInDown 1s ease-out;
+}
+
+.login-body #noteify-logo {
+    width: 120px;
+    /* Smaller logo size */
+    height: auto;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.login-body #noteify-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Glass Card */
+.login-body .login-container {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 28px 24px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s ease-out;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-body .login-container h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Inputs */
+.login-body .login-container input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+    outline: none;
+    height: auto;
+}
+
+.login-body .login-container input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+}
+
+.login-body .login-container input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.login-body .login-container input:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Buttons */
+.login-body .login-container button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 8px 0 0 0;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    position: relative;
+    overflow: hidden;
+    height: auto;
+    display: block;
+}
+
+.login-body .login-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
+    filter: brightness(1.1);
+}
+
+.login-body .login-container button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(124, 58, 237, 0.3);
+}
+
+/* Links and Text */
+.login-body .login-container p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 14px;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.login-body .login-container a {
+    color: #a78bfa;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.login-body .login-container a:hover {
+    color: #fff;
+    background: rgba(167, 139, 250, 0.2);
+    text-decoration: none;
+}
+
+.login-body .login-container .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 16px 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+}
+
+.login-body .login-container .separator::before,
+.login-body .login-container .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.login-body .login-container .separator:hover::before,
+.login-body .login-container .separator:hover::after {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.login-body .login-container .separator::before {
+    margin-right: 15px;
+}
+
+.login-body .login-container .separator::after {
+    margin-left: 15px;
+}
+
+/* Error/Success Messages */
+.login-body .login-container .message {
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    text-align: center;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+}
+
+.login-body .login-container .message.success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #86efac;
+}
+
+/* Safety rule: Hide empty error boxes if JS fails to prevent rendering */
+.login-body .login-container .message:empty {
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-height: 700px) {
+    .login-body {
+        justify-content: flex-start;
+        padding-top: 30px;
+    }
+
+    .login-body #logo-container {
+        margin-bottom: 10px;
+    }
+}
