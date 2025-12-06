@@ -1,3 +1,7 @@
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
     apiKey: "AIzaSyDI37ePX-s5JKXqO4r7o9UkQvOchaK4Hr8",
     authDomain: "notepad-linzaapp.firebaseapp.com",
@@ -8,5 +12,7 @@ const firebaseConfig = {
     measurementId: "G-631HB9C9W5"
 };
 
-firebase.initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export default app;

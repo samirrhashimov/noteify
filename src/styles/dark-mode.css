@@ -11,7 +11,7 @@ body.dark-mode {
   color: var(--dark-text);
 }
 
-.dark-mode #notesList > div {
+.dark-mode #notesList>div {
   background-color: var(--dark-input-bg);
   color: var(--dark-text);
   border: 1px solid var(--dark-border);
@@ -21,7 +21,7 @@ body.dark-mode {
   background-color: transparent;
   color: var(--dark-text);
 }
-  
+
 .dark-mode #settings-link {
   color: #ffffff !important;
 }
@@ -118,8 +118,13 @@ body.dark-mode {
 }
 
 .dark-mode #searchInput {
-  background-color: var(--dark-input-bg);
-  color: var(--dark-text);
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode #searchInput::placeholder {
+  color: #999;
 }
 
 .dark-mode #filter-menu {
@@ -256,18 +261,23 @@ body.dark-mode .profile-info strong {
 body.dark-mode .profile-info span {
   color: #eeeeee;
 }
+
 .dark-mode .dmsettings {
   color: #fff;
 }
+
 .dark-mode .right1 {
   color: #fff !important;
 }
+
 .dark-mode .right2 {
   color: #fff !important;
 }
+
 .dark-mode .right3 {
   color: #fff !important;
 }
+
 .dark-mode .right4 {
   color: #fff !important;
 }

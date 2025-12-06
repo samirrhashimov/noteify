@@ -1,153 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-    <script src="/assets/js/firebase-config.js"></script>
-    <script src="/assets/js/login.js"></script>
-    <script src="/assets/js/script.js"></script>
-    </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" id="theme-color">
+    <link rel="icon" href="/src/assets/img/mainlogosingle.png" />
     <title>Noteify - Cloud NotePad</title>
-      <link rel="icon" href="/assets/img/mainlogosingle.png">
-    <link rel="stylesheet" href="/assets/css/dark-mode.css">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <script src="/assets/js/dark-mode.js"></script>
-    <link rel="stylesheet" href="/assets/css/style.css">
-</head>
-<body>
-
-<header>
-    <button id="menu-btn">☰</button>
-    <a href="/">
-  <img src="/assets/img/mainlogo2.png" alt="Noteify" height="40"  width="75" style="position:relative;top:2px;right:5px;">
-</a>
-
-    <div id="settings-panel" class="settings-panel">
-        <div class="settings-content">
-            <div class="settings-header">
- <h2 id="settingsl" style="color:#333;">Settings</h2>
-                
- <button id="close-settings" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #333;">✕</button>
- </div>
- <div class="settings-options">
- <div class="settings-item">
- <span id="darkModeLabel">Dark mode</span>
- <label class="switch">
- <input type="checkbox" id="theme-toggle">
-  <span class="slider round"></span>
-  </label>
-  </div>
-  </div>
-    <div class="settings-buttons">
-    <a href="profile.html" style="text-decoration: none;">
-        <button class="settings-button dmsettings">
-          <span class="left">Profile</span><span class="right1">⟩</span></button>
-    </a>
-    <a href="change-password.html" style="text-decoration: none;">
-        <button id="change-password" class="settings-button dmsettings">Change password<span class="right2">⟩</span></button>
-    </a>
-    <button class="settings-button dmsettings" onclick="window.location.href='feedback.html'">Send Feedback<span class="right3">⟩</span></button>
-      <a href="legalinfo.html" style="text-decoration: none;">
-        <button class="settings-button dmsettings">Legal Info<span class="right4">⟩</span></button>
-    </a>
-    <button onclick="logout()" class="settings-button danger">Logout</button>
-    <div class="settings-item version">
-    <span>App Version: v20.2.3</span>
-</div>
-
-<div id="dev-info-box">
-  <p>
-    <strong id="appname">Noteify </strong><strong>by</strong> <strong id="company">linzaapps</strong>
-  </p>
-  <p>
-    <strong>Contact: </strong>
-    <a href="mailto:linzaapps@gmail.com">linzaapps@gmail.com</a>
-  </p>
-  <p>
-    <strong>GitHub:</strong>
-    <a id="github-link" href="https://github.com/samirrhashimov/noteify" target="_blank">
-      github.com/samirrhashimov/noteify
-    </a>
-  </p>
-</div>
-</header>
-
-<div id="searchBox">
-    <input type="text" id="searchInput" placeholder="Search Notes">
-    <button id="filter-btn"><img src="/assets/img/filter-list.png" alt="filter"</button>
-</div>
-
- <div id="notesList" class="note-container"></div>
-    <div id="emptyState" class="empty-state">
-        <img src="/assets/img/man.png" alt="No notes" width="70" height="70">
-        <h2>Too quiet here...</h2>
-        <p>Add a note to get started</p>
-    </div>
-
-<div id="filter-menu" class="filter-menu">
-    <div id="sort-newest" class="filter-option">
-        From New to Old
-    </div>
-    <div id="sort-oldest" class="filter-option">
-        From Old to New
-    </div>
-</div>
-    <script>
-        firebase.auth().onAuthStateChanged(user => {
-            if (!user) {
-                window.location.href = "login.html";
-            }
-        });
-
-        function toggleSettingsPanel() {
-            const settingsPanel = document.getElementById('settings-panel');
-            settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'flex' : 'none';
-        }
-
-        document.getElementById('close-settings').addEventListener('click', toggleSettingsPanel);
-
-    </script>
-
-<button id="addNoteButton" class="always-hover" onclick="toggleNoteInput()">+</button>
-<!--
-<nav class="bottom-nav">
-   <button id="searchButton"><img src="/assets/img/search.png"alt="search"</button>
-    <div class="bottom-nav-center-gap"></div>
-    <button id="filter-btn"><img src="/assets/img/filter-list.png"alt="filter"</button> 
-</nav>
--->
-
-<div id="noteContainer" class="hidden">
-    <textarea id="noteInput" placeholder="Write your thoughts..."></textarea>
-    <div class="button-container">
-        <button id="savenote1" onclick="addNote()">Save</button>
-        <button id="cancelnote2" onclick="cancelNote()">Cancel</button>
-    </div>
-</div>
-
-<div id="editNoteContainer" style="display:none;">
-    <textarea id="editNoteInput"></textarea>
-    <div class="button-container">
-        <button id="savenote1" onclick="saveEdit()">Save</button>
-        <button id="cancelnote2" onclick="cancelEdit()">Cancel</button>
-    </div>
-</div>
-<div id="deleteModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <p>Are you sure you want to delete this note?</p>
-    <button id="confirmDelete">Yes</button>
-    <button id="cancelDelete">No</button>
-  </div>
-</div>
-    </script>
-</body>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
