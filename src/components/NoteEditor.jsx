@@ -3,6 +3,7 @@ import {
     MdFormatBold,
     MdFormatItalic,
     MdFormatUnderlined,
+    MdArrowDropDown,
     MdFormatStrikethrough,
     MdFormatListBulleted,
     MdLooksOne,
@@ -196,19 +197,21 @@ export const RichToolbar = () => {
     });
 
     const dropdownStyle = {
-        position: 'absolute',
-        bottom: '100%',
-        left: '0',
-        background: 'white',
+        position: 'fixed',
+        bottom: 'auto',
+        top: 'auto',
+        left: 'auto',
+        transform: 'translateY(-100%)',
         border: '1px solid #ddd',
         borderRadius: '8px',
         boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-        zIndex: 1000,
+        zIndex: 10001, 
         minWidth: '150px',
         display: showHeadingMenu ? 'block' : 'none',
         padding: '6px 0',
         maxHeight: '250px',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        isolation: 'isolate'
     };
 
     const dropdownItemStyle = {
@@ -240,22 +243,46 @@ export const RichToolbar = () => {
                         border: '1px solid #e0e0e0',
                         minWidth: '100px',
                         justifyContent: 'space-between',
-                        background: 'white'
+                        background: 'white',
+                        display: 'flex',
+                        alignItems: 'center',
+                        margin: '0 2px',
+                        borderRadius: '4px',
+                        cursor: 'pointer'
                     }}
                 >
-                    <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '80px' }}>{blockLabel}</span>
-                    <span style={{ fontSize: '10px', marginLeft: '6px' }}>▼</span>
+                    <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {blockLabel}
+                    </span>
+                    <MdArrowDropDown style={{ fontSize: '20px', color: '#666' }} />
                 </button>
-                <div style={dropdownStyle} className="heading-dropdown">
-                    <button type="button" style={{ ...dropdownItemStyle, fontSize: '28px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H1')}>Heading 1</button>
-                    <button type="button" style={{ ...dropdownItemStyle, fontSize: '24px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H2')}>Heading 2</button>
-                    <button type="button" style={{ ...dropdownItemStyle, fontSize: '20px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H3')}>Heading 3</button>
-                    <button type="button" style={{ ...dropdownItemStyle, fontSize: '18px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H4')}>Heading 4</button>
-                    <button type="button" style={{ ...dropdownItemStyle, fontSize: '16px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H5')}>Heading 5</button>
-                    <button type="button" style={{ ...dropdownItemStyle, fontSize: '13px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H6')}>Heading 6</button>
-                    <div style={{ margin: '4px 10px', borderTop: '1px solid #eee' }}></div>
-                    <button type="button" style={{ ...dropdownItemStyle, fontSize: '14px' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('P')}>Normal Text</button>
-                </div>
+                
+                {showHeadingMenu && (
+                    <div style={dropdownStyle}>
+                        <button type="button" style={{ ...dropdownItemStyle, fontSize: '22px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H1')}>
+                            Heading 1
+                        </button>
+                        <button type="button" style={{ ...dropdownItemStyle, fontSize: '20px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H2')}>
+                            Heading 2
+                        </button>
+                        <button type="button" style={{ ...dropdownItemStyle, fontSize: '18px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H3')}>
+                            Heading 3
+                        </button>
+                        <button type="button" style={{ ...dropdownItemStyle, fontSize: '16px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H4')}>
+                            Heading 4
+                        </button>
+                        <button type="button" style={{ ...dropdownItemStyle, fontSize: '16px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H5')}>
+                            Heading 5
+                        </button>
+                        <button type="button" style={{ ...dropdownItemStyle, fontSize: '13px', fontWeight: 'bold' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('H6')}>
+                            Heading 6
+                        </button>
+                        <div style={{ margin: '4px 10px', borderTop: '1px solid #eee' }}></div>
+                        <button type="button" style={{ ...dropdownItemStyle, fontSize: '14px' }} onMouseDown={onMouseDown} onClick={() => handleHeadingSelect('P')}>
+                            Normal Text
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div style={{ width: '1px', height: '24px', background: '#eee', margin: '0 4px 0 2px' }}></div>
