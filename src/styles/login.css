@@ -157,6 +157,41 @@
     box-shadow: 0 2px 10px rgba(124, 58, 237, 0.3);
 }
 
+/* Google Button - desktop only, black style */
+.login-body .login-container .google-login-btn {
+    background: #000000;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    border: 1px solid #000000;
+    display: none;
+}
+
+.login-body .login-container .google-login-btn:hover {
+    background: #111111;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.login-body .login-container .google-login-btn:active {
+    background: #0a0a0a;
+}
+
+.login-body .login-container .google-login-btn .google-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+}
+
+/* Only show Google button on desktop screens */
+@media (min-width: 1025px) {
+    .login-body .login-container .google-login-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+    }
+}
+
 /* Links and Text */
 .login-body .login-container p {
     color: rgba(255, 255, 255, 0.7);

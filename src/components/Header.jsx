@@ -129,7 +129,7 @@ const Header = () => {
                     {/* Version Info */}
                     <div className="settings-footer">
                         <div className="version-info">
-                            <span>App Version: v20.2.3</span>
+                            <span>App Version: v21.0.0</span>
                         </div>
 
                         <div id="dev-info-box">
