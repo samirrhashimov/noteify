@@ -1,0 +1,283 @@
+:root {
+  --dark-bg: #1a1a1a;
+  --dark-text: #ffffff;
+  --dark-border: #333333;
+  --dark-input-bg: #1d1d1d;
+  --dark-hover: #3d3d3d;
+}
+
+body.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode #notesList>div {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .note-container {
+  background-color: transparent;
+  color: var(--dark-text);
+}
+
+.dark-mode #settings-link {
+  color: #ffffff !important;
+}
+
+.dark-mode #close-settings {
+  color: #ffffff !important;
+}
+
+.dark-mode #darkModeLabel {
+  color: #ffffff;
+}
+
+.dark-mode #settingsl {
+  color: #ffffff !important;
+}
+
+.dark-mode #profile-link {
+  color: #ffffff !important;
+}
+
+.dark-mode .bottom-nav {
+  background-color: #2c3e50;
+}
+
+.dark-mode textarea {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode .menu-item:hover {
+  background-color: var(--dark-hover);
+}
+
+.dark-mode #menu {
+  color: var(--dark-text);
+}
+
+.dark-mode .settings-content {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode .settings-item {
+  border-color: var(--dark-border);
+}
+
+/* Scrollbar Styling */
+.dark-mode ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: var(--dark-border);
+  border-radius: 4px;
+}
+
+/* Login and Register Forms */
+.dark-mode .login-container,
+.dark-mode .container {
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+}
+
+
+.dark-mode input[type="text"],
+.dark-mode input[type="email"],
+.dark-mode input[type="password"] {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode input::placeholder {
+  color: #888;
+}
+
+.dark-mode a {
+  color: var(--dark-link);
+}
+
+.dark-mode .separator {
+  color: var(--dark-text);
+}
+
+.dark-mode .modal-content,
+.dark-mode .settings-content {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode #searchInput {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode #searchInput::placeholder {
+  color: #999;
+}
+
+.dark-mode #filter-menu {
+  background-color: var(--dark-hover);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode .filter-option:hover {
+  background-color: var(--dark-hover);
+}
+
+.dark-mode .menu-link {
+  color: var(--dark-text);
+}
+
+.dark-mode .version {
+  color: #888;
+}
+
+/* Note Container and Edit Note Container */
+.dark-mode #noteContainer,
+.dark-mode #editNoteContainer {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode #noteContainer textarea,
+.dark-mode #editNoteContainer textarea {
+  background-color: var(--dark-note-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode #noteContainer .button-container,
+.dark-mode #editNoteContainer .button-container {
+  background-color: var(--dark-bg);
+  border-top: 1px solid var(--dark-border);
+}
+
+/* Change Password Page */
+.dark-mode #message.error {
+  color: #ff6b6b;
+}
+
+.dark-mode #message.success {
+  color: #51cf66;
+}
+
+/* Register and Verify Pages */
+.dark-mode .separator {
+  border-color: var(--dark-border);
+}
+
+.dark-mode h1,
+.dark-mode h2 {
+  color: var(--dark-text);
+}
+
+.dark-mode #loginreset {
+  color: var(--dark-link);
+}
+
+.dark-mode .container p {
+  color: var(--dark-text);
+}
+
+/* Reset Password Specific Styles */
+.dark-mode #resetMessage {
+  color: var(--dark-text);
+}
+
+.dark-mode #resetMessage.error {
+  color: #ff6b6b;
+}
+
+.dark-mode #resetMessage.success {
+  color: #51cf66;
+}
+
+/* Change Password Specific Styles */
+.dark-mode #currentPassword,
+.dark-mode #newPassword,
+.dark-mode #confirmPassword,
+.dark-mode #resetEmail {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode .back-link {
+  color: var(--dark-link);
+}
+
+.dark-mode .modal {
+  background-color: var(--dark-bg);
+}
+
+.dark-mode .note-menu {
+  background-color: var(--dark-input-bg);
+  border-color: var(--dark-border);
+}
+
+.dark-mode input,
+.dark-mode textarea {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .profile-container {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .profile-info p {
+  color: #cccccc;
+}
+
+body.dark-mode .profile-info strong {
+  color: #90caf9;
+}
+
+body.dark-mode .profile-info span {
+  color: #eeeeee;
+}
+
+.dark-mode .dmsettings {
+  color: #fff;
+}
+
+.dark-mode .right1 {
+  color: #fff !important;
+}
+
+.dark-mode .right2 {
+  color: #fff !important;
+}
+
+.dark-mode .right3 {
+  color: #fff !important;
+}
+
+.dark-mode .right4 {
+  color: #fff !important;
+}

@@ -1,7 +1,7 @@
 <h1 align="center">Noteify – Simple Cloud Notepad</h1>
 
 <p align="center">
-<img src="https://skillicons.dev/icons?i=html,css,js,firebase,netlify" />
+<img src="https://skillicons.dev/icons?i=html,css,js,react,firebase,netlify" />
 </p>
 <p align="center">
    <img src="https://img.shields.io/github/license/samirrhashimov/noteify?style=flat">
@@ -22,12 +22,40 @@ Noteify offers a minimalist, distraction-free environment.
 - Mobile-optimized
 - Light and fast
 - Light and Dark theme
+- Keyboard shortcuts for faster navigation
 
 ## How to Use
 
 1. Open the app.
 2. Sign in or create your account.
 3. Start taking notes!
+
+## Keyboard Shortcuts
+
+Noteify supports keyboard shortcuts to help you work faster.
+
+### General Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Alt + N` | Create a new note |
+| `Ctrl + Enter` | Save note (when editor is open) |
+| `Esc` | Close modal, editor, or settings panel |
+| `M` | Open/close menu (settings) |
+| `F` | Toggle filter menu |
+
+### Text Formatting Shortcuts
+
+These shortcuts work when you're editing a note:
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl + B` | Bold text |
+| `Ctrl + I` | Italic text |
+| `Ctrl + U` | Underline text |
+| `Ctrl + Shift + S` | Strikethrough text |
+| `Ctrl + Shift + L` | Bullet list |
+
 
 ## Security
 If you discover a security vulnerability in the project, **do not open a public issue**.  
