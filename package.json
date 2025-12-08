@@ -1,7 +1,7 @@
 {
   "name": "temp_project",
   "private": true,
-  "version": "21.2.1",
+  "version": "21.2.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
