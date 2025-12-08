@@ -69,9 +69,6 @@ const ChangePassword = () => {
                 maxWidth: '450px',
                 margin: '100px auto 40px auto',
                 padding: '30px',
-                backgroundColor: isDarkMode ? '#1a1a1a' : '#ffffff',
-                borderRadius: '16px',
-                boxShadow: isDarkMode ? '0 4px 20px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.1)',
                 position: 'relative',
                 zIndex: 1
             }}>
@@ -185,14 +182,15 @@ const ChangePassword = () => {
                             border: 'none',
                             padding: '16px 20px',
                             borderRadius: '10px',
-                            fontSize: '16px',
+                            fontSize: '14px',
                             fontWeight: '600',
                             cursor: 'pointer',
                             transition: 'background-color 0.2s',
                             width: '100%',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            margin: '0'
                         }}
                         onMouseEnter={(e) => e.target.style.backgroundColor = '#004494'}
                         onMouseLeave={(e) => e.target.style.backgroundColor = '#0056b3'}

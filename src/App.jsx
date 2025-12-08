@@ -13,6 +13,7 @@ import Legal from './pages/Legal';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import Copyright from './pages/Copyright';
+import Licence from './pages/Licence';
 
 // Placeholder components for now
 import Reset from './pages/Reset';
@@ -29,10 +30,12 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="feedback" element={<Feedback />} />
         <Route path="change-password" element={<ChangePassword />} />
+
         <Route path="legal" element={<Legal />} />
-        <Route path="privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="terms-and-conditions" element={<TermsAndConditions />} />
-        <Route path="copyright" element={<Copyright />} />
+        <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/legal/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/legal/copyright" element={<Copyright />} />
+        <Route path="/legal/licence" element={<Licence />} />
       </Route>
     </Routes>
   );

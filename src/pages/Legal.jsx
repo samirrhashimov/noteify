@@ -8,9 +8,10 @@ const Legal = () => {
     const { isDarkMode } = useTheme();
 
     const legalItems = [
-        { title: 'Privacy Policy', path: '/privacy-policy', description: 'How we collect and use your data' },
-        { title: 'Terms and Conditions', path: '/terms-and-conditions', description: 'Rules for using our service' },
-        { title: 'Copyright Notice', path: '/copyright', description: 'Intellectual property information' }
+        { title: 'Privacy Policy', path: '/legal/privacy-policy', description: 'How we collect and use your data' },
+        { title: 'Terms and Conditions', path: '/legal/terms-and-conditions', description: 'Rules for using our service' },
+        { title: 'Copyright Notice', path: '/legal/copyright', description: 'Intellectual property information' },
+        { title: 'Licence', path: '/legal/licence', description: 'AGPL-3.0' }
     ];
 
     return (
@@ -37,8 +38,6 @@ const Legal = () => {
             >
                 <FaArrowLeft />
             </button>
-
-            <h2 style={{ color: isDarkMode ? '#ffffff' : '#333', marginBottom: '30px' }}>Legal Information</h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {legalItems.map((item, index) => (
@@ -100,18 +99,10 @@ const Legal = () => {
                 textAlign: 'center'
             }}>
                 <p style={{
-                    margin: '0 0 10px 0',
                     color: isDarkMode ? '#aaa' : '#666',
                     fontSize: '14px'
                 }}>
-                    © 2025 Linza Apps. All rights reserved.
-                </p>
-                <p style={{
-                    margin: 0,
-                    color: isDarkMode ? '#888' : '#999',
-                    fontSize: '12px'
-                }}>
-                    Version 20.2.3
+                    © 2025 LinzaApps. All rights reserved.
                 </p>
             </div>
         </div>

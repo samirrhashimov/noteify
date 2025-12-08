@@ -31,8 +31,6 @@ const Copyright = () => {
                 <FaArrowLeft />
             </button>
 
-            <h2 style={{ color: isDarkMode ? '#ffffff' : '#333', marginBottom: '30px' }}>Copyright Notice</h2>
-
             <div style={{
                 background: isDarkMode ? '#2a2a2a' : 'white',
                 padding: '30px',
@@ -41,18 +39,36 @@ const Copyright = () => {
                 color: isDarkMode ? '#e0e0e0' : '#333',
                 lineHeight: '1.6'
             }}>
-                <h3>Intellectual Property</h3>
-                <p>All content included on this app, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software, is the property of Linza Apps or its content suppliers and protected by international copyright laws.</p>
+                <h1>Copyright Notice</h1>
+                <p>Last updated: December 8, 2025</p>
+                <br></br>
+                <p>All content, features, and code within this Notepad application (including but not limited to text, images, source code, design, and layout) are the intellectual property of the developer, unless otherwise stated.</p>
 
-                <h3>Trademarks</h3>
-                <p>Noteify and other marks indicated on our app are trademarks of Linza Apps.</p>
+                <h2>1. Ownership</h2>
+                <p>All rights are reserved by the original creator. This includes any unique features, styling, and functionality specific to this app.</p>
 
-                <h3>Copyright Complaints</h3>
-                <p>If you believe that your work has been copied in a way that constitutes copyright infringement, please contact us at linzaapps@gmail.com.</p>
+                <h2>2. Restrictions</h2>
+                <ul>
+                    <li>You may not copy, reproduce, distribute, or transmit any part of the application without explicit written permission.</li>
+                    <li>Reverse engineering or attempting to access or modify the source code without permission is strictly prohibited.</li>
+                    <li>The use of this app or any part of it for commercial purposes without proper authorization is not allowed.</li>
+                </ul>
 
-                <p style={{ marginTop: '20px', fontSize: '0.9em', color: isDarkMode ? '#aaa' : '#666' }}>
-                    © 2025 Linza Apps. All rights reserved.
+                <h2>3. Third-Party Content</h2>
+                <p>If any third-party libraries or resources are used, they are subject to their own licenses and are credited appropriately where necessary.</p>
+
+                <h2>4. Legal Action</h2>
+                <p>Unauthorized use or duplication of any part of this app may result in legal action under applicable copyright laws.</p>
+
+                <p>
+                    While this application is released as open-source on
+                    <a href="https://github.com/samirrhashimov/noteify" target="_blank"> GitHub</a>,
+                    the name "Noteify", its logo, visual design, and overall structure are the intellectual property of LinzaApps.
+                    Any commercial use is strictly prohibited without prior written consent.
                 </p>
+
+                Contact Email: <a href="mailto:linzaapps@gmail.com">linzaapps@gmail.com</a>
+
             </div>
         </div>
     );

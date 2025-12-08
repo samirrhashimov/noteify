@@ -58,27 +58,40 @@ const Feedback = () => {
             </button>
             <h2 style={{ color: isDarkMode ? '#ffffff' : '#333' }}>Send Feedback</h2>
             <p style={{ color: isDarkMode ? '#ccc' : '#666' }}>We would love to hear your thoughts!</p>
-            {message && <p style={{ color: 'green' }}>{message}</p>}
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    style={{
-                        width: '100%',
-                        height: '150px',
-                        padding: '10px',
-                        marginTop: '10px',
-                        background: isDarkMode ? '#2a2a2a' : '#ffffff',
-                        color: isDarkMode ? '#ffffff' : '#000',
-                        border: `1px solid ${isDarkMode ? '#444' : '#ddd'}`,
-                        borderRadius: '4px'
-                    }}
+            <form style={{ marginTop: '20px' }} id="feedback-form" action="https://formspree.io/f/xdkgndej" method="POST">
+                <label for="email">Your Email adress:</label>
+                <input style={{
+                    width: '100%',
+                    height: '30px',
+                    marginTop: '10px',
+                    padding: '10px',
+                    background: isDarkMode ? '#2a2a2a' : '#ffffff',
+                    color: isDarkMode ? '#ffffff' : '#000',
+                    border: `1px solid ${isDarkMode ? '#444' : '#ddd'}`,
+                    borderRadius: '4px'
+                }}
+                    placeholder="Write your e-mail here..."
+                    type="email" name="email" id="email" required />
+
+                <label for="message">Message:</label>
+                <textarea style={{
+                    width: '100%',
+                    height: '150px',
+                    padding: '10px',
+                    marginTop: '10px',
+                    background: isDarkMode ? '#2a2a2a' : '#ffffff',
+                    color: isDarkMode ? '#ffffff' : '#000',
+                    border: `1px solid ${isDarkMode ? '#444' : '#ddd'}`,
+                    borderRadius: '4px'
+                }}
                     placeholder="Write your feedback here..."
-                    value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
-                    required
-                ></textarea>
+                    name="message" id="message" rows="5" required>
+                </textarea>
+
                 <button type="submit" style={{ marginTop: '20px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
                     Send <FaPaperPlane />
                 </button>
+                <div id="form-message" class="message"></div>
             </form>
         </div>
     );

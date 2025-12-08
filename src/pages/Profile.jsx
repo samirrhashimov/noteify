@@ -6,6 +6,7 @@ import { FaUserCircle, FaArrowLeft } from 'react-icons/fa';
 
 const Profile = () => {
     const { currentUser } = useAuth();
+    console.log(currentUser)
     const { isDarkMode } = useTheme();
     const navigate = useNavigate();
 
@@ -41,9 +42,10 @@ const Profile = () => {
             <FaUserCircle size={100} color={isDarkMode ? '#aaa' : '#555'} style={{ marginBottom: '20px' }} />
             <h2 style={{ color: isDarkMode ? '#ffffff' : '#333' }}>User Profile</h2>
             <div style={{ marginTop: '30px', textAlign: 'left', background: isDarkMode ? '#2a2a2a' : 'white', padding: '20px', borderRadius: '10px', boxShadow: isDarkMode ? '0 2px 5px rgba(255,255,255,0.1)' : '0 2px 5px rgba(0,0,0,0.1)', color: isDarkMode ? '#ffffff' : '#333' }}>
-                <p><strong>Email:</strong> {currentUser?.email}</p>
-                <p><strong>User ID:</strong> {currentUser?.uid}</p>
-                <p><strong>Joined:</strong> {joinDate}</p>
+                <p style={{ marginBottom: '2px'}}><strong>Display Name:</strong> {currentUser?.displayName || "user"}</p>
+                <p style={{ marginBottom: '2px'}}><strong>Email:</strong> {currentUser?.email}</p>
+                <p style={{ marginBottom: '2px'}}><strong>User ID:</strong> {currentUser?.uid}</p>
+                <p style={{ marginBottom: '2px'}}><strong>Joined:</strong> {joinDate}</p>
             </div>
         </div>
     );

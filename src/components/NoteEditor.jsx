@@ -11,15 +11,17 @@ import {
 } from 'react-icons/md';
 import KeyboardHint from './KeyboardHint';
 import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
+import { useTheme } from '../contexts/ThemeContext';
 
 const EditorContext = createContext({
     activeFormats: {},
     execCommand: () => { }
 });
 
+
 export const EditorProvider = ({ children }) => {
     const [activeFormats, setActiveFormats] = useState({});
-
+    
     const checkFormats = () => {
         const formats = {
             bold: document.queryCommandState('bold'),
@@ -120,6 +122,7 @@ export const RichToolbar = () => {
     const { activeFormats, execCommand } = useContext(EditorContext);
     const [showHeadingMenu, setShowHeadingMenu] = useState(false);
     const dropdownRef = useRef(null);
+    const { isDarkMode } = useTheme();
 
     // Keyboard shortcuts for formatting
     const handleBold = useCallback(() => {
@@ -211,13 +214,15 @@ export const RichToolbar = () => {
         padding: '6px 0',
         maxHeight: '250px',
         overflowY: 'auto',
-        isolation: 'isolate'
+        isolation: 'isolate',
+        backgroundColor: isDarkMode ? '#2a2a2a' : '#ffffff',
+        scrollbarWidth: 'none'
     };
 
     const dropdownItemStyle = {
         padding: '10px 16px',
         cursor: 'pointer',
-        color: '#333',
+        color: isDarkMode ? '#ebebebff' : '#333',
         display: 'block',
         textAlign: 'left',
         width: '100%',
