@@ -204,7 +204,7 @@ const Home = () => {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
-    // Keyboard shortcuts - Chrome ile çakışmayan kısayollar
+    // Keyboard shortcuts
     useKeyboardShortcut({ key: 'n', alt: true }, useCallback(() => {
         if (!isNoteInputVisible && !editingNote) {
             setIsNoteInputVisible(true);
@@ -240,12 +240,6 @@ const Home = () => {
         }
     }, [isNoteInputVisible, editingNote, noteInput, editInput, handleAddNote, handleUpdateNote]), [isNoteInputVisible, editingNote, noteInput, editInput, handleAddNote, handleUpdateNote]);
 
-    useKeyboardShortcut('f', useCallback(() => {
-        if (!isNoteInputVisible && !editingNote) {
-            toggleFilterMenu();
-        }
-    }, [isNoteInputVisible, editingNote, toggleFilterMenu]), [isNoteInputVisible, editingNote, toggleFilterMenu]);
-
     return (
         <div className="home-container">
             <div id="searchBox">
@@ -256,15 +250,15 @@ const Home = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <KeyboardHint shortcut="f" style={{ zIndex: 10002 }}>
                     <button id="filter-btn" onClick={toggleFilterMenu}>
                         <FaFilter />
                     </button>
-                </KeyboardHint>
             </div>
+            
+            <div id="notesList">
 
-            {/* Filter Menu */}
-            <div className={`filter-menu ${showFilterMenu ? 'show' : ''}`}>
+                <div id='filterContainer'>
+                <div className={`filter-menu ${showFilterMenu ? 'show' : ''}`}>
                 <div
                     className={`filter-option ${sortOrder === 'desc' ? 'active' : ''}`}
                     id="sort-newest"
@@ -280,8 +274,7 @@ const Home = () => {
                     From Old to New
                 </div>
             </div>
-
-            <div id="notesList">
+            </div>
                 {filteredNotes.length === 0 && (
                     <div id="emptyState" className="empty-state" style={{ display: 'block' }}>
                         <img src={manImg} alt="No notes" width="70" height="70" />

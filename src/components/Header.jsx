@@ -30,19 +30,13 @@ const Header = () => {
     };
 
     // Keyboard shortcuts
-    useKeyboardShortcut('m', useCallback(() => {
-        if (currentUser) toggleSettings();
-    }, [currentUser, toggleSettings]), [currentUser, toggleSettings]);
-
     useKeyboardShortcut({ key: 'Escape' }, useCallback(() => {
         if (settingsOpen) setSettingsOpen(false);
     }, [settingsOpen]), [settingsOpen]);
 
     return (
         <header>
-            <KeyboardHint shortcut="m" style={{ zIndex: 10002 }}>
                 <button id="menu-btn" onClick={toggleSettings}><FaBars /></button>
-            </KeyboardHint>
             <Link to="/">
                 <img src={logo} alt="Noteify" height="40" width="75" style={{ position: 'relative', top: '2px', right: '5px' }} />
             </Link>
