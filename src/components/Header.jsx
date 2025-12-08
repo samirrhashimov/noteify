@@ -7,6 +7,8 @@ import { auth } from '../lib/firebase';
 import logo from '../assets/img/mainlogo2.png';
 import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut';
 import KeyboardHint from './KeyboardHint';
+import { APP_VERSION } from '../utils/version';
+console.log(APP_VERSION);
 
 const Header = () => {
     const [settingsOpen, setSettingsOpen] = useState(false);
@@ -129,7 +131,7 @@ const Header = () => {
                     {/* Version Info */}
                     <div className="settings-footer">
                         <div className="version-info">
-                            <span>App Version: v21.0.0</span>
+                            <span>App Version: {APP_VERSION}</span>
                         </div>
 
                         <div id="dev-info-box">

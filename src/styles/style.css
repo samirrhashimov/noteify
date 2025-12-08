@@ -1218,6 +1218,10 @@
     }
 
     .modal-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         background: white;
         padding: 20px;
         border-radius: 12px;
@@ -1227,9 +1231,13 @@
         text-align: left;
     }
 
+    .modal-content p {
+        margin-bottom: 15px;
+    }
+
     .modal-buttons {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         gap: 10px;
         margin-top: 20px;
 
@@ -1269,16 +1277,6 @@
         box-sizing: border-box;
     }
 
-    .modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        margin: 0;
-        width: min(92%, 420px);
-        max-width: 420px;
-        text-align: left;
-        box-sizing: border-box;
-    }
 
     /* Drive Success Modal specific tweaks */
     #driveSuccessModal .modal-content h3 {
@@ -1290,12 +1288,12 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 8px 12px;
+        padding: 8px 8px;
         background: #1A73E8;
         color: #fff;
         border-radius: 8px;
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 400;
     }
 
     #driveSuccessModal .modal-content a:hover {
@@ -1310,23 +1308,29 @@
     /* Center actions and equal sizing */
     #driveSuccessModal .modal-actions {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: stretch;
         gap: 10px;
+        width: 100%;
         margin-top: 16px;
         flex-wrap: wrap;
+    }
+    #driveSuccessModal .modal-actions a {
+        display: flex;
+        justify-content: center;
     }
 
     #driveSuccessModal .modal-actions a,
     #driveSuccessModal .modal-actions button {
-        flex: 1 1 150px;
-        max-width: 200px;
+        width: 100%;
         text-align: center;
         padding: 10px 14px;
         border-radius: 8px;
     }
 
     #driveSuccessModal .modal-actions button {
+        margin: 0;
         background: #f0f0f0;
         color: #333;
         border: 1px solid #e5e5e5;
@@ -1338,6 +1342,7 @@
         border: none;
         border-radius: 8px;
         cursor: pointer;
+        width: 100%;
         font-size: 16px;
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
