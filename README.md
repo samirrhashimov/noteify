@@ -39,22 +39,13 @@ Noteify supports keyboard shortcuts to help you work faster.
 | Shortcut | Action |
 |----------|--------|
 | `Alt + N` | Create a new note |
-| `Ctrl + Enter` | Save note (when editor is open) |
 | `Esc` | Close modal, editor, or settings panel |
-| `M` | Open/close menu (settings) |
-| `F` | Toggle filter menu |
-
-### Text Formatting Shortcuts
-
-These shortcuts work when you're editing a note:
-
-| Shortcut | Action |
-|----------|--------|
 | `Ctrl + B` | Bold text |
 | `Ctrl + I` | Italic text |
 | `Ctrl + U` | Underline text |
 | `Ctrl + Shift + S` | Strikethrough text |
 | `Ctrl + Shift + L` | Bullet list |
+| `Ctrl + Enter` | Save note |
 
 
 ## Security
