@@ -695,11 +695,10 @@
     }
 
     #filterContainer {
-        display: none;
         width: 100%;
         display: flex;
         justify-content: end;
-        border: none;
+        border: none !important;
         margin: 0 !important;
     }
 
@@ -756,7 +755,7 @@
     }
 
     #notesList {
-        margin-top: 110px;
+        margin-top: 105px;
         padding: 0 20px;
         width: 100%;
         max-width: 670px;
