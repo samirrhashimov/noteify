@@ -1,3 +1,5 @@
+<div align="center">
+<img src="./src/assets/img/mainlogosingle.png" width="100px">
 <h1 align="center">Noteify – Simple Cloud Notepad</h1>
 
 <p align="center">
@@ -8,6 +10,13 @@
    <img src="https://img.shields.io/github/v/release/samirrhashimov/noteify?style=flat">
    <img src="https://img.shields.io/github/repo-size/samirrhashimov/noteify?style=flat">
    <img src="https://img.shields.io/github/languages/top/samirrhashimov/noteify?style=flat">
+</div>
+<div align='center'>
+
+<img src="./public/noteifyBanner.png" width="100%"/>
+
+</div>
+<br>
 
 **Noteify** - is a Fast, Simple, Secure cloud-based notepad application 
 designed for quick and easy note-taking on the go.
