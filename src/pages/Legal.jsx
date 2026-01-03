@@ -102,7 +102,7 @@ const Legal = () => {
                     color: isDarkMode ? '#aaa' : '#666',
                     fontSize: '14px'
                 }}>
-                    © 2025 LinzaApps. All rights reserved.
+                    © {new Date().getFullYear()} Noteify - by LinzaApps
                 </p>
             </div>
         </div>
