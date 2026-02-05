@@ -25,17 +25,18 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/reset" element={<Reset />} />
 
+      {/* Public legal pages (must be accessible without authentication) */}
+      <Route path="/legal" element={<Legal />} />
+      <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/legal/terms-and-conditions" element={<TermsAndConditions />} />
+      <Route path="/legal/copyright" element={<Copyright />} />
+      <Route path="/legal/licence" element={<Licence />} />
+
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="profile" element={<Profile />} />
         <Route path="feedback" element={<Feedback />} />
         <Route path="change-password" element={<ChangePassword />} />
-
-        <Route path="legal" element={<Legal />} />
-        <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/legal/terms-and-conditions" element={<TermsAndConditions />} />
-        <Route path="/legal/copyright" element={<Copyright />} />
-        <Route path="/legal/licence" element={<Licence />} />
       </Route>
     </Routes>
   );

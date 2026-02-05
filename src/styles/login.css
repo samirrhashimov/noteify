@@ -146,6 +146,14 @@
     display: block;
 }
 
+.login-body .login-container button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+
 .login-body .login-container button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
@@ -275,6 +283,44 @@
     padding: 0;
     margin: 0;
     border: none;
+}
+
+/* Terms consent checkbox (avoid inheriting text-input styles) */
+.login-body .login-container .terms-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 12px;
+    text-align: left;
+}
+
+.login-body .login-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    margin: 2px 0 0 0;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    transform: none;
+    accent-color: #7c3aed;
+}
+
+.login-body .login-container input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25);
+    transform: none;
+}
+
+.login-body .login-container input[type="checkbox"]:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.login-body .login-container .terms-consent__label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    line-height: 1.35;
 }
 
 /* Animations */
