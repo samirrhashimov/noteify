@@ -11,7 +11,8 @@ const Legal = () => {
         { title: 'Privacy Policy', path: '/legal/privacy-policy', description: 'How we collect and use your data' },
         { title: 'Terms and Conditions', path: '/legal/terms-and-conditions', description: 'Rules for using our service' },
         { title: 'Copyright Notice', path: '/legal/copyright', description: 'Intellectual property information' },
-        { title: 'Licence', path: '/legal/licence', description: 'AGPL-3.0' }
+        { title: 'Licence', path: '/legal/licence', description: 'AGPL-3.0' },
+        { title: 'Delete Account', path: '/legal/delete-account', description: 'Request account and data deletion' }
     ];
 
     return (

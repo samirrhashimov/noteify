@@ -14,6 +14,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import Copyright from './pages/Copyright';
 import Licence from './pages/Licence';
+import DeleteAccount from './pages/DeleteAccount';
 
 // Placeholder components for now
 import Reset from './pages/Reset';
@@ -31,6 +32,7 @@ function App() {
       <Route path="/legal/terms-and-conditions" element={<TermsAndConditions />} />
       <Route path="/legal/copyright" element={<Copyright />} />
       <Route path="/legal/licence" element={<Licence />} />
+      <Route path="/legal/delete-account" element={<DeleteAccount />} />
 
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
