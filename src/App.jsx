@@ -32,7 +32,7 @@ function App() {
       <Route path="/legal/terms-and-conditions" element={<TermsAndConditions />} />
       <Route path="/legal/copyright" element={<Copyright />} />
       <Route path="/legal/licence" element={<Licence />} />
-      <Route path="/legal/delete-account" element={<DeleteAccount />} />
+      <Route path="/delete-account" element={<DeleteAccount />} />
 
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />

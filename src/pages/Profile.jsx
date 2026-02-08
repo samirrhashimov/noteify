@@ -48,7 +48,7 @@ const Profile = () => {
                 <p style={{ marginBottom: '2px' }}><strong>Joined:</strong> {joinDate}</p>
                 <div style={{ marginTop: '20px', borderTop: `1px solid ${isDarkMode ? '#444' : '#eee'}`, paddingTop: '20px', textAlign: 'center' }}>
                     <button
-                        onClick={() => navigate('/legal/delete-account')}
+                        onClick={() => navigate('/delete-account')}
                         style={{
                             background: 'none',
                             border: 'none',
